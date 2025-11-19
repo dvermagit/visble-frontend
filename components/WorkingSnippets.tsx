@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, Eye, BarChart3, Target, Play, Code, ExternalLink } from 'lucide-react';
+import { TrendingUp, Eye, ChartBar as BarChart3, Target, Play, Code, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const snippets = [
