@@ -50,9 +50,135 @@ const snippets = [
   }
 ];
 
+interface AnimatedValues {
+  brandMentions: number;
+  geoScore: number;
+  brandMentionRate: number;
+  overallPresence: number;
+}
+
+const BrandMentionsWidget = ({ animatedValues }: { animatedValues: AnimatedValues }) => (
+  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+    <div className="flex justify-between items-start mb-4">
+      <div>
+        <h3 className="text-lg font-bold text-gray-800 mb-1">Brand Mentions</h3>
+        <p className="text-sm text-gray-600">Full Scale</p>
+      </div>
+    </div>
+    
+    <div className="mb-6">
+      <div className="text-3xl font-bold text-gray-900 mb-2">
+        {animatedValues.brandMentions.toFixed(1)}%
+      </div>
+      
+      {/* Trend Line Chart */}
+      <div className="relative h-20 mb-4">
+        <svg className="w-full h-full" viewBox="0 0 300 80">
+          <defs>
+            <linearGradient id="trendGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.8" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M0,60 Q75,50 150,45 T300,30"
+            stroke="url(#trendGradient)"
+            strokeWidth="3"
+            fill="none"
+            className="animate-pulse"
+          />
+          <circle cx="300" cy="30" r="4" fill="#6366f1" className="animate-pulse" />
+        </svg>
+      </div>
+      
+      <div className="flex items-center text-sm text-gray-600">
+        <div className="flex items-center">
+          <div className="w-2 h-2 bg-gray-400 rounded-full mr-2"></div>
+          50%
+        </div>
+        <div className="flex items-center ml-6">
+          <div className="w-2 h-2 bg-gray-400 rounded-full mr-2"></div>
+          70%
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const GeoScoreWidget = ({ animatedValues }: { animatedValues: AnimatedValues }) => (
+  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+    <div className="mb-4">
+      <div className="flex justify-between items-center mb-2">
+        <h3 className="text-lg font-bold text-gray-800">Overall GEO Score</h3>
+        <span className="text-sm text-gray-600">weighted visibility score</span>
+      </div>
+      <div className="text-3xl font-bold text-gray-900 mb-4">
+        {animatedValues.geoScore.toFixed(1)}%
+      </div>
+    </div>
+
+    <div className="space-y-4">
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm font-medium text-gray-700">Brand Mention Rate</span>
+          <span className="text-sm font-bold text-gray-900">
+            {animatedValues.brandMentionRate.toFixed(1)}/100%
+          </span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div 
+            className="bg-blue-600 h-2 rounded-full transition-all duration-2000 ease-out"
+            style={{ width: `${(animatedValues.brandMentionRate / 100) * 100}%` }}
+          ></div>
+        </div>
+      </div>
+
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm font-medium text-gray-700">Overall Presence</span>
+          <span className="text-sm font-bold text-gray-900">
+            {animatedValues.overallPresence.toFixed(1)}/100%
+          </span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div 
+            className="bg-blue-600 h-2 rounded-full transition-all duration-2000 ease-out"
+            style={{ width: `${(animatedValues.overallPresence / 100) * 100}%` }}
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const MarketShareWidget = () => (
+  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+    <div className="mb-4">
+      <h3 className="text-lg font-bold text-gray-800 mb-1">AI Brand Mentions Market Share</h3>
+      <p className="text-sm text-gray-600">Distribution of AI-related brand mentions across competitors</p>
+    </div>
+
+    <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center">
+        <div className="w-4 h-4 bg-purple-600 rounded-full mr-3"></div>
+        <span className="font-medium text-gray-800">Nestle</span>
+      </div>
+      <span className="text-sm text-gray-600">00.0%</span>
+    </div>
+
+    <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+      <div className="bg-purple-600 h-2 rounded-full w-0 transition-all duration-1000"></div>
+    </div>
+
+    <div className="text-xs text-gray-500">
+      Market share analysis updates in real-time
+    </div>
+  </div>
+);
+
 export default function WorkingSnippets() {
   const [activeSnippet, setActiveSnippet] = useState(0);
-  const [animatedValues, setAnimatedValues] = useState({
+  const [animatedValues, setAnimatedValues] = useState<AnimatedValues>({
     brandMentions: 0,
     geoScore: 0,
     brandMentionRate: 0,
@@ -81,135 +207,16 @@ export default function WorkingSnippets() {
     return () => clearTimeout(timer);
   }, []);
 
-  const BrandMentionsWidget = () => (
-    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="text-lg font-bold text-gray-800 mb-1">Brand Mentions</h3>
-          <p className="text-sm text-gray-600">Full Scale</p>
-        </div>
-      </div>
-      
-      <div className="mb-6">
-        <div className="text-3xl font-bold text-gray-900 mb-2">
-          {animatedValues.brandMentions.toFixed(1)}%
-        </div>
-        
-        {/* Trend Line Chart */}
-        <div className="relative h-20 mb-4">
-          <svg className="w-full h-full" viewBox="0 0 300 80">
-            <defs>
-              <linearGradient id="trendGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.8" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0,60 Q75,50 150,45 T300,30"
-              stroke="url(#trendGradient)"
-              strokeWidth="3"
-              fill="none"
-              className="animate-pulse"
-            />
-            <circle cx="300" cy="30" r="4" fill="#6366f1" className="animate-pulse" />
-          </svg>
-        </div>
-        
-        <div className="flex items-center text-sm text-gray-600">
-          <div className="flex items-center">
-            <div className="w-2 h-2 bg-gray-400 rounded-full mr-2"></div>
-            50%
-          </div>
-          <div className="flex items-center ml-6">
-            <div className="w-2 h-2 bg-gray-400 rounded-full mr-2"></div>
-            70%
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const GeoScoreWidget = () => (
-    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-      <div className="mb-4">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-bold text-gray-800">Overall GEO Score</h3>
-          <span className="text-sm text-gray-600">weighted visibility score</span>
-        </div>
-        <div className="text-3xl font-bold text-gray-900 mb-4">
-          {animatedValues.geoScore.toFixed(1)}%
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium text-gray-700">Brand Mention Rate</span>
-            <span className="text-sm font-bold text-gray-900">
-              {animatedValues.brandMentionRate.toFixed(1)}/100%
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-2000 ease-out"
-              style={{ width: `${(animatedValues.brandMentionRate / 100) * 100}%` }}
-            ></div>
-          </div>
-        </div>
-
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium text-gray-700">Overall Presence</span>
-            <span className="text-sm font-bold text-gray-900">
-              {animatedValues.overallPresence.toFixed(1)}/100%
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-2000 ease-out"
-              style={{ width: `${(animatedValues.overallPresence / 100) * 100}%` }}
-            ></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const MarketShareWidget = () => (
-    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-      <div className="mb-4">
-        <h3 className="text-lg font-bold text-gray-800 mb-1">AI Brand Mentions Market Share</h3>
-        <p className="text-sm text-gray-600">Distribution of AI-related brand mentions across competitors</p>
-      </div>
-
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center">
-          <div className="w-4 h-4 bg-purple-600 rounded-full mr-3"></div>
-          <span className="font-medium text-gray-800">Nestle</span>
-        </div>
-        <span className="text-sm text-gray-600">00.0%</span>
-      </div>
-
-      <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
-        <div className="bg-purple-600 h-2 rounded-full w-0 transition-all duration-1000"></div>
-      </div>
-
-      <div className="text-xs text-gray-500">
-        Market share analysis updates in real-time
-      </div>
-    </div>
-  );
-
   const renderWidget = (snippet: typeof snippets[0]) => {
     switch (snippet.id) {
       case 'brand-mentions':
-        return <BrandMentionsWidget />;
+        return <BrandMentionsWidget animatedValues={animatedValues} />;
       case 'geo-score':
-        return <GeoScoreWidget />;
+        return <GeoScoreWidget animatedValues={animatedValues} />;
       case 'market-share':
         return <MarketShareWidget />;
       default:
-        return <BrandMentionsWidget />;
+        return <BrandMentionsWidget animatedValues={animatedValues} />;
     }
   };
 
