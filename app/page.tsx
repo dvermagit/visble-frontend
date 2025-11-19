@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Banner from '@/components/Banner';
+import WorkingSnippets from '@/components/WorkingSnippets';
 import AIPlatforms from '@/components/AIPlatforms';
 import ClientLogos from '@/components/ClientLogos';
 import CaseStudies from '@/components/CaseStudies';
@@ -18,6 +19,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Banner />
+      <WorkingSnippets />
       <AIPlatforms />
       <ClientLogos />
       <CaseStudies />
