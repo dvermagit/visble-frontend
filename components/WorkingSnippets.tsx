@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, Eye, BarChart3, ArrowUp, ArrowDown } from 'lucide-react';
+import { TrendingUp, Eye, ChartBar as BarChart3, ArrowUp, ArrowDown } from 'lucide-react';
 
 interface AnimatedValues {
   brandMentions: number;
