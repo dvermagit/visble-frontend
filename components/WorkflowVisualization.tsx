@@ -28,9 +28,7 @@ const workflowSteps = [
   },
   { 
     logo: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8">
-        <path fill="#20B2AA" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#20B2AA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <img src="/icons8-perplexity-ai-96 copy.png" alt="Perplexity" className="w-8 h-8" />
     ), 
     label: 'Perplexity', 
     color: 'bg-teal-500', 
@@ -38,18 +36,7 @@ const workflowSteps = [
   },
   { 
     logo: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8">
-        <defs>
-          <linearGradient id="gemini-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#4285F4" />
-            <stop offset="25%" stopColor="#9C27B0" />
-            <stop offset="50%" stopColor="#15803D" />
-            <stop offset="75%" stopColor="#F9AB00" />
-            <stop offset="100%" stopColor="#EA4335" />
-          </linearGradient>
-        </defs>
-        <path fill="url(#gemini-gradient)" d="M12 2l3.09 6.26L22 9.27l-5.18 4.73L18.18 22 12 18.77 5.82 22l1.36-7.73L2 9.27l6.91-1.01L12 2z"/>
-      </svg>
+      <img src="/icons8-gemini-ai-96 copy.png" alt="Gemini" className="w-8 h-8" />
     ), 
     label: 'Gemini', 
     color: 'bg-gradient-to-r from-blue-500 to-purple-500', 
@@ -57,11 +44,7 @@ const workflowSteps = [
   },
   { 
     logo: (
-      <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-        <svg viewBox="0 0 24 24" className="w-5 h-5 text-white">
-          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v-.07zM17.9 17.39c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-        </svg>
-      </div>
+      <img src="/icons8-chatgpt-100 copy.png" alt="ChatGPT" className="w-8 h-8" />
     ), 
     label: 'ChatGPT', 
     color: 'bg-green-500', 
@@ -69,11 +52,7 @@ const workflowSteps = [
   },
   { 
     logo: (
-      <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-        <svg viewBox="0 0 24 24" className="w-5 h-5 text-white">
-          <path fill="currentColor" d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.2L18.8 8 12 11.8 5.2 8 12 4.2zM5 9.5l6 3.5v7l-6-3.5v-7zm8 10.5v-7l6-3.5v7L13 20z"/>
-        </svg>
-      </div>
+      <img src="/icons8-claude-96 copy.png" alt="Claude" className="w-8 h-8" />
     ), 
     label: 'Claude', 
     color: 'bg-orange-500', 
