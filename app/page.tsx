@@ -136,7 +136,7 @@ export default function Home() {
     '@type': 'WebSite',
     name: 'Visble.ai',
     url: 'https://visble.ai',
-    description: 'The leading Generative Engine Optimization Company',
+    description: 'The Leading Generative Engine Optimization Company',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
