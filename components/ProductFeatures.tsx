@@ -1,8 +1,6 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { Monitor, Brain, Bell, ChartBar as BarChart3, Users, Shield } from 'lucide-react';
-import FeatureFlowchart from './FeatureFlowchart';
+import { Monitor, Brain, BarChart3 } from 'lucide-react';
+// The interactive logic stays inside this component
+import FeatureFlowchart from './FeatureFlowchart'; 
 
 const features = [
   {
@@ -52,7 +50,7 @@ export default function ProductFeatures() {
             Powerful Features for Complete Brand Control
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Experience next-generation brand monitoring with AI-powered insights, real-time tracking, and automated workflows
+            Experience next-generation brand monitoring with AI-powered insights, real-time tracking, and automated workflows.
           </p>
         </div>
 
@@ -60,28 +58,36 @@ export default function ProductFeatures() {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div 
+              <article 
                 key={index}
                 className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group flex flex-col h-full"
               >
                 {/* Icon Header */}
-                <div className={`w-16 h-16 ${feature.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                <div 
+                  className={`w-16 h-16 ${feature.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                  aria-hidden="true"
+                >
                   <Icon className="w-8 h-8 text-white" />
                 </div>
 
-                {/* Content - Fixed min-height for consistent alignment */}
+                {/* Content */}
                 <div className="space-y-4 mb-8 min-h-[140px]">
                   <h3 className="text-xl font-bold bricolage text-gray-900">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
 
-                {/* Interactive Flowchart */}
+                {/* 
+                  Client Component Island:
+                  The animation logic lives inside FeatureFlowchart.
+                  Because FeatureFlowchart has 'use client' inside its file,
+                  it works perfectly nested here.
+                */}
                 <FeatureFlowchart workflow={feature.workflow} color={feature.color} />
-              </div>
+              </article>
             );
           })}
         </div>
