@@ -54,11 +54,11 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: [
-          '/api/',           // Block API routes (no SEO value there)
-          '/admin/',         // Block admin panels
-          '/_next/',         // Block Next.js internal build files to save crawl budget
-          '/private/',       // Block any private folders
-          '/account/',       // Block user account pages (if they exist on main domain)
+          '/api/',           
+          '/admin/',         
+          '/_next/',         
+          '/private/',       
+          '/account/',       
         ],
       },
       // Optional: Explicitly allow Google's AI bot if you want to be safe,
