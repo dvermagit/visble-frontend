@@ -1,3 +1,98 @@
+// 'use client';
+
+// import { useEffect, useState } from 'react';
+// import { Monitor, Brain, CircleAlert as AlertCircle, ChartBar as BarChart, Users, Shield } from 'lucide-react';
+
+// const workflowSteps = [
+//   { icon: Monitor, label: 'Track Mentions', color: 'bg-blue-500', delay: 0 },
+//   { icon: Brain, label: 'AI Analysis', color: 'bg-purple-500', delay: 1000 },
+//   { icon: AlertCircle, label: 'Smart Alerts', color: 'bg-orange-500', delay: 2000 },
+//   { icon: BarChart, label: 'Insights', color: 'bg-green-500', delay: 3000 },
+//   { icon: Users, label: 'Engage', color: 'bg-pink-500', delay: 4000 },
+//   { icon: Shield, label: 'Protect Brand', color: 'bg-indigo-500', delay: 5000 },
+// ];
+
+// export default function WorkflowVisualization() {
+//   const [activeStep, setActiveStep] = useState(0);
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setActiveStep((prev) => (prev + 1) % workflowSteps.length);
+//     }, 1500);
+
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   return (
+//     <div className="relative w-full h-96 flex items-center justify-center">
+//       {/* Central Hub */}
+//       <img src="/favicon.png" alt="Visble" className="w-20 h-20" />
+
+//       {/* Workflow Nodes */}
+//       {workflowSteps.map((step, index) => {
+//         const Icon = step.icon;
+//         const angle = (index * 60) - 90; // 6 steps around a circle
+//         const radius = 140;
+//         const x = Math.cos(angle * Math.PI / 180) * radius;
+//         const y = Math.sin(angle * Math.PI / 180) * radius;
+//         const isActive = index === activeStep;
+
+//         return (
+//           <div
+//             key={index}
+//             className={`absolute transition-all duration-500 workflow-node ${
+//               isActive ? 'scale-110 z-10' : 'scale-100'
+//             }`}
+//             style={{
+//               transform: `translate(${x}px, ${y}px)`,
+//             }}
+//           >
+//             {/* Connection Line */}
+//             <div 
+//               className={`absolute w-0.5 h-20 bg-gradient-to-r from-gray-200 to-transparent transform-gpu transition-all duration-500 ${
+//                 isActive ? 'from-primary to-primary/20' : ''
+//               }`}
+//               style={{
+//                 transformOrigin: 'bottom center',
+//                 transform: `rotate(${angle + 90}deg)`,
+//                 bottom: '50%',
+//                 left: '50%',
+//                 marginLeft: '-1px',
+//               }}
+//             />
+            
+//             {/* Node */}
+//             <div className={`
+//               w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-500
+//               ${step.color} ${isActive ? 'ring-4 ring-white shadow-2xl' : ''}
+//             `}>
+//               <Icon className="w-8 h-8 text-white" />
+//             </div>
+            
+//             {/* Label */}
+//             <div className={`
+//               absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center transition-all duration-500
+//               ${isActive ? 'text-primary font-bold scale-110' : 'text-gray-600'}
+//             `}>
+//               <div className="text-xs whitespace-nowrap">{step.label}</div>
+//             </div>
+
+//             {/* Animated Pulse */}
+//             {isActive && (
+//               <div className="absolute inset-0 w-16 h-16 rounded-full bg-primary/20 animate-ping"></div>
+//             )}
+//           </div>
+//         );
+//       })}
+
+//       {/* Floating Elements */}
+//       <div className="absolute top-8 right-8 w-3 h-3 bg-blue-400 rounded-full animate-float"></div>
+//       <div className="absolute bottom-12 left-12 w-2 h-2 bg-purple-400 rounded-full animate-float" style={{animationDelay: '1s'}}></div>
+//       <div className="absolute top-16 left-16 w-4 h-4 bg-orange-400 rounded-full animate-float" style={{animationDelay: '2s'}}></div>
+//     </div>
+//   );
+// }
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -12,17 +107,15 @@ const workflowSteps = [
         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
       </svg>
     ), 
-    label: 'Google', 
+    // label: 'Google', 
     color: 'bg-blue-500', 
     delay: 0 
   },
   { 
-    logo: (
-      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-        <span className="text-white text-xs font-bold">AI</span>
-      </div>
+     logo: (
+      <img src="/icons8-ai-100.png" alt="AI Overview" className="w-8 h-8" />
     ), 
-    label: 'AI Overview', 
+    // label: 'AI Overview', 
     color: 'bg-purple-500', 
     delay: 1000 
   },
@@ -30,7 +123,7 @@ const workflowSteps = [
     logo: (
       <img src="/icons8-perplexity-ai-96 copy.png" alt="Perplexity" className="w-8 h-8" />
     ), 
-    label: 'Perplexity', 
+    // label: 'Perplexity', 
     color: 'bg-teal-500', 
     delay: 2000 
   },
@@ -38,7 +131,7 @@ const workflowSteps = [
     logo: (
       <img src="/icons8-gemini-ai-96 copy.png" alt="Gemini" className="w-8 h-8" />
     ), 
-    label: 'Gemini', 
+    // label: 'Gemini', 
     color: 'bg-gradient-to-r from-blue-500 to-purple-500', 
     delay: 3000 
   },
@@ -46,7 +139,7 @@ const workflowSteps = [
     logo: (
       <img src="/icons8-chatgpt-100 copy.png" alt="ChatGPT" className="w-8 h-8" />
     ), 
-    label: 'ChatGPT', 
+    // label: 'ChatGPT', 
     color: 'bg-green-500', 
     delay: 4000 
   },
@@ -54,7 +147,7 @@ const workflowSteps = [
     logo: (
       <img src="/icons8-claude-96 copy.png" alt="Claude" className="w-8 h-8" />
     ), 
-    label: 'Claude', 
+    // label: 'Claude', 
     color: 'bg-orange-500', 
     delay: 5000 
   },
@@ -120,7 +213,9 @@ export default function WorkflowVisualization() {
             <div className={`
               w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-500
               bg-white ${isActive ? 'ring-4 ring-primary shadow-2xl scale-110' : ''}
+              bg-white ${isActive ? 'ring-4 ring-primary shadow-2xl scale-110' : ''}
             `}>
+              {step.logo}
               {step.logo}
             </div>
             
@@ -129,7 +224,7 @@ export default function WorkflowVisualization() {
               absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center transition-all duration-500
               ${isActive ? 'text-primary font-bold scale-110' : 'text-gray-600'}
             `}>
-              <div className="text-xs whitespace-nowrap">{step.label}</div>
+              {/* <div className="text-xs whitespace-nowrap">{step.label}</div> */}
             </div>
 
             {/* Animated Pulse */}

@@ -1,6 +1,7 @@
 'use client';
 
 import { Check, Zap, Shield, Clock, Globe, Users, ChartBar as BarChart, Bell } from 'lucide-react';
+import DashedGridBackground from './DashedGridBackground';
 
 const features = [
   {
@@ -51,8 +52,9 @@ const features = [
 
 export default function FeaturesList() {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 bg-white">
+      <DashedGridBackground />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold bricolage text-gray-900 mb-4">
             Complete Brand Monitoring Suite

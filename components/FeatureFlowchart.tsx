@@ -18,6 +18,8 @@ export default function FeatureFlowchart({ workflow, color }: FeatureFlowchartPr
   const [activeStep, setActiveStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
+  const colorName = color.replace('bg-', '');
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsAnimating(true);
@@ -42,9 +44,9 @@ export default function FeatureFlowchart({ workflow, color }: FeatureFlowchartPr
           return (
             <div 
               key={index}
-              className={`flex items-center p-3 rounded-lg transition-all duration-500 ${
+              className={`relative flex items-center p-3 rounded-lg transition-all duration-500 ${
                 isActive 
-                  ? 'bg-primary/10 border-2 border-primary/20 scale-105' 
+                  ? `bg-${colorName}/10 border-2 border-${colorName}/20 scale-105` 
                   : isCompleted
                   ? 'bg-gray-50 border border-gray-200'
                   : 'bg-gray-50 border border-gray-200'
@@ -54,9 +56,9 @@ export default function FeatureFlowchart({ workflow, color }: FeatureFlowchartPr
               <div className={`
                 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300
                 ${isActive 
-                  ? color.replace('bg-', 'bg-') + ' text-white shadow-lg' 
+                  ? `${color} text-white shadow-lg` 
                   : isCompleted
-                  ? 'bg-green-500 text-white'
+                  ? 'bg-black text-white'
                   : 'bg-gray-300 text-gray-600'
                 }
               `}>
@@ -65,7 +67,7 @@ export default function FeatureFlowchart({ workflow, color }: FeatureFlowchartPr
 
               {/* Step Label */}
               <div className={`ml-3 font-medium transition-colors duration-300 ${
-                isActive ? 'text-primary' : 'text-gray-700'
+                isActive ? `text-${colorName}` : 'text-gray-700'
               }`}>
                 {step.label}
               </div>
@@ -73,13 +75,13 @@ export default function FeatureFlowchart({ workflow, color }: FeatureFlowchartPr
               {/* Arrow */}
               {index < workflow.length - 1 && (
                 <ChevronRight className={`ml-auto w-4 h-4 transition-colors duration-300 ${
-                  isActive ? 'text-primary' : 'text-gray-400'
+                  isActive ? `text-${colorName}` : 'text-gray-400'
                 }`} />
               )}
 
               {/* Animated Pulse */}
               {isActive && (
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-transparent rounded-lg animate-ping"></div>
+                <div className={`absolute -inset-1 bg-gradient-to-r from-${colorName}/20 to-transparent rounded-lg animate-ping`}></div>
               )}
             </div>
           );

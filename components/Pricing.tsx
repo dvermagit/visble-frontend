@@ -9,7 +9,8 @@ const monthlyPlans = [
     name: 'Starter',
     price: '$49',
     period: '/month',
-    description: 'Perfect for small businesses and startups',
+    originalPrice: null,
+    description: 'Perfect for businesses and startups with 4-5 core product/services',
     features: [
       'Up to 1,000 mentions/month',
       'Basic sentiment analysis',
@@ -25,6 +26,7 @@ const monthlyPlans = [
     name: 'Professional',
     price: '$199',
     period: '/month',
+    originalPrice: null,
     description: 'Ideal for growing companies and agencies',
     features: [
       'Up to 10,000 mentions/month',
@@ -43,6 +45,7 @@ const monthlyPlans = [
     name: 'Enterprise',
     price: 'Custom',
     period: '',
+    originalPrice: null,
     description: 'For large organizations with complex needs',
     features: [
       'Unlimited mentions',
@@ -66,7 +69,7 @@ const annualPlans = [
     price: '$37',
     period: '/month',
     originalPrice: '$49',
-    description: 'Perfect for small businesses and startups',
+    description: 'Perfect for businesses and startups with 4-5 core product/services',
     features: [
       'Up to 1,000 mentions/month',
       'Basic sentiment analysis',

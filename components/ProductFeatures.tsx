@@ -62,20 +62,22 @@ export default function ProductFeatures() {
             return (
               <div 
                 key={index}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group"
+                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group flex flex-col h-full"
               >
                 {/* Icon Header */}
                 <div className={`w-16 h-16 ${feature.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                   <Icon className="w-8 h-8 text-white" />
                 </div>
 
-                {/* Content */}
-                <h3 className="text-xl font-bold bricolage text-gray-900 mb-4">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 mb-8">
-                  {feature.description}
-                </p>
+                {/* Content - Fixed min-height for consistent alignment */}
+                <div className="space-y-4 mb-8 min-h-[140px]">
+                  <h3 className="text-xl font-bold bricolage text-gray-900">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600">
+                    {feature.description}
+                  </p>
+                </div>
 
                 {/* Interactive Flowchart */}
                 <FeatureFlowchart workflow={feature.workflow} color={feature.color} />

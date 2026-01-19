@@ -9,7 +9,7 @@ export default function Banner() {
         <div className="flex items-center justify-center space-x-3">
           <Sparkles className="w-5 h-5" />
           <p className="font-medium">
-            <span className="font-bold">New:</span> Advanced sentiment analysis with 99.2% accuracy now available
+            <span className="font-bold">New:</span> Advanced GEO Tracker with 99.2% accuracy now available
           </p>
           <Sparkles className="w-5 h-5" />
         </div>

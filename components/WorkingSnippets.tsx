@@ -176,25 +176,25 @@ export default function WorkingSnippets() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveWidget((prev) => (prev + 1) % widgets.length);
-    }, 4000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
   const features = [
     {
-      title: 'Real-time Dashboard',
-      description: 'Live monitoring with instant updates and interactive visualizations',
+      title: 'Inhouse GEO Tracker',
+      description: 'Proprietary analytics platform to track performance, competitors and insights',
       icon: TrendingUp,
     },
     {
-      title: 'AI-Powered Analytics',
-      description: 'Advanced sentiment analysis and brand perception scoring',
+      title: 'SEO integrated GEO Services',
+      description: 'One strategy, customers from both LLMs and Google Search',
       icon: Eye,
     },
     {
-      title: 'Competitive Intelligence',
-      description: 'Track market share and competitor performance metrics',
+      title: 'Big Data Experiments for full proof Strategy',
+      description: 'GEO is a nascent space. We experiment & validate before we suggest you a strategy',
       icon: BarChart3,
     },
   ];
@@ -206,10 +206,10 @@ export default function WorkingSnippets() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold bricolage text-gray-900 mb-4">
-            See Visble in Action
+            Not a typical Agency
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Experience our live dashboard with real-time brand monitoring data and AI-powered insights
+            We have got our hands VERY dirty!
           </p>
         </div>
 

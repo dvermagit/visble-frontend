@@ -1,4 +1,122 @@
-'use client';
+// 'use client';
+
+// import { Sparkles } from 'lucide-react';
+
+// export default function AIPlatforms() {
+//   const platforms = [
+//     {
+//       name: 'Claude',
+//       logo: (
+//         <div className="flex items-center">
+//           <div className="w-8 h-8 mr-3 rounded-lg flex items-center justify-center">
+//             <img src="/icons8-claude-96 copy.png" alt="Claude Logo" className="w-18 h-11" />
+//           </div>
+//           <span className="font-semibold text-gray-800">Claude</span>
+//         </div>
+//       ),
+//     },
+//     {
+//       name: 'Gemini',
+//       logo: (
+//         <div className="flex items-center">
+//           <div className="w-8 h-8 mr-3 rounded-lg flex items-center justify-center">
+//             <img src="/icons8-gemini-ai-96 copy.png" alt="Claude Logo" className="w-18 h-11" />
+//           </div>
+//           <span className="font-semibold text-gray-800">Gemini</span>
+//         </div>
+//       ),
+//     },
+//     {
+//       name: 'Perplexity',
+//       logo: (
+//         <div className="flex items-center">
+//           <div className="w-8 h-8 mr-3 rounded-lg flex items-center justify-center">
+//             <img src="/icons8-perplexity-ai-96 copy.png" alt="Perplexity Logo" className="w-18 h-11" />
+//           </div>
+//           <span className="font-semibold text-gray-800">perplexity</span>
+//         </div>
+//       ),
+//     },
+//     {
+//       name: 'ChatGPT',
+//       logo: (
+//         <div className="flex items-center">
+//           <div className="w-8 h-8 mr-3 rounded-lg flex items-center justify-center">
+//             <img src="/icons8-chatgpt-100 copy.png" alt="ChatGPT Logo" className="w-18 h-11" />
+//           </div>
+//           <span className="font-semibold text-gray-800">ChatGPT</span>
+//         </div>
+//       ),
+//     },
+//   ];
+
+//   return (
+//     <section className="py-16 bg-gray-900 text-white overflow-hidden">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//         <div className="text-center mb-12">
+//           <div className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full text-white/90 font-medium text-sm mb-6">
+//             <Sparkles className="w-4 h-4 mr-2" />
+//             AI Platform Monitoring
+//           </div>
+//           <h2 className="text-3xl font-bold bricolage text-white mb-4">
+//             Get your brand visible on:
+//           </h2>
+//         </div>
+
+//         {/* Scrolling Platform Logos */}
+//         <div className="relative">
+//           <div className="flex space-x-12 animate-scroll">
+//             {/* First set */}
+//             {platforms.map((platform, index) => (
+//               <div 
+//                 key={`first-${index}`}
+//                 className="flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
+//               >
+//                 {platform.logo}
+//               </div>
+//             ))}
+            
+//             {/* Duplicate set for seamless loop */}
+//             {platforms.map((platform, index) => (
+//               <div 
+//                 key={`second-${index}`}
+//                 className="flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
+//               >
+//                 {platform.logo}
+//               </div>
+//             ))}
+            
+//             {/* Third set for seamless loop */}
+//             {platforms.map((platform, index) => (
+//               <div 
+//                 key={`third-${index}`}
+//                 className="flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
+//               >
+//                 {platform.logo}
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* Call to Action */}
+//         {/* <div className="text-center mt-12">
+//           <p className="text-gray-300 mb-6">
+//             Track your brand mentions and optimize your presence across all major AI platforms
+//           </p> */}
+//           {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
+//             <button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105">
+//               Start Monitoring
+//             </button>
+//             <button className="border border-white/30 text-white hover:bg-white/10 px-8 py-3 rounded-lg font-semibold transition-all duration-300">
+//               Learn More
+//             </button>
+//           </div> */}
+//         {/* </div> */}
+//       </div>
+//     </section>
+//   );
+// }
+'use client'
 
 import { Sparkles } from 'lucide-react';
 
@@ -8,15 +126,10 @@ export default function AIPlatforms() {
       name: 'Claude',
       logo: (
         <div className="flex items-center">
-          <div className="w-8 h-8 mr-3">
-            <svg viewBox="0 0 24 24" className="w-full h-full">
-              <path
-                fill="#FF6B35"
-                d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.2L18.8 8 12 11.8 5.2 8 12 4.2zM5 9.5l6 3.5v7l-6-3.5v-7zm8 10.5v-7l6-3.5v7L13 20z"
-              />
-            </svg>
+          <div className="w-16 h-16 mr-4 rounded-xl flex items-center justify-center bg-gray-100 p-2 shadow-md flex-shrink-0">
+            <img src="/icons8-claude-96 copy.png" alt="Claude Logo" className="w-12 h-12 object-contain" />
           </div>
-          <span className="font-semibold text-gray-800">Claude</span>
+          <span className="font-bold text-gray-900 text-xl tracking-tight">Claude</span>
         </div>
       ),
     },
@@ -24,24 +137,10 @@ export default function AIPlatforms() {
       name: 'Gemini',
       logo: (
         <div className="flex items-center">
-          <div className="w-8 h-8 mr-3">
-            <svg viewBox="0 0 24 24" className="w-full h-full">
-              <defs>
-                <linearGradient id="gemini-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#4285F4" />
-                  <stop offset="25%" stopColor="#9C27B0" />
-                  <stop offset="50%" stopColor="#15803D" />
-                  <stop offset="75%" stopColor="#F9AB00" />
-                  <stop offset="100%" stopColor="#EA4335" />
-                </linearGradient>
-              </defs>
-              <path
-                fill="url(#gemini-gradient)"
-                d="M12 2l3.09 6.26L22 9.27l-5.18 4.73L18.18 22 12 18.77 5.82 22l1.36-7.73L2 9.27l6.91-1.01L12 2z"
-              />
-            </svg>
+          <div className="w-16 h-16 mr-4 rounded-xl flex items-center justify-center bg-gray-100 p-2 shadow-md flex-shrink-0">
+            <img src="/icons8-gemini-ai-96 copy.png" alt="Gemini Logo" className="w-12 h-12 object-contain" />
           </div>
-          <span className="font-semibold text-gray-800">Gemini</span>
+          <span className="font-bold text-gray-900 text-xl tracking-tight">Gemini</span>
         </div>
       ),
     },
@@ -49,19 +148,10 @@ export default function AIPlatforms() {
       name: 'Perplexity',
       logo: (
         <div className="flex items-center">
-          <div className="w-8 h-8 mr-3">
-            <svg viewBox="0 0 24 24" className="w-full h-full">
-              <path
-                fill="#20B2AA"
-                d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-                stroke="#20B2AA"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <div className="w-16 h-16 mr-4 rounded-xl flex items-center justify-center bg-gray-100 p-2 shadow-md flex-shrink-0">
+            <img src="/icons8-perplexity-ai-96 copy.png" alt="Perplexity Logo" className="w-12 h-12 object-contain" />
           </div>
-          <span className="font-semibold text-gray-800">perplexity</span>
+          <span className="font-bold text-gray-900 text-xl tracking-tight">Perplexity</span>
         </div>
       ),
     },
@@ -69,86 +159,84 @@ export default function AIPlatforms() {
       name: 'ChatGPT',
       logo: (
         <div className="flex items-center">
-          <div className="w-8 h-8 mr-3 bg-green-500 rounded-lg flex items-center justify-center">
-            <svg viewBox="0 0 24 24" className="w-5 h-5 text-white">
-              <path
-                fill="currentColor"
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v-.07zM17.9 17.39c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"
-              />
-            </svg>
+          <div className="w-16 h-16 mr-4 rounded-xl flex items-center justify-center bg-gray-100 p-2 shadow-md flex-shrink-0">
+            <img src="/icons8-chatgpt-100 copy.png" alt="ChatGPT Logo" className="w-12 h-12 object-contain" />
           </div>
-          <span className="font-semibold text-gray-800">ChatGPT</span>
+          <span className="font-bold text-gray-900 text-xl tracking-tight">ChatGPT</span>
         </div>
       ),
     },
   ];
 
   return (
-    <section className="py-16 bg-gray-900 text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full text-white/90 font-medium text-sm mb-6">
-            <Sparkles className="w-4 h-4 mr-2" />
+    <section className="py-10 bg-gray-200 text-gray-800 overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-2">
+          <div className="inline-flex items-center px-6 py-2 bg-gray-100 backdrop-blur-sm rounded-full text-gray-700 font-semibold text-sm mb-3 border border-gray-200">
+            <Sparkles className="w-5 h-5 mr-3" />
             AI Platform Monitoring
           </div>
-          <h2 className="text-3xl font-bold bricolage text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold bricolage text-gray-900  leading-tight">
             Get your brand visible on:
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            Monitor and optimize your brand presence across leading AI platforms where your customers are searching
-          </p>
         </div>
+      </div>
 
-        {/* Scrolling Platform Logos */}
-        <div className="relative">
-          <div className="flex space-x-12 animate-scroll">
-            {/* First set */}
-            {platforms.map((platform, index) => (
-              <div 
-                key={`first-${index}`}
-                className="flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
-              >
-                {platform.logo}
-              </div>
-            ))}
-            
-            {/* Duplicate set for seamless loop */}
-            {platforms.map((platform, index) => (
-              <div 
-                key={`second-${index}`}
-                className="flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
-              >
-                {platform.logo}
-              </div>
-            ))}
-            
-            {/* Third set for seamless loop */}
-            {platforms.map((platform, index) => (
-              <div 
-                key={`third-${index}`}
-                className="flex-shrink-0 bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 min-w-[200px]"
-              >
-                {platform.logo}
-              </div>
-            ))}
+      {/* Full Width Scrolling Platform Logos */}
+      <div className="w-full">
+        <div className="relative overflow-hidden bg-gray-200 h-80">
+          <div className="px-4 sm:px-6 lg:px-8 h-full flex items-center">
+            <div className="flex space-x-16 animate-scroll">
+              {/* First set */}
+              {platforms.map((platform, index) => (
+                <div 
+                  key={`first-${index}`}
+                  className="flex-shrink-0 bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 min-w-[320px] border border-gray-200 flex items-center justify-center"
+                >
+                  {platform.logo}
+                </div>
+              ))}
+              
+              {/* Duplicate set for seamless loop */}
+              {platforms.map((platform, index) => (
+                <div 
+                  key={`second-${index}`}
+                  className="flex-shrink-0 bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 min-w-[320px] border border-gray-200 flex items-center justify-center"
+                >
+                  {platform.logo}
+                </div>
+              ))}
+              
+              {/* Third set for seamless loop */}
+              {platforms.map((platform, index) => (
+                <div 
+                  key={`third-${index}`}
+                  className="flex-shrink-0 bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 min-w-[320px] border border-gray-200 flex items-center justify-center"
+                >
+                  {platform.logo}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-12">
-          <p className="text-gray-300 mb-6">
+      {/* Call to Action */}
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+        <div className="text-center">
+          <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
             Track your brand mentions and optimize your presence across all major AI platforms
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105">
+            <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl">
               Start Monitoring
             </button>
-            <button className="border border-white/30 text-white hover:bg-white/10 px-8 py-3 rounded-lg font-semibold transition-all duration-300">
+            <button className="border-2 border-gray-300 text-gray-700 hover:bg-gray-100 px-10 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105">
               Learn More
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
