@@ -87,24 +87,21 @@ import StatsCarousel from "@/components/StatsCarousel";
 import FAQSection from "@/components/FaqSection";
 import VideoTestimonials from "@/components/VideoTestimonials";
 
-// FULLY OPTIMIZED METADATA
 export const metadata: Metadata = {
-  // "Home" is bad for SEO. Use your main value proposition.
-  title: 'Visble.ai | #1 AI Search Optimization (GEO) Platform',
+  title: 'Best Generative Engine Optimization Company - Visble AI',
   
-  description: 'Dominate AI search results on ChatGPT, Perplexity, and Gemini. The leading Generative Engine Optimization (GEO) platform to track brand mentions, citations, and visibility.',
+  description: 'We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search',
   
   alternates: {
     canonical: 'https://visble.ai',
   },
   
   keywords: [
-    'GEO Platform', 
-    'Generative Engine Optimization', 
-    'AI SEO Tool', 
+    'Generative engine optimization agency', 
+    'Generative engine optimization services', 
+    'generative engine optimization companies', 
     'Optimize for ChatGPT', 
-    'Perplexity Ranking', 
-    'Brand Visibility AI'
+    'LLM seo agency', 
   ],
 
   openGraph: {
@@ -139,7 +136,7 @@ export default function Home() {
     '@type': 'WebSite',
     name: 'Visble.ai',
     url: 'https://visble.ai',
-    description: 'The leading AI Search Optimization (GEO) Platform',
+    description: 'The leading Generative Engine Optimization Company',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
