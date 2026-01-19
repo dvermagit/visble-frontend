@@ -129,10 +129,10 @@
 //     </section>
 //   );
 // }
-'use client';
-
 import { TrendingUp, Users, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image'; // Optimized Images
+import Link from 'next/link';   // SEO Friendly Links
 
 const caseStudies = [
   {
@@ -141,12 +141,9 @@ const caseStudies = [
     avatar: '/image.png',
     title: 'From 0 to 100+ Source Mentions in 60 Days',
     description: "Achieved 100+ source mention in 60 days with no prior SEO base, no relevant ranking keywords and competitors with years of positioning on Google Search. Read more to see how we used GEO to beat industrial giants.",
-    // metrics: [
-    //   { label: 'AI Overview impressions growth', value: '11x', subtext: '(3% → 33%)' },
-    //   { label: 'Citation rate growth', value: '2x', subtext: '(3.5% → 17%)' },
-    // ],
     icon: TrendingUp,
     color: 'bg-blue-500',
+    slug: 'acredge-case-study' // Added for linking
   },
   {
     company: 'Flyhomes',
@@ -154,12 +151,9 @@ const caseStudies = [
     avatar: '/iddHundDDQ_1767881827127.png',
     title: '512% Growth in Source Mentions in 40 Days',
     description: "From 17th position in the list top source mentions, Flyhomes moved to 3rd most mentioned source in just 40 days by identifying the topics and context within the topics that Chat GPT emphasises on.",
-    // metrics: [
-    //   { label: 'Brand mention rate growth', value: '+19%', subtext: '(4% → 25%)' },
-    //   { label: 'Citation rate growth', value: '23x', subtext: '(0.3% → 7.0%)' },
-    // ],
     icon: Users,
     color: 'bg-green-500',
+    slug: 'flyhomes-case-study'
   },
   {
     company: 'DGFT Guru',
@@ -167,12 +161,9 @@ const caseStudies = [
     avatar: '/id8O32bVFz_logos.png',
     title: 'Brand Visibility increase from 20% to 80%',
     description: "We found out that the outdated content was the culprit for DGFT Guru’s dropping brand visibility on Chat GPT and AI Overview. We reworked on keywords as per fanout query and updated the content to maintain freshness.",
-    // metrics: [
-    //   { label: 'in AI Search Share of Voice', value: '5th to 1st', subtext: 'position ranking' },
-    //   { label: 'ROI with 18-day payback period', value: '1,561%', subtext: 'exceeded expectations' },
-    // ],
     icon: Target,
     color: 'bg-purple-500',
+    slug: 'dgft-guru-case-study'
   },
 ];
 
@@ -191,20 +182,22 @@ export default function CaseStudies() {
 
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
           {caseStudies.map((study, index) => {
-            const Icon = study.icon;
             return (
-              <div 
+              <article 
                 key={index}
-                className="bg-white rounded-2xl border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 group flex flex-col"
+                className="bg-white rounded-2xl border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
               >
                 {/* Header */}
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mr-4 overflow-hidden p-2">
+                  <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mr-4 overflow-hidden p-2 relative">
                     {study.avatar ? (
-                      <img 
+                      // SEO: Use Next/Image for Core Web Vitals (LCP/CLS)
+                      <Image 
                         src={study.avatar} 
-                        alt={study.company}
-                        className="w-full h-full object-contain"
+                        alt={`${study.company} logo`}
+                        width={64}
+                        height={64}
+                        className="object-contain"
                       />
                     ) : (
                       <span className="text-lg font-bold text-gray-700 bricolage">
@@ -218,7 +211,7 @@ export default function CaseStudies() {
                   </div>
                 </div>
 
-                {/* Title */}
+                {/* Title - Using H3 for semantic hierarchy */}
                 <h3 className="text-xl font-bold bricolage text-gray-900 mb-4 group-hover:text-primary transition-colors">
                   {study.title}
                 </h3>
@@ -228,29 +221,21 @@ export default function CaseStudies() {
                   {study.description}
                 </p>
 
-                {/* Metrics and Button */}
+                {/* 
+                  SEO FIX: Use <Link> instead of <Button> alone. 
+                  Search engines crawl <a href="...">, they don't click buttons.
+                */}
                 <div className="mt-auto pt-4 border-t border-gray-100">
-                  {/* <div className="space-y-4 mb-6">
-                    {study.metrics.map((metric, idx) => (
-                      <div key={idx} className="flex justify-between items-center">
-                        <div className="text-3xl font-bold bricolage text-gray-900">
-                          {metric.value}
-                        </div>
-                        <div className="text-right text-sm">
-                          <div className="text-gray-900 font-medium">{metric.label}</div>
-                          <div className="text-gray-500">{metric.subtext}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div> */}
-                  <Button 
-                    size="lg"
-                    className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg bricolage w-full"
-                  >
-                    Read the Full Story
-                  </Button>
+                  <Link href={`/case-studies/${study.slug}`} className="w-full block" tabIndex={-1}>
+                    <Button 
+                      size="lg"
+                      className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg bricolage w-full cursor-pointer"
+                    >
+                      Read the Full Story
+                    </Button>
+                  </Link>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

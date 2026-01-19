@@ -1,7 +1,8 @@
-"use client";
 
 import React from "react";
+import Link from "next/link"; 
 import DashedGridBackground from "./DashedGridBackground";
+
 const ExternalLinkIcon = () => (
   <svg
     width="1em"
@@ -24,7 +25,12 @@ const ExternalLinkIcon = () => (
 export default function AEOStrategySection() {
   return (
     <section className="relative bg-white text-gray-900 font-sans">
+      {/* 
+        If DashedGridBackground uses animation/state, IT can keep "use client" inside its own file.
+        The parent (this file) stays a Server Component. 
+      */}
       <DashedGridBackground />
+      
       <div className="relative z-10 container mx-auto flex flex-col lg:flex-row items-center justify-center min-h-screen py-10 px-4">
         <div className="w-full lg:w-1/2 flex justify-center items-center p-8">
           <div className="relative w-full max-w-md">
@@ -114,15 +120,17 @@ export default function AEOStrategySection() {
               5 years of SEO Expertise .
             </span>
           </h1>
-          <a
-            href="#"
+          
+          {/* Changed <a> to <Link> for better Next.js navigation performance */}
+          <Link
+            href="/blog/generative-engine-optimization-playbook"
             className="mt-5 inline-flex items-center text-indigo-600 hover:text-indigo-800 transition-colors duration-300 group"
           >
-            <span className="text-gray-400 font-medium">
+            <span className="font-medium text-indigo-600">
               See Our Generative Engine Optimization Playbook
             </span>
             <ExternalLinkIcon />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

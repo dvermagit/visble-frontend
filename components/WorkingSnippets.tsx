@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, Eye, ChartBar as BarChart3, ArrowUp, ArrowDown } from 'lucide-react';
+import { TrendingUp, Eye, ChartBar as BarChart3, ArrowUp } from 'lucide-react';
 
 interface AnimatedValues {
   brandMentions: number;
@@ -11,6 +11,7 @@ interface AnimatedValues {
   marketShare: number;
 }
 
+// Extracted for cleaner code & memoization potential
 const BrandMentionsWidget = ({ animatedValues }: { animatedValues: AnimatedValues }) => (
   <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
     <div className="flex justify-between items-start mb-4">
@@ -20,7 +21,8 @@ const BrandMentionsWidget = ({ animatedValues }: { animatedValues: AnimatedValue
     <div className="text-3xl font-bold text-gray-900 mb-2">
       {animatedValues.brandMentions.toFixed(1)}%
     </div>
-    <div className="h-20 relative">
+    <div className="h-20 relative" aria-hidden="true">
+      {/* Decorative SVG Graph - Hidden from screen readers */}
       <svg className="w-full h-full" viewBox="0 0 300 80">
         <defs>
           <linearGradient id="trendGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -128,58 +130,10 @@ export default function WorkingSnippets() {
   });
 
   const widgets = [
-    { component: BrandMentionsWidget, title: 'Brand Mentions Tracking', icon: TrendingUp },
-    { component: GeoScoreWidget, title: 'GEO Visibility Score', icon: Eye },
-    { component: MarketShareWidget, title: 'Market Share Analysis', icon: BarChart3 },
+    { component: BrandMentionsWidget, title: 'Brand Mentions Tracking' },
+    { component: GeoScoreWidget, title: 'GEO Visibility Score' },
+    { component: MarketShareWidget, title: 'Market Share Analysis' },
   ];
-
-  const targetValues = {
-    brandMentions: 67.3,
-    geoScore: 31.9,
-    brandMentionRate: 32.1,
-    overallPresence: 19.4,
-    marketShare: 15.8,
-  };
-
-  // Animate values on mount and widget change
-  useEffect(() => {
-    const animateValues = () => {
-      const duration = 2000;
-      const steps = 60;
-      const stepDuration = duration / steps;
-      
-      let currentStep = 0;
-      
-      const interval = setInterval(() => {
-        currentStep++;
-        const progress = currentStep / steps;
-        const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
-        
-        setAnimatedValues({
-          brandMentions: targetValues.brandMentions * easeProgress,
-          geoScore: targetValues.geoScore * easeProgress,
-          brandMentionRate: targetValues.brandMentionRate * easeProgress,
-          overallPresence: targetValues.overallPresence * easeProgress,
-          marketShare: targetValues.marketShare * easeProgress,
-        });
-        
-        if (currentStep >= steps) {
-          clearInterval(interval);
-        }
-      }, stepDuration);
-    };
-
-    animateValues();
-  }, [activeWidget]);
-
-  // Auto-cycle through widgets
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveWidget((prev) => (prev + 1) % widgets.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const features = [
     {
@@ -199,10 +153,85 @@ export default function WorkingSnippets() {
     },
   ];
 
+  // Animation Logic (Kept same as original)
+  useEffect(() => {
+    const targetValues = {
+      brandMentions: 67.3,
+      geoScore: 31.9,
+      brandMentionRate: 32.1,
+      overallPresence: 19.4,
+      marketShare: 15.8,
+    };
+
+    const animateValues = () => {
+      const duration = 2000;
+      const steps = 60;
+      const stepDuration = duration / steps;
+      let currentStep = 0;
+      
+      const interval = setInterval(() => {
+        currentStep++;
+        const progress = currentStep / steps;
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        
+        setAnimatedValues({
+          brandMentions: targetValues.brandMentions * easeProgress,
+          geoScore: targetValues.geoScore * easeProgress,
+          brandMentionRate: targetValues.brandMentionRate * easeProgress,
+          overallPresence: targetValues.overallPresence * easeProgress,
+          marketShare: targetValues.marketShare * easeProgress,
+        });
+        
+        if (currentStep >= steps) {
+          clearInterval(interval);
+        }
+      }, stepDuration);
+    };
+
+    animateValues();
+  }, [activeWidget]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveWidget((prev) => (prev + 1) % widgets.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []); // Added dependency array to fix potential memory leak warning
+
   const ActiveWidget = widgets[activeWidget].component;
+
+  // SEO Schema
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Visble AI GEO Services",
+    "description": "Comprehensive Generative Engine Optimization services including tracking, strategy, and analytics.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Visble.ai"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "GEO Features",
+      "itemListElement": features.map(f => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": f.title,
+          "description": f.description
+        }
+      }))
+    }
+  };
 
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 overflow-hidden">
+      {/* Inject Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold bricolage text-gray-900 mb-4">
@@ -214,23 +243,25 @@ export default function WorkingSnippets() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Interactive Demo */}
-          <div className="relative">
-            {/* Floating decorative elements */}
+          
+          {/* Interactive Demo - Client Side Visuals */}
+          <div className="relative" aria-live="polite">
             <div className="absolute -top-4 -right-4 w-20 h-20 bg-primary/10 rounded-full animate-float" />
             <div className="absolute -bottom-8 -left-8 w-16 h-16 bg-blue-400/10 rounded-full animate-float" style={{animationDelay: '1s'}} />
             <div className="absolute top-1/2 -right-8 w-12 h-12 bg-purple-400/10 rounded-full animate-float" style={{animationDelay: '2s'}} />
             
-            {/* Main Widget Display */}
             <div className="relative z-10">
               <ActiveWidget animatedValues={animatedValues} />
             </div>
 
-            {/* Widget Indicators */}
-            <div className="flex justify-center mt-6 space-x-2">
-              {widgets.map((_, index) => (
+            {/* Accessible Controls */}
+            <div className="flex justify-center mt-6 space-x-2" role="tablist" aria-label="Feature Demonstrations">
+              {widgets.map((w, index) => (
                 <button
                   key={index}
+                  role="tab"
+                  aria-selected={index === activeWidget}
+                  aria-label={`View ${w.title}`}
                   onClick={() => setActiveWidget(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === activeWidget ? 'bg-primary scale-125' : 'bg-gray-300 hover:bg-gray-400'
@@ -240,14 +271,14 @@ export default function WorkingSnippets() {
             </div>
           </div>
 
-          {/* Feature Cards */}
+          {/* Feature List - Semantic HTML for Crawlers */}
           <div className="space-y-6">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               const isActive = index === activeWidget;
               
               return (
-                <div
+                <article
                   key={index}
                   onClick={() => setActiveWidget(index)}
                   className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 ${
@@ -260,7 +291,7 @@ export default function WorkingSnippets() {
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
                       isActive ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600'
                     }`}>
-                      <Icon className="w-6 h-6" />
+                      <Icon className="w-6 h-6" aria-hidden="true" />
                     </div>
                     <div className="flex-1">
                       <h3 className={`text-lg font-bold bricolage mb-2 transition-colors ${
@@ -280,7 +311,7 @@ export default function WorkingSnippets() {
                       Currently viewing
                     </div>
                   )}
-                </div>
+                </article>
               );
             })}
           </div>

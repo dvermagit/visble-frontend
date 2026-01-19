@@ -65,42 +65,59 @@
 
 import { useState, useEffect } from 'react';
 
-export default function StatsCarousel() {
-  const stats = [
-    "20% OF TOTAL GOOGLE SEARCHES ARE LEADING TO AI OVERVIEW.",
-    "ZERO CLICK SEARCHES ON GOOGLE HAS INCREASED TO 60% SINCE 2024",
-    "VERCEL RECEIVES 10% OF ITS SIGNUPS THROUGH CHATGPT",
-    "BUSINESS INSIDER'S TRAFFIC DROPPED BY 55% BECAUSE OF ZERO SEARCHES"
-  ];
+const stats = [
+  "20% OF TOTAL GOOGLE SEARCHES ARE LEADING TO AI OVERVIEW.",
+  "ZERO CLICK SEARCHES ON GOOGLE HAS INCREASED TO 60% SINCE 2024",
+  "VERCEL RECEIVES 10% OF ITS SIGNUPS THROUGH CHATGPT",
+  "BUSINESS INSIDER'S TRAFFIC DROPPED BY 55% BECAUSE OF ZERO SEARCHES"
+];
 
+export default function StatsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const fadeOutTimer = setTimeout(() => {
       setIsVisible(false);
-    }, 3000);
+    }, 2000);
 
     const changeTextTimer = setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % stats.length);
       setIsVisible(true);
-    }, 3500);
+    }, 2500);
 
     return () => {
       clearTimeout(fadeOutTimer);
       clearTimeout(changeTextTimer);
     };
-  }, [currentIndex]);
+  }, [currentIndex]); // Keeping currentIndex as dep ensures loop continues
 
   return (
-    <div className="w-full py-16 px-4 sm:px-6 lg:px-8">
+    <section 
+      className="w-full py-16 px-4 sm:px-6 lg:px-8" 
+      aria-label="Market Statistics"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="relative">
-          {/* Grid pattern background */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
           
-          {/* Animated grid lines */}
-          <div className="absolute inset-0 overflow-hidden">
+          {/* --- SEO & ACCESSIBILITY LAYER --- */}
+          {/* 
+            This div is visually hidden but visible to Search Engines (Googlebot) 
+            and Screen Readers. This ensures ALL keywords are indexed immediately.
+          */}
+          <div className="sr-only">
+            <h2>Key Market Insights</h2>
+            <ul>
+              {stats.map((stat, index) => (
+                <li key={index}>{stat}</li>
+              ))}
+            </ul>
+          </div>
+          {/* ---------------------------------- */}
+
+          {/* Background Elements (Decorative) */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-20" aria-hidden="true"></div>
+          <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
             <div className="absolute inset-0" style={{
               backgroundImage: `
                 linear-gradient(to right, hsl(var(--primary) / 0.1) 1px, transparent 1px),
@@ -109,13 +126,14 @@ export default function StatsCarousel() {
               backgroundSize: '60px 60px'
             }}></div>
           </div>
-
-          {/* Glowing accent corners */}
           <div className="absolute top-0 left-0 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-40 h-40 bg-accent/20 rounded-full blur-3xl"></div>
           
-          {/* Content */}
-          <div className="relative px-8 sm:px-12 lg:px-16 py-20 rounded-3xl border border-border/5 bg-background/50 backdrop-blur-sm">
+          {/* Visual Content (Hidden from Screen Readers to prevent duplicate reading) */}
+          <div 
+            className="relative px-8 sm:px-12 lg:px-16 py-20 rounded-3xl border border-border/5 bg-background/50 backdrop-blur-sm"
+            aria-hidden="true" 
+          >
             <div className="relative h-40 flex items-center justify-center">
               <p
                 className={`text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-foreground text-center transition-opacity duration-500 bricolage tracking-tight ${
@@ -143,6 +161,6 @@ export default function StatsCarousel() {
 
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     question: "Why should we hire a specialised Generative Engine Optimization agency instead of a standard SEO firm?",
-    answer: "We have spent the whole last year understanding LLMs behaviour, running data backed experiments and testing out the strategies from a very nascent stage. And we continue to do so.SEO agencies optimize for links; we optimize for AI answers.As a specialized Generative Engine Optimization GEO marketing agency, we understand the nuances of Large Language Models (LLMs) that traditional firms miss. We ensure you are the source of the answer, not just a link on the SERP."
+    answer: "We have spent the whole last year understanding LLMs behaviour, running data backed experiments and testing out the strategies from a very nascent stage. And we continue to do so. SEO agencies optimize for links; we optimize for AI answers. As a specialized Generative Engine Optimization GEO marketing agency, we understand the nuances of Large Language Models (LLMs) that traditional firms miss. We ensure you are the source of the answer, not just a link on the SERP."
   },
   {
     question: "Do you offer managed GEO consultancy services or just the software?",
@@ -49,11 +49,33 @@ export default function FAQSection() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background" aria-labelledby="faq-heading">
+      {/* SEO: Inject JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold bricolage text-foreground mb-4">
+          <h2 
+            id="faq-heading"
+            className="text-5xl font-bold bricolage text-foreground mb-4"
+          >
             FAQs
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -69,22 +91,26 @@ export default function FAQSection() {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-muted/30 transition-colors"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-answer-${index}`}
+                className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-muted/30 transition-colors group"
               >
-                <span className="text-lg font-semibold text-foreground bricolage pr-8">
+                {/* SEO: Use H3 for questions for semantic hierarchy */}
+                <h3 className="text-lg font-semibold text-foreground bricolage pr-8">
                   {faq.question}
-                </span>
+                </h3>
                 <ChevronDown
                   className={`w-5 h-5 text-muted-foreground transition-transform duration-300 flex-shrink-0 ${
-                    openIndex === index ? 'rotate-180' : ''
+                    openIndex === index ? 'rotate-180' : 'group-hover:translate-y-0.5'
                   }`}
                 />
               </button>
               
               <div
+                id={`faq-answer-${index}`}
                 className={`transition-all duration-300 ease-in-out ${
                   openIndex === index
-                    ? 'max-h-96 opacity-100'
+                    ? 'max-h-[500px] opacity-100'
                     : 'max-h-0 opacity-0'
                 }`}
               >

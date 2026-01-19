@@ -54,18 +54,21 @@
 //   );
 // }
 
+import Image from 'next/image';
+
 export default function ClientLogos() {
-  const logos = [
-    { logo: '/idLa75rSWC_logos.png' },
-    { logo: '/idrtWOj-E8_logos.png' },
-    { logo: '/idIn6xDCix_1767881962246.png' },
-    { logo: '/Funsholar New Logo Raw File-05-cropped_1752754711196-DL_bhjea.png' },
-    { logo: '/iddHundDDQ_1767881827127.png' },
-    { logo: '/output-onlinepngtools.png' },
-    { logo: '/image1.png' },
-    { logo: '/dgft.png' },
-    { logo: '/image2.png' },
-    { logo: '/upthrust_img.png' },
+  // SEO UPDATE: Added 'name' for proper Alt Text
+  const clients = [
+    { name: 'Client Partner', logo: '/idLa75rSWC_logos.png' },
+    { name: 'Client Partner', logo: '/idrtWOj-E8_logos.png' },
+    { name: 'Client Partner', logo: '/idIn6xDCix_1767881962246.png' },
+    { name: 'Funsholar', logo: '/Funsholar New Logo Raw File-05-cropped_1752754711196-DL_bhjea.png' },
+    { name: 'Flyhomes', logo: '/iddHundDDQ_1767881827127.png' }, 
+    { name: 'Client Partner', logo: '/output-onlinepngtools.png' },
+    { name: 'Acredge', logo: '/image1.png' }, 
+    { name: 'DGFT Guru', logo: '/dgft.png' },
+    { name: 'Client Partner', logo: '/image2.png' },
+    { name: 'Upthrust', logo: '/upthrust_img.png' },
   ];
 
   const biggerLogos = [
@@ -86,24 +89,30 @@ export default function ClientLogos() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center">
-          {logos.map((company, index) => {
-            const isBig = biggerLogos.includes(company.logo);
+          {clients.map((client, index) => {
+            const isBig = biggerLogos.includes(client.logo);
 
             return (
               <div
                 key={index}
-                className="flex items-center justify-center h-20 group cursor-pointer transition-all duration-300"
+                className="flex items-center justify-center h-24 group transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="w-full h-full bg-white rounded-lg shadow-sm flex items-center justify-center p-4">
-                  <img
-                    src={company.logo}
-                    alt={`Client ${index + 1}`}
-                    className={`object-contain transition-all ${
-                      isBig
-                        ? 'max-h-16 scale-110'
-                        : 'max-h-12'
-                    }`}
-                  />
+                <div className="w-full h-full bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center p-4 relative overflow-hidden">
+                  {/* 
+                    SEO OPTIMIZATION: 
+                    1. 'fill' allows the image to scale within the parent div constraints.
+                    2. 'sizes' helps the browser download the correct file size.
+                    3. 'alt' uses the real company name.
+                  */}
+                  <div className={`relative w-full h-full ${isBig ? 'scale-110' : 'scale-90'}`}>
+                    <Image
+                      src={client.logo}
+                      alt={`${client.name} logo - Trusted by Visble`}
+                      fill
+                      className="object-contain filter transition-all duration-300"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 20vw"
+                    />
+                  </div>
                 </div>
               </div>
             );
