@@ -232,7 +232,6 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#our-story" className="text-gray-600 hover:text-gray-900 transition-colors">Our Story</a>
-            <a href="#our-story" className="text-gray-600 hover:text-gray-900 transition-colors">Our Story</a>
             <a href="#case-studies" className="text-gray-600 hover:text-gray-900 transition-colors">Case Studies</a>
             
             {/* Tools Dropdown */}

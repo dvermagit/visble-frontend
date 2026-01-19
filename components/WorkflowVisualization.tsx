@@ -213,9 +213,7 @@ export default function WorkflowVisualization() {
             <div className={`
               w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-500
               bg-white ${isActive ? 'ring-4 ring-primary shadow-2xl scale-110' : ''}
-              bg-white ${isActive ? 'ring-4 ring-primary shadow-2xl scale-110' : ''}
             `}>
-              {step.logo}
               {step.logo}
             </div>
             

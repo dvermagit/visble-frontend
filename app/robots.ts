@@ -1,19 +1,19 @@
-import { MetadataRoute } from 'next';
+// import { MetadataRoute } from 'next';
 
-export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://visble.ai';
+// export default function robots(): MetadataRoute.Robots {
+//   const baseUrl = 'https://visble.ai';
   
-  return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api/', '/admin/'],
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-  };
-}
+//   return {
+//     rules: [
+//       {
+//         userAgent: '*',
+//         allow: '/',
+//         disallow: ['/api/', '/admin/'],
+//       },
+//     ],
+//     sitemap: `${baseUrl}/sitemap.xml`,
+//   };
+// }
 
 
 // import { MetadataRoute } from 'next';
@@ -42,3 +42,37 @@ export default function robots(): MetadataRoute.Robots {
 //     sitemap: 'https://visble.ai/sitemap.xml',
 //   };
 // }
+
+import { MetadataRoute } from 'next';
+
+export default function robots(): MetadataRoute.Robots {
+  const baseUrl = 'https://visble.ai';
+  
+  return {
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: [
+          '/api/',           // Block API routes (no SEO value there)
+          '/admin/',         // Block admin panels
+          '/_next/',         // Block Next.js internal build files to save crawl budget
+          '/private/',       // Block any private folders
+          '/account/',       // Block user account pages (if they exist on main domain)
+        ],
+      },
+      // Optional: Explicitly allow Google's AI bot if you want to be safe,
+      // though the '*' wildcard above covers this.
+      {
+        userAgent: 'Google-Extended',
+        allow: '/',
+      },
+      {
+        userAgent: 'GPTBot',
+        allow: '/',
+      }
+    ],
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl, // Helps Yandex identify the main mirror
+  };
+}

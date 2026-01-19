@@ -2411,7 +2411,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
 
-// 1. Generate Static Params
 export async function generateStaticParams() {
   const posts = getAllPosts();
   return posts.map((post) => ({
@@ -2419,7 +2418,6 @@ export async function generateStaticParams() {
   }));
 }
 
-// 2. Generate Metadata
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = getPostBySlug(params.slug);
   
@@ -2461,7 +2459,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// 3. Helper: Extract headings (Strict Filtering)
 function extractHeadings(content: string) {
   const headingRegex = /^(#{2,6})\s+(.+)$/gm;
   const headings: { level: number; text: string; id: string }[] = [];
@@ -2475,7 +2472,7 @@ function extractHeadings(content: string) {
       .replace(/`/g, '')
       .trim();
     
-    // STRICT FILTER: Skip known unwanted headers
+
     if (text.includes("Isha Sachdeva") || text.includes("Founder, visble.ai")) {
       continue;
     }
@@ -2491,7 +2488,6 @@ function extractHeadings(content: string) {
   return headings;
 }
 
-// 4. Helper: Add IDs to HTML headings
 function addHeadingIds(htmlContent: string, headings: { level: number; text: string; id: string }[]) {
   let result = htmlContent;
   headings.forEach(({ level, text, id }) => {
@@ -2502,42 +2498,33 @@ function addHeadingIds(htmlContent: string, headings: { level: number; text: str
   return result;
 }
 
-// =========================================================
-// 5. HARDCODED CLEANER
-// =========================================================
 function cleanHtmlContent(htmlContent: string, coverImage: string | undefined) {
   let cleanHtml = htmlContent;
 
-  // --- HARDCODED REMOVAL LIST ---
-  // Add any part of a filename or keyword you want to NUKE from the content.
   const REMOVE_LIST = [
-    'IMG_5768',          // The specific Author Image ID
-    'Isha Sachdeva',     // Author Name
-    'Founder, visble.ai',// Author Title
+    'IMG_5768',          
+    'Isha Sachdeva',     
+    'Founder, visble.ai',
   ];
 
-  // If there is a cover image, add its filename (without extension) to the kill list
   if (coverImage) {
-    const filename = coverImage.split('/').pop()?.split('.')[0]; // e.g. "my-image"
+    const filename = coverImage.split('/').pop()?.split('.')[0]; 
     if (filename && filename.length > 2) {
       REMOVE_LIST.push(filename);
     }
   }
 
-  // 1. EXECUTE REMOVAL LIST on Images
-  // This finds any <img> tag containing ANY string from the list and deletes it.
+
   cleanHtml = cleanHtml.replace(/<img[^>]+>/gi, (imgTag) => {
-    // Check if this image tag contains any of our blacklisted words
     const shouldRemove = REMOVE_LIST.some(term => imgTag.toLowerCase().includes(term.toLowerCase()));
     
     if (shouldRemove) {
-      return ''; // Delete the image
+      return ''; 
     }
-    return imgTag; // Keep the image
+    return imgTag; 
   });
 
-  // 2. EXECUTE REMOVAL LIST on Text (Paragraphs/Headings)
-  // This looks for <p>Isha Sachdeva</p> etc.
+
   cleanHtml = cleanHtml.replace(/<(p|h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi, (fullTag, tagName, innerText) => {
     const shouldRemove = REMOVE_LIST.some(term => innerText.includes(term));
     if (shouldRemove) {
@@ -2546,24 +2533,17 @@ function cleanHtmlContent(htmlContent: string, coverImage: string | undefined) {
     return fullTag;
   });
 
-  // 3. REMOVE H1 TAGS (Title is in Header)
   cleanHtml = cleanHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
 
-  // 4. OPTIONAL: "NUCLEAR OPTION" - REMOVE THE VERY FIRST IMAGE
-  // If the cover image is always the first image in your markdown, 
-  // this code simply finds the first <img> tag in the entire content and deletes it.
-  // Uncomment the line below if the list above still misses the cover image.
-  
+  cleanHtml = cleanHtml.replace(/<img[^>]+>/i, ''); 
+
   cleanHtml = cleanHtml.replace(/<img[^>]+>/i, ''); // <--- REMOVES THE FIRST IMAGE FOUND
 
-  // 5. CLEANUP EMPTY TAGS
-  // Remove empty <p></p> left behind by deleted images
   cleanHtml = cleanHtml.replace(/<p[^>]*>[\s\r\n]*<\/p>/gi, '');
 
   return cleanHtml;
 }
 
-// 6. MAIN COMPONENT
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const post = getPostBySlug(params.slug);
 
@@ -2571,10 +2551,8 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     notFound();
   }
 
-  // A. Extract Headings (TOC)
   const headings = extractHeadings(post.content);
 
-  // B. Convert to HTML
   const processedContent = await remark()
     .use(remarkGfm)
     .use(html, { sanitize: false })
@@ -2582,13 +2560,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     
   let contentHtml = processedContent.toString();
 
-  // C. CLEAN THE HTML
   contentHtml = cleanHtmlContent(contentHtml, post.coverImage);
 
-  // D. Final Polish
   let contentWithIds = addHeadingIds(contentHtml, headings);
 
-  // Responsive Tables
   contentWithIds = contentWithIds.replace(/<table[^>]*>/g, () => 
     `<div class="overflow-x-auto my-8"><table class="min-w-full divide-y divide-gray-200 border border-gray-300 rounded-lg">`
   );
@@ -2599,7 +2574,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   contentWithIds = contentWithIds.replace(/<td[^>]*>/g, '<td class="px-6 py-4 text-sm text-gray-700 border-b">');
   contentWithIds = contentWithIds.replace(/<tr[^>]*>/g, '<tr class="hover:bg-gray-50 transition-colors">');
 
-  // External Links
   contentWithIds = contentWithIds.replace(/<a\s+href="([^"]+)"[^>]*>([^<]+)<\/a>/g, (match, href, text) => {
     const isExternal = href.startsWith('http') && !href.includes('visble.ai');
     const externalIcon = isExternal 
