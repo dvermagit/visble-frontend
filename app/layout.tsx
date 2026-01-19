@@ -43,11 +43,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://visble.ai'),
   
   title: {
-    default: 'Best Generative Engine Optimization Company- Visble AI',
+    default: 'Visble.ai - AI Search Optimization Platform',
     template: '%s | Visble.ai',
   },
   
-  description: 'We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search',
+  description: 'Optimize your website for AI search engines like ChatGPT, Perplexity, and Gemini. Track brand mentions, source citations, and AI visibility with Visble.ai.',
   
   keywords: [
     'AI SEO',
