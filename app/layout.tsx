@@ -189,13 +189,13 @@
 //     </html>
 //   );
 // }
+
 // @ts-ignore: allow side-effect CSS import without type declarations
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Bricolage_Grotesque } from 'next/font/google';
 import Header from '@/components/Header';
 
-// Configure fonts
 const inter = Inter({ 
   subsets: ['latin'],
   variable: '--font-inter',
@@ -208,7 +208,6 @@ const bricolage = Bricolage_Grotesque({
   display: 'swap',
 });
 
-// COMPLETE SEO METADATA (For Next.js 13.5.1)
 export const metadata: Metadata = {
   metadataBase: new URL('https://visble.ai'),
   
@@ -220,98 +219,25 @@ export const metadata: Metadata = {
   themeColor: '#ffffff',
   
   title: {
-    default: 'Best Generative Engine Optimization Company - Visble AI',
-    template: '%s | Visble.ai',
-  },
-  
-  description: 'We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search',
-  
-  keywords: [
-    'AI SEO',
-    'GEO',
-    'Generative Engine Optimization',
-    'AI Search Optimization',
-    'ChatGPT SEO',
-    'Perplexity AI Optimization',
-    'Gemini SEO',
-    'Brand Monitoring AI',
-    'AI Citations',
-    'Large Language Model Optimization',
-    'LLMO',
-    'Search Generative Experience'
-  ],
-
-  applicationName: 'Visble.ai',
-  
-  authors: [
-    { name: 'Visble.ai', url: 'https://visble.ai' },
-    { name: 'Isha Sachdeva', url: 'https://linkedin.com/in/isha-sachdeva' }
-  ],
-  
-  creator: 'Visble.ai',
-  publisher: 'Visble.ai',
-  
-  // Open Graph
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://visble.ai',
-    siteName: 'Visble.ai',
-    title: 'Best Generative Engine Optimization Company - Visble AI',
-    description: 'We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search',
-    images: [
-      {
-        url: '/visble_og_image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Visble.ai Platform Dashboard',
-      },
-    ],
+    default: 'Visble.ai', 
+    template: '%s | Visble.ai', 
   },
 
-  // Twitter
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Best Generative Engine Optimization Company - Visble AI',
-    description: 'We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search',
-    creator: '@visbleai', 
-    site: '@visbleai',
-    images: ['/visble_og_image.png'],
-  },
-
-  // Robots
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-
-  // Icons
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
   manifest: '/site.webmanifest',
 
-  // Verification
+  // ✅ KEEP: Google Verification
   verification: {
     google: 'your-google-site-verification-code',
   },
 
   alternates: {
-    canonical: 'https://visble.ai',
+    canonical: './', 
   },
-
-  category: 'Technology',
-  classification: 'SaaS',
 };
 
 export default function RootLayout({
@@ -333,7 +259,6 @@ export default function RootLayout({
           width: 512,
           height: 512
         },
-        description: 'AI Search Optimization Platform for tracking brand visibility in AI-generated answers.',
         sameAs: [
           'https://twitter.com/visbleai',
           'https://linkedin.com/company/visble',
@@ -341,28 +266,8 @@ export default function RootLayout({
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'Customer Support',
-          email: 'support@visble.ai',
+          email: 'hello@visble.ai',
           availableLanguage: ['English'],
-        },
-        founder: {
-          '@type': 'Person',
-          name: 'Isha Sachdeva',
-        }
-      },
-      {
-        '@type': 'SoftwareApplication',
-        name: 'Visble.ai',
-        applicationCategory: 'BusinessApplication',
-        operatingSystem: 'Web',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'USD',
-          description: 'Free trial available'
-        },
-        description: 'A platform to optimize content for Generative Engines and track AI citations.',
-        author: {
-          '@id': 'https://visble.ai/#organization'
         }
       },
       {
