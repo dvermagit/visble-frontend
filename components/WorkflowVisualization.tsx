@@ -113,7 +113,7 @@ const workflowSteps = [
   { 
      logo: (
       <div className="relative w-8 h-8">
-        <Image src="/icons8-ai-100.png" alt="" fill className="object-contain" />
+        <Image src="/icons8-ai-100.png" alt="" fill className="AI Overview" />
       </div>
     ), 
     color: 'bg-purple-500', 
@@ -121,7 +121,7 @@ const workflowSteps = [
   { 
     logo: (
       <div className="relative w-8 h-8">
-        <Image src="/icons8-perplexity-ai-96 copy.png" alt="" fill className="object-contain" />
+        <Image src="/icons8-perplexity-ai-96 copy.png" alt="" fill className="Perplexity" />
       </div>
     ), 
     color: 'bg-teal-500', 
@@ -129,7 +129,7 @@ const workflowSteps = [
   { 
     logo: (
       <div className="relative w-8 h-8">
-        <Image src="/icons8-gemini-ai-96 copy.png" alt="" fill className="object-contain" />
+        <Image src="/icons8-gemini-ai-96 copy.png" alt="" fill className="Gemini" />
       </div>
     ), 
     color: 'bg-gradient-to-r from-blue-500 to-purple-500', 
@@ -137,7 +137,7 @@ const workflowSteps = [
   { 
     logo: (
       <div className="relative w-8 h-8">
-        <Image src="/icons8-chatgpt-100 copy.png" alt="" fill className="object-contain" />
+        <Image src="/icons8-chatgpt-100 copy.png" alt="" fill className="Chatgpt" />
       </div>
     ), 
     color: 'bg-green-500', 
@@ -145,7 +145,7 @@ const workflowSteps = [
   { 
     logo: (
       <div className="relative w-8 h-8">
-        <Image src="/icons8-claude-96 copy.png" alt="" fill className="object-contain" />
+        <Image src="/icons8-claude-96 copy.png" alt="" fill className="Claude" />
       </div>
     ), 
     color: 'bg-orange-500', 
