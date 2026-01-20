@@ -72,127 +72,126 @@ import { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Banner from "@/components/Banner";
-import AIPlatforms from "@/components/AIPlatforms";
 import ClientLogos from "@/components/ClientLogos";
 import CaseStudies from "@/components/CaseStudies";
-import ProductFeatures from "@/components/ProductFeatures";
-import FeaturesList from "@/components/FeaturesList";
-import Pricing from "@/components/Pricing";
-import Testimonials from "@/components/Testimonials";
-import Footer from "@/components/Footer";
 import AEOStrategySection from "@/components/AEOStrategySection";
 import FeatureChecklist from "@/components/FeatureChecklist";
 import WorkingSnippets from "@/components/WorkingSnippets";
 import StatsCarousel from "@/components/StatsCarousel";
 import FAQSection from "@/components/FaqSection";
-import VideoTestimonials from "@/components/VideoTestimonials";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: 'Best Generative Engine Optimization Company - Visble AI',
-  
-  description: 'We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search',
-  
+  metadataBase: new URL("https://visble.ai"),
+
+  title: "Best Generative Engine Optimization Company - Visble AI",
+
+  description:
+    "We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search.",
+
   alternates: {
-    canonical: 'https://visble.ai',
+    canonical: "https://visble.ai/",
   },
-  
-  keywords: [
-    'Generative engine optimization agency', 
-    'Generative engine optimization services', 
-    'generative engine optimization companies', 
-    'Optimize for ChatGPT', 
-    'LLM seo agency', 
-  ],
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 
   openGraph: {
-    title: 'Visble.ai - The #1 AI Search Optimization Platform',
-    description: 'Stop losing traffic to AI. Optimize your website for ChatGPT, Perplexity, and Gemini today.',
-    url: 'https://visble.ai',
-    siteName: 'Visble.ai',
-    locale: 'en_US',
-    type: 'website',
+    type: "website",
+    locale: "en_US",
+    url: "https://visble.ai/",
+    siteName: "Visble AI",
+    title: "Best Generative Engine Optimization Company - Visble AI",
+    description:
+      "We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search.",
     images: [
       {
-        url: '/visble_og_image.png', // Ensure this exists in public/
+        url: "https://visble.ai/visble_og_image.png",
         width: 1200,
         height: 630,
-        alt: 'Visble.ai Dashboard Preview',
+        alt: "Visble AI Dashboard Preview",
       },
     ],
   },
-  
+
   twitter: {
-    card: 'summary_large_image',
-    title: 'Visble.ai | AI Search Optimization',
-    description: 'Optimize for ChatGPT, Perplexity, and Gemini.',
-    images: ['/visble_og_image.png'],
+    card: "summary_large_image",
+    title: "Best Generative Engine Optimization Company - Visble AI",
+    description:
+      "We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search.",
+    images: ["https://visble.ai/visble_og_image.png"],
   },
 };
 
 export default function Home() {
-  // ENHANCED SCHEMA: Includes Sitelinks Search Box capability
-  const websiteSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Visble.ai',
-    url: 'https://visble.ai',
-    description: 'The Leading Generative Engine Optimization Company',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://visble.ai/search?q={search_term_string}'
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://visble.ai/#organization",
+        name: "Visble AI",
+        url: "https://visble.ai/",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://visble.ai/visble_logo.png",
+          width: 512,
+          height: 512,
+        },
+        description:
+          "We are a tech-enabled LLM SEO agency with integrated SEO. Our clients have achieved from zero to 1000+ source mentions and a $100k+ revenue pipeline through AI Search.",
+        sameAs: [
+          "https://x.com/visbleai",
+          "https://www.linkedin.com/company/visble-ai",
+        ],
+        knowsAbout: [
+          "Generative Engine Optimization",
+          "AI Search Optimization",
+          "LLM SEO",
+          "ChatGPT Optimization",
+          "Perplexity SEO",
+          "Google Gemini Optimization",
+        ],
       },
-      'query-input': 'required name=search_term_string'
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Visble.ai',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://visble.ai/visble_logo.png'
-      }
-    }
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://visble.ai/#software",
+        name: "Visble AI",
+        url: "https://visble.ai/",
+        applicationCategory: "SEO Software",
+        operatingSystem: "Web",
+        publisher: {
+          "@id": "https://visble.ai/#organization",
+        },
+      },
+    ],
   };
 
   return (
     <>
-      {/* 
-         NOTE: If 'Header' is already in your layout.tsx, remove it here 
-         to avoid duplicate headers. If not, keep it.
-      */}
       <Header />
 
       <main className="min-h-screen bg-white">
-        {/* JSON-LD Schema Injection */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(schema),
+          }}
         />
-        
+
         <Hero />
         <Banner />
-        <StatsCarousel/>
+        <StatsCarousel />
         <CaseStudies />
         <AEOStrategySection />
         <FeatureChecklist />
-        <WorkingSnippets/>
-        
-        {/* Uncomment sections as needed */}
-        {/* <AIPlatforms /> */}
-        
+        <WorkingSnippets />
         <ClientLogos />
-        
-        {/* <VideoTestimonials/> */}
-        {/* <ProductFeatures /> */}
-        {/* <FeaturesList /> */}
-        {/* <Pricing /> */}
-        {/* <Testimonials /> */}
-        
-        <FAQSection/>
+        <FAQSection />
       </main>
 
-      {/* Footer should be outside main for semantic HTML */}
       <Footer />
     </>
   );
