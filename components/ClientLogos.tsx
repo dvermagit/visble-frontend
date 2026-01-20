@@ -59,15 +59,15 @@ import Image from 'next/image';
 export default function ClientLogos() {
   // SEO UPDATE: Added 'name' for proper Alt Text
   const clients = [
-    { name: 'Client Partner', logo: '/idLa75rSWC_logos.png' },
-    { name: 'Client Partner', logo: '/idrtWOj-E8_logos.png' },
-    { name: 'Client Partner', logo: '/idIn6xDCix_1767881962246.png' },
+    { name: 'Glance', logo: '/idLa75rSWC_logos.png' },
+    { name: 'Kompanero', logo: '/idrtWOj-E8_logos.png' },
+    { name: 'Italics', logo: '/idIn6xDCix_1767881962246.png' },
     { name: 'Funsholar', logo: '/Funsholar New Logo Raw File-05-cropped_1752754711196-DL_bhjea.png' },
     { name: 'Flyhomes', logo: '/iddHundDDQ_1767881827127.png' }, 
-    { name: 'Client Partner', logo: '/output-onlinepngtools.png' },
-    { name: 'Acredge', logo: '/image1.png' }, 
+    { name: 'Leher', logo: '/image1.png' },
+    { name: 'Acredge', logo: '/output-onlinepngtools.png' }, 
     { name: 'DGFT Guru', logo: '/dgft.png' },
-    { name: 'Client Partner', logo: '/image2.png' },
+    { name: 'Pinky Promise', logo: '/image2.png' },
     { name: 'Upthrust', logo: '/upthrust_img.png' },
   ];
 
@@ -98,12 +98,6 @@ export default function ClientLogos() {
                 className="flex items-center justify-center h-24 group transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="w-full h-full bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center p-4 relative overflow-hidden">
-                  {/* 
-                    SEO OPTIMIZATION: 
-                    1. 'fill' allows the image to scale within the parent div constraints.
-                    2. 'sizes' helps the browser download the correct file size.
-                    3. 'alt' uses the real company name.
-                  */}
                   <div className={`relative w-full h-full ${isBig ? 'scale-110' : 'scale-90'}`}>
                     <Image
                       src={client.logo}
