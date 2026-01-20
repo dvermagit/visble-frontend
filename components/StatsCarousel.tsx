@@ -106,7 +106,7 @@ export default function StatsCarousel() {
             and Screen Readers. This ensures ALL keywords are indexed immediately.
           */}
           <div className="sr-only">
-            <h2>Key Market Insights</h2>
+            {/* <h2>Key Market Insights</h2> */}
             <ul>
               {stats.map((stat, index) => (
                 <li key={index}>{stat}</li>
