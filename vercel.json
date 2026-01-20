@@ -1,11 +1,6 @@
 {
   "redirects": [
     {
-      "source": "/blog/:slug/",
-      "destination": "/blog/:slug",
-      "permanent": true
-    },
-    {
       "source": "/category/:category",
       "destination": "/blog/category/:category",
       "permanent": true
