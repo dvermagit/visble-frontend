@@ -138,7 +138,7 @@ const caseStudies = [
   {
     company: 'Acredge',
     person: 'Gurugram, India',
-    avatar: '/image.png',
+    avatar: '/output-onlinepngtools.png',
     title: 'From 0 to 100+ Source Mentions in 60 Days',
     description: "Achieved 100+ source mention in 60 days with no prior SEO base, no relevant ranking keywords and competitors with years of positioning on Google Search. Read more to see how we used GEO to beat industrial giants.",
     icon: TrendingUp,
@@ -158,7 +158,7 @@ const caseStudies = [
   {
     company: 'DGFT Guru',
     person: 'India',
-    avatar: '/id8O32bVFz_logos.png',
+    avatar: '/dgft.png',
     title: 'Brand Visibility increase from 20% to 80%',
     description: "We found out that the outdated content was the culprit for DGFT Guru’s dropping brand visibility on Chat GPT and AI Overview. We reworked on keywords as per fanout query and updated the content to maintain freshness.",
     icon: Target,
@@ -212,9 +212,9 @@ export default function CaseStudies() {
                 </div>
 
                 {/* Title - Using H3 for semantic hierarchy */}
-                <h3 className="text-xl font-bold bricolage text-gray-900 mb-4 group-hover:text-primary transition-colors">
+                <h4 className="text-xl font-bold bricolage text-gray-900 mb-4 group-hover:text-primary transition-colors">
                   {study.title}
-                </h3>
+                </h4>
 
                 {/* Description */}
                 <p className="text-gray-600 mb-8 leading-relaxed flex-1">
