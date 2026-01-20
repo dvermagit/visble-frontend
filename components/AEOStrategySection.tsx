@@ -110,7 +110,7 @@ export default function AEOStrategySection() {
 
         {/* Right Side: Text Content */}
         <div className="w-full lg:w-1/2 text-center lg:text-left mt-12 lg:mt-0">
-          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold bricolage leading-relaxed text-gray-900">
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-bold bricolage leading-relaxed text-gray-900">
             We have Combined a Whole Year of<br/>
             <span className="text-xl block mt-3  sm:text-3xl md:text-4xl font-bold bricolage leading-[1.4] text-gray-900">
               Large Scale GEO Experiments with<br />
@@ -119,7 +119,7 @@ export default function AEOStrategySection() {
             <span className="text-xl block mt-3  sm:text-3xl md:text-4xl font-bold bricolage leading-[1.4] text-gray-900">
               5 years of SEO Expertise .
             </span>
-          </h1>
+          </h2>
           
           {/* Changed <a> to <Link> for better Next.js navigation performance */}
           <Link
