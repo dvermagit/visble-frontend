@@ -5,7 +5,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: { unoptimized: true },
-  trailingSlash: true,
+  // trailingSlash: true,
   compress: true,
 };
 
