@@ -90,33 +90,27 @@ export default function StatsCarousel() {
       clearTimeout(fadeOutTimer);
       clearTimeout(changeTextTimer);
     };
-  }, [currentIndex]); // Keeping currentIndex as dep ensures loop continues
+  }, [currentIndex]);
 
   return (
-    <section 
-      className="w-full py-16 px-4 sm:px-6 lg:px-8" 
+    <section
+      className="w-full py-16 px-4 sm:px-6 lg:px-8"
       aria-label="Market Statistics"
     >
       <div className="max-w-7xl mx-auto">
         <div className="relative">
-          
-          {/* --- SEO & ACCESSIBILITY LAYER --- */}
-          {/* 
-            This div is visually hidden but visible to Search Engines (Googlebot) 
-            and Screen Readers. This ensures ALL keywords are indexed immediately.
-          */}
+
+          {/* Screen-reader only content */}
           <div className="sr-only">
-            {/* <h2>Key Market Insights</h2> */}
             <ul>
               {stats.map((stat, index) => (
                 <li key={index}>{stat}</li>
               ))}
             </ul>
           </div>
-          {/* ---------------------------------- */}
 
-          {/* Background Elements (Decorative) */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-20" aria-hidden="true"></div>
+          {/* Decorative background */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-20" aria-hidden="true" />
           <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
             <div className="absolute inset-0" style={{
               backgroundImage: `
@@ -135,16 +129,17 @@ export default function StatsCarousel() {
             aria-hidden="true" 
           >
             <div className="relative h-40 flex items-center justify-center">
-              <p
+              <h3
                 className={`text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-foreground text-center transition-opacity duration-500 bricolage tracking-tight ${
                   isVisible ? 'opacity-100' : 'opacity-0'
                 }`}
                 style={{ letterSpacing: '-0.08em', wordSpacing: '0.1em' }}
               >
                 {stats[currentIndex]}
-              </p>
+              </h3>
+
             </div>
-            
+
             <div className="flex justify-center gap-3 mt-12">
               {stats.map((_, index) => (
                 <div
