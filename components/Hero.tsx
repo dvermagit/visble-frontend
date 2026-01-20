@@ -25,7 +25,7 @@ export default function Hero() {
             
             {/* H1: The most important tag on the page */}
             <h1 className="text-5xl lg:text-6xl font-bold bricolage text-gray-900 leading-tight mb-6">
-              SEO for LLMs and 
+              SEO for LLMs and&nbsp; 
               <span className="text-primary block">Google</span>
             </h1>
             
