@@ -96,13 +96,13 @@ export default function OptimizedWorkflow() {
                   </div>
                   
                   {/* Text */}
-                  <p
+                  <h3
                     className={`text-base md:text-lg font-medium leading-tight transition-colors duration-300 ${
                       activeIndex === index ? 'text-white' : 'text-gray-300'
                     }`}
                   >
                     {step.text}
-                  </p>
+                  </h3>
                 </div>
               </li>
             ))}
