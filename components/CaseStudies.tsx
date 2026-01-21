@@ -206,7 +206,7 @@ export default function CaseStudies() {
                     )}
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900 bricolage">{study.company}</div>
+                    <h3 className="font-bold text-gray-900 bricolage">{study.company}</h3>
                     <div className="text-sm text-gray-600">{study.person}</div>
                   </div>
                 </div>
