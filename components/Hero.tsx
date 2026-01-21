@@ -1,5 +1,5 @@
 // 1. Remove 'use client' to make this a Server Component
-import { Play, TrendingUp } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WorkflowVisualization from './WorkflowVisualization'; 
 import DashedGridBackground from './DashedGridBackground'; 
@@ -44,8 +44,8 @@ export default function Hero() {
                 asChild
               >
                 <a href="https://app.visble.ai/signup">
-                  <Play className="w-5 h-5 mr-2" aria-hidden="true" />
-                  Book a Demo
+                  {/* <Play className="w-5 h-5 mr-2" aria-hidden="true" /> */}
+                  Calendly Link Integrated
                 </a>
               </Button>
             </div>
