@@ -192,8 +192,8 @@
 
 // @ts-ignore: allow side-effect CSS import without type declarations
 import './globals.css';
+import type { Metadata } from 'next';
 import { Inter, Bricolage_Grotesque } from 'next/font/google';
-import Header from '@/components/Header';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -207,6 +207,14 @@ const bricolage = Bricolage_Grotesque({
   display: 'swap',
 });
 
+export const metadata: Metadata = {
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -215,8 +223,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${bricolage.variable}`}>
       <body className={inter.className}>
-        <Header />
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );
