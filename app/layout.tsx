@@ -192,11 +192,10 @@
 
 // @ts-ignore: allow side-effect CSS import without type declarations
 import './globals.css';
-import type { Metadata } from 'next';
 import { Inter, Bricolage_Grotesque } from 'next/font/google';
 import Header from '@/components/Header';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
@@ -208,91 +207,13 @@ const bricolage = Bricolage_Grotesque({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://visble.ai'),
-  
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
-  themeColor: '#ffffff',
-  
-  title: {
-    default: 'Visble.ai', 
-    template: '%s | Visble.ai', 
-  },
-
-  icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
-  },
-  manifest: '/site.webmanifest',
-
-  // ✅ KEEP: Google Verification
-  verification: {
-    google: 'your-google-site-verification-code',
-  },
-
-  alternates: {
-    canonical: './', 
-  },
-};
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'Organization',
-        '@id': 'https://visble.ai/#organization',
-        name: 'Visble.ai',
-        url: 'https://visble.ai',
-        logo: {
-          '@type': 'ImageObject',
-          url: 'https://visble.ai/visble_logo.png',
-          width: 512,
-          height: 512
-        },
-        sameAs: [
-          'https://twitter.com/visbleai',
-          'https://linkedin.com/company/visble',
-        ],
-        contactPoint: {
-          '@type': 'ContactPoint',
-          contactType: 'Customer Support',
-          email: 'hello@visble.ai',
-          availableLanguage: ['English'],
-        }
-      },
-      {
-        '@type': 'WebSite',
-        '@id': 'https://visble.ai/#website',
-        url: 'https://visble.ai',
-        name: 'Visble.ai',
-        publisher: {
-          '@id': 'https://visble.ai/#organization'
-        },
-        inLanguage: 'en-US'
-      }
-    ]
-  };
-
   return (
     <html lang="en" className={`${inter.variable} ${bricolage.variable}`}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
-          }}
-        />
-      </head>
       <body className={inter.className}>
         <Header />
         <main>{children}</main>
