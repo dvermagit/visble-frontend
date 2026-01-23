@@ -1,6 +1,7 @@
 ---
-title: "Generative Engine Optimization vs Traditional SEO- What Marketers Need to Know in 2025?"
+title: "Generative Engine Optimization vs Traditional SEO - What Marketers Need to Know in 2025?"
 date: 2025-08-11
+excerpt: "Curious about how GEO differs from the traditional SEO that you're familiar with? Let's explore how to help you future-proof your strategy for what’s next!"
 categories: 
   - "blog"
 coverImage: "Generative-Engine-vs-Traditional-Engine-1.png"
