@@ -1,6 +1,7 @@
 ---
 title: "Types of Sources in AI Search Response"
 date: 2025-11-03
+excerpt: "This highlights why curating the sources behind these AI summaries is critical for brands to maintain their digital presence."
 categories: 
   - "blog"
 coverImage: "Types-of-Sources-in-AI-Search-Response.png"
