@@ -1,6 +1,7 @@
 ---
 title: "Source Mention Benchmark 2025- Are You Winning the AI Search Visibility Race?"
 date: 2025-09-10
+excerpt: "Source Mention works the same way. Being consistently cited or mentioned builds credibility & authority."
 categories: 
   - "blog"
 coverImage: "Source-Mention-Benchmark-1.png"
