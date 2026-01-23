@@ -1,6 +1,7 @@
 ---
 title: "How to Get Your Website Cited by AI"
 date: 2025-12-17
+excerpt: "Master Generative Engine Optimisation (GEO) with our 9-step guide covering crawlability, content quotability, and brand authority signals. Be the brand AI trusts."
 categories: 
   - "blog"
 coverImage: "How-to-Get-Your-Website-Cited-by-AI-1.png"
@@ -66,8 +67,8 @@ AI models look for trusted and reliable sources. A fact from a high-E-E-A-T sour
 AI does not have time for stories. It needs concise, self-contained answers.
 
 - **Action:** Adopt a journalistic, AI-friendly writing style. Start every major section or question with a concise, direct, 1-2 sentence answer.
-    - Bad: "Before we discuss the steps, let's look at the history of schema..."
-    - Good: "Schema Markup is machine code that tells search engines exactly what your content means, making it highly valuable for AI citations."
+  - Bad: "Before we discuss the steps, let's look at the history of schema..."
+  - Good: "Schema Markup is machine code that tells search engines exactly what your content means, making it highly valuable for AI citations."
 
 This "answer-first" structure ensures that if the AI extracts only one sentence, it still captures the core fact, making your content a high-probability quote.
 
@@ -76,7 +77,7 @@ This "answer-first" structure ensures that if the AI extracts only one sentence,
 AI prioritises unique, non-duplicative data. If you have the only source for a specific statistic, the AI must cite you to include that data in its summary.
 
 - **Action:** Conduct and publish original research, statistics, case studies, or industry surveys.
-    - **Value:** When users prompt, "What are the latest stats on XYZ?" the AI will prefer to cite your unique data over a summary of common knowledge.
+  - **Value:** When users prompt, "What are the latest stats on XYZ?" the AI will prefer to cite your unique data over a summary of common knowledge.
 
 **Data Insight:** Studies show that pages containing exclusive metrics and charts have an average of 2.7% higher cite rate in AI overviews compared to informational articles lacking original data.
 
@@ -91,9 +92,9 @@ This final set of strategies focuses on structural and off-site signals. These a
 Schema is the direct line to the AI's processing layer. It tells the machine, "This is a question, and this is the answer," streamlining the synthesis process.
 
 - **Action:** Implement advanced schema types:
-    - **HowTo Schema:** Essential for step-by-step guides, making it easy for AI to create numbered instructions.
-    - **FAQ Page Schema:** Explicitly label clear question-and-answer pairs, perfect for AI-generated summaries.
-    - **Entity Schema:** Use tags like Organisation and Person to connect your brand and authors to established knowledge graphs.
+  - **HowTo Schema:** Essential for step-by-step guides, making it easy for AI to create numbered instructions.
+  - **FAQ Page Schema:** Explicitly label clear question-and-answer pairs, perfect for AI-generated summaries.
+  - **Entity Schema:** Use tags like Organisation and Person to connect your brand and authors to established knowledge graphs.
 
 This structuring can give you a significant citation boost. Structured data markup can significantly [increase the content’s citation probability](https://yoast.com/structured-data-schema-ultimate-guide/#:~:text=Structured%20data%20has%20become%20an%20essential%20part,AI%2Ddriven%20features%2C%20rich%20results%2C%20and%20across%20platforms.) across various AI platforms compared to unstructured content.
 
