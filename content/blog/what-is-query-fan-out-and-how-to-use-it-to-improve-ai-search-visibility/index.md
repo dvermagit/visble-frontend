@@ -1,6 +1,7 @@
 ---
-title: "What is Query Fan Out and How to Use it to Improve AI Search Visibility?"
+title: "What is Query Fan Out, Learn to Use it to Improve AI Search Visibility?"
 date: 2026-01-09
+excerpt: "Here’s how to use Query Fan Out to dominate AI Search. Learn how LLMs break down intents and use GEO strategies to boost AI Overview citations by 161%."
 categories: 
   - "blog"
 coverImage: "Generative-Engine-Optimization-Playbook-Your-SEO-Strategies-Need-a-Fast-Upgrade.jpg"

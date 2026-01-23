@@ -1,6 +1,7 @@
 ---
 title: "What Do Google's SGE, Bing CoPilot & ChatGPT Have in Common?"
 date: 2025-08-25
+excerpt: "AI tools such as Google SGE, Bing CoPilot & ChatGPT are transforming information retrieval & comprehension."
 categories: 
   - "blog"
 coverImage: "Untitled-design-3.png"
