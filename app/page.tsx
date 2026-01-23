@@ -80,6 +80,7 @@ import WorkingSnippets from "@/components/WorkingSnippets";
 import StatsCarousel from "@/components/StatsCarousel";
 import FAQSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
+import SeoCtaSection from "@/components/SeoCtaSection";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://visble.ai"),
@@ -185,6 +186,7 @@ export default function Home() {
         <Banner />
         <StatsCarousel />
         <CaseStudies />
+        <SeoCtaSection/>
         <AEOStrategySection />
         <FeatureChecklist />
         <WorkingSnippets />
