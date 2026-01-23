@@ -1,6 +1,7 @@
 ---
 title: "The Ultimate llms.txt Guide: Make Your Website LLM-Ready"
 date: 2025-07-18
+excerpt: "We’ll break down everything you need to know to make your site LLM-ready, so that AI crawlers can understand & recommend your content."
 categories: 
   - "blog"
 coverImage: "The-Ultimate-llms.txt-Guide-Make-Your-Website-LLM-Ready.jpg"
