@@ -1,6 +1,7 @@
 ---
 title: "7 Must-Track Metrics for Generative Engine Optimization (GEO)"
 date: 2025-09-10
+excerpt: "Let's explore the seven GEO metrics that are essential for evaluating visibility & performance in the new AI-first search."
 categories: 
   - "blog"
 coverImage: "Untitled-design-6-1.png"
