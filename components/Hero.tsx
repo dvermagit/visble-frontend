@@ -3,6 +3,7 @@ import { Play, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import WorkflowVisualization from './WorkflowVisualization'; 
 import DashedGridBackground from './DashedGridBackground'; 
+import CalendlyButton from './CalendlyButton';
 
 export default function Hero() {
   return (
@@ -33,21 +34,8 @@ export default function Hero() {
               Control your brand’s narrative on AI Search while improving your organic rankings on Google.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              {/* 
-                 SEO FIX: Use 'asChild'. 
-                 This renders a clean <a href="..."> tag instead of <button><a>...</a></button> (which is invalid HTML).
-              */}
-              <Button 
-                size="lg" 
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg"
-                asChild
-              >
-                <a href="https://app.visble.ai/signup">
-                  <Play className="w-5 h-5 mr-2" aria-hidden="true" />
-                  Book a Demo
-                </a>
-              </Button>
+            <div className="mb-12">
+              <CalendlyButton />
             </div>
 
             {/* Quick Stats - Semantic Definition List for clarity */}

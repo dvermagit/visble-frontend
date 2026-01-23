@@ -166,3 +166,15 @@ a {
   white-space: nowrap;
   border-width: 0;
 }
+.calendly-overlay .calendly-spinner > div {
+  background-color: white !important;
+}
+.calendly-spinner,
+.calendly-spinner * {
+  display: none !important;
+}
+
+/* Optional: force overlay background */
+/* .calendly-overlay {
+  background: rgba(0, 0, 0, 0.85) !important;
+} */
