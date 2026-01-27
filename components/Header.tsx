@@ -217,12 +217,27 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image'; // SEO: Optimized Images
 
+let calendlyLoaded = false;
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [isToolsOpen, setIsToolsOpen] = useState(false);
 
   // Helper to close menu when a link is clicked
   const closeMenu = () => setIsMenuOpen(false);
+
+  // Calendly popup handler
+  const openCalendly = async () => {
+    if (!calendlyLoaded) {
+      await loadCalendlyAssets();
+      calendlyLoaded = true;
+    }
+
+    // @ts-ignore
+    window.Calendly.initPopupWidget({
+      url: 'https://calendly.com/isha-visble/30min-1',
+    });
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
@@ -296,11 +311,9 @@ export default function Header() {
           <div className="hidden md:flex items-center space-x-4">
             <Button 
               className="bg-primary hover:bg-primary/90 text-white px-6"
-              asChild
+              onClick={openCalendly}
             >
-              <a href="https://app.visble.ai/signup">
-                Book a Demo
-              </a>
+              Book a Demo
             </Button>
           </div>
 
@@ -383,11 +396,9 @@ export default function Header() {
                 </Button>
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-white w-full justify-center"
-                  asChild
+                  onClick={openCalendly}
                 >
-                  <a href="https://app.visble.ai/signup">
-                    Book a Demo
-                  </a>
+                  Book a Demo
                 </Button>
               </div>
             </nav>
@@ -396,4 +407,33 @@ export default function Header() {
       </div>
     </header>
   );
+}
+
+/* ---------- Calendly Helper ---------- */
+
+function loadCalendlyAssets(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    // Load CSS
+    if (!document.querySelector('link[href*="calendly.com/assets/external/widget.css"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://assets.calendly.com/assets/external/widget.css';
+      document.head.appendChild(link);
+    }
+
+    // Load JS
+    if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+      resolve();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Calendly failed to load'));
+
+    document.body.appendChild(script);
+  });
 }
