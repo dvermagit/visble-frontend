@@ -263,7 +263,7 @@ export default function Header() {
             <Link href="/#our-story" className="text-gray-600 hover:text-gray-900 transition-colors">
               Our Story
             </Link>
-            <Link href="/#case-studies" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/case-studies" className="text-gray-600 hover:text-gray-900 transition-colors">
               Case Studies
             </Link>
             

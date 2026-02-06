@@ -131,8 +131,8 @@
 // }
 import { TrendingUp, Users, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image'; // Optimized Images
-import Link from 'next/link';   // SEO Friendly Links
+import Image from 'next/image';
+import Link from 'next/link';
 
 const caseStudies = [
   {
@@ -143,7 +143,7 @@ const caseStudies = [
     description: "Achieved 100+ source mention in 60 days with no prior SEO base, no relevant ranking keywords and competitors with years of positioning on Google Search. Read more to see how we used GEO to beat industrial giants.",
     icon: TrendingUp,
     color: 'bg-blue-500',
-    slug: 'acredge-case-study' // Added for linking
+    slug: 'acredge-case-study'
   },
   {
     company: 'Flyhomes',
@@ -160,7 +160,7 @@ const caseStudies = [
     person: 'India',
     avatar: '/dgft.png',
     title: 'Brand Visibility increase from 20% to 80%',
-    description: "We found out that the outdated content was the culprit for DGFT Guru’s dropping brand visibility on Chat GPT and AI Overview. We reworked on keywords as per fanout query and updated the content to maintain freshness.",
+    description: "We found out that the outdated content was the culprit for DGFT Guru's dropping brand visibility on Chat GPT and AI Overview. We reworked on keywords as per fanout query and updated the content to maintain freshness.",
     icon: Target,
     color: 'bg-purple-500',
     slug: 'dgft-guru-case-study'
@@ -187,11 +187,9 @@ export default function CaseStudies() {
                 key={index}
                 className="bg-white rounded-2xl border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
               >
-                {/* Header */}
                 <div className="flex items-center mb-6">
                   <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mr-4 overflow-hidden p-2 relative">
                     {study.avatar ? (
-                      // SEO: Use Next/Image for Core Web Vitals (LCP/CLS)
                       <Image 
                         src={study.avatar} 
                         alt={`${study.company} logo`}
@@ -211,20 +209,15 @@ export default function CaseStudies() {
                   </div>
                 </div>
 
-                {/* Title - Using H3 for semantic hierarchy */}
                 <h4 className="text-xl font-bold bricolage text-gray-900 mb-4 group-hover:text-primary transition-colors">
                   {study.title}
                 </h4>
 
-                {/* Description */}
                 <p className="text-gray-600 mb-8 leading-relaxed flex-1">
                   {study.description}
                 </p>
 
-                {/* 
-                  SEO FIX: Use <Link> instead of <Button> alone. 
-                  Search engines crawl <a href="...">, they don't click buttons.
-                */}
+                {/* UPDATED: Link to individual case study page */}
                 <div className="mt-auto pt-4 border-t border-gray-100">
                   <Link href={`/case-studies/${study.slug}`} className="w-full block" tabIndex={-1}>
                     <Button 
