@@ -35,7 +35,7 @@ export default function Hero() {
             </p>
             
             <div className="mb-12">
-              <CalendlyButton />
+              <CalendlyButton variant='demo'/>
             </div>
 
             {/* Quick Stats - Semantic Definition List for clarity */}

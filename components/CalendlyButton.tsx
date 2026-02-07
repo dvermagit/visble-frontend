@@ -1,31 +1,153 @@
+// 'use client';
+
+// import { Play } from 'lucide-react';
+// import { Button } from '@/components/ui/button';
+
+// let calendlyLoaded = false;
+
+// export default function CalendlyButton() {
+//   const openCalendly = async () => {
+//     if (!calendlyLoaded) {
+//       await loadCalendlyAssets();
+//       calendlyLoaded = true;
+//     }
+
+//     // @ts-ignore
+//     window.Calendly.initPopupWidget({
+//       url: 'https://calendly.com/isha-visble/30min-1',
+//     });
+//   };
+
+//   return (
+//     <Button
+//       size="lg"
+//       className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg"
+//       onClick={openCalendly}
+//     >
+//       <Play className="w-5 h-5 mr-2" />
+//       Book a Demo
+//     </Button>
+//   );
+// }
+
+// /* ---------- helpers ---------- */
+
+// function loadCalendlyAssets(): Promise<void> {
+//   return new Promise((resolve, reject) => {
+//     // Load CSS
+//     if (!document.querySelector('link[href*="calendly.com/assets/external/widget.css"]')) {
+//       const link = document.createElement('link');
+//       link.rel = 'stylesheet';
+//       link.href = 'https://assets.calendly.com/assets/external/widget.css';
+//       document.head.appendChild(link);
+//     }
+
+//     // Load JS
+//     if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+//       resolve();
+//       return;
+//     }
+
+//     const script = document.createElement('script');
+//     script.src = 'https://assets.calendly.com/assets/external/widget.js';
+//     script.async = true;
+
+//     script.onload = () => resolve();
+//     script.onerror = () => reject(new Error('Calendly failed to load'));
+
+//     document.body.appendChild(script);
+//   });
+// }
+
 'use client';
 
-import { Play } from 'lucide-react';
+import { Play, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 
 let calendlyLoaded = false;
 
-export default function CalendlyButton() {
-  const openCalendly = async () => {
-    if (!calendlyLoaded) {
-      await loadCalendlyAssets();
-      calendlyLoaded = true;
-    }
+interface CalendlyButtonProps {
+  variant?: 'default' | 'cta' | 'case-study' | 'demo';
+}
 
-    // @ts-ignore
-    window.Calendly.initPopupWidget({
-      url: 'https://calendly.com/isha-visble/30min-1',
-    });
+export default function CalendlyButton({ variant = 'default' }: CalendlyButtonProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const openCalendly = async () => {
+    try {
+      if (!calendlyLoaded) {
+        setIsLoading(true);
+        await loadCalendlyAssets();
+        calendlyLoaded = true;
+      }
+
+      // @ts-ignore
+      if (window.Calendly) {
+        window.Calendly.initPopupWidget({
+          url: 'https://calendly.com/isha-visble/30min-1',
+        });
+      }
+    } catch (error) {
+      console.error('Failed to load Calendly:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // Demo variant (the new one you shared - Book a Demo)
+  if (variant === 'demo') {
+    return (
+      <Button
+        size="lg"
+        className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg"
+        onClick={openCalendly}
+        disabled={isLoading}
+      >
+        <Play className="w-5 h-5 mr-2" />
+        {isLoading ? 'Loading...' : 'Book a Demo'}
+      </Button>
+    );
+  }
+
+  // CTA variant (for case studies list page)
+  if (variant === 'cta') {
+    return (
+      <button
+        onClick={openCalendly}
+        disabled={isLoading}
+        className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isLoading ? 'Loading...' : 'Get Started Today'}
+        <ArrowRight className="w-5 h-5" />
+      </button>
+    );
+  }
+
+  // Case study variant (for individual case study page)
+  if (variant === 'case-study') {
+    return (
+      <Button
+        size="lg"
+        onClick={openCalendly}
+        disabled={isLoading}
+        className="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-base bricolage"
+      >
+        {isLoading ? 'Loading...' : 'Get Started Today'}
+      </Button>
+    );
+  }
+
+  // Default variant (hero section - same as demo)
   return (
     <Button
       size="lg"
       className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg"
       onClick={openCalendly}
+      disabled={isLoading}
     >
       <Play className="w-5 h-5 mr-2" />
-      Book a Demo
+      {isLoading ? 'Loading...' : 'Book a Demo'}
     </Button>
   );
 }
@@ -43,7 +165,8 @@ function loadCalendlyAssets(): Promise<void> {
     }
 
     // Load JS
-    if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+    const existingScript = document.querySelector('script[src*="calendly.com/assets/external/widget.js"]');
+    if (existingScript) {
       resolve();
       return;
     }

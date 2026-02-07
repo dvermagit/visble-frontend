@@ -2310,6 +2310,7 @@ import { getCaseStudyBySlug, getAllCaseStudies } from '@/lib/case-studies';
 import type { Metadata } from 'next';
 import InteractiveGraph from '@/components/InteractiveGraph';
 import WorkflowTimeline from '@/components/WorkflowTimeline';
+import CalendlyButton from '@/components/CalendlyButton';
 
 interface PageProps {
   params: {
@@ -2543,15 +2544,7 @@ export default function CaseStudyPage({ params }: PageProps) {
           <p className="text-base mb-6 opacity-90">
             See how Visble can transform your AI search visibility
           </p>
-
-          <Link href="/llms-txt-generator">
-            <Button
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-base bricolage"
-            >
-              Get Started Today
-            </Button>
-          </Link>
+          <CalendlyButton variant="case-study" />
         </div>
       </section>
     </div>
