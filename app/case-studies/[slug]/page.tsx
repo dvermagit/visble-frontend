@@ -2311,6 +2311,7 @@ import type { Metadata } from 'next';
 import InteractiveGraph from '@/components/InteractiveGraph';
 import WorkflowTimeline from '@/components/WorkflowTimeline';
 import CalendlyButton from '@/components/CalendlyButton';
+import Header from '@/components/Header';
 
 interface PageProps {
   params: {
@@ -2354,7 +2355,8 @@ export default function CaseStudyPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-16">
+      <Header/>
       {/* Back Button */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <Link
