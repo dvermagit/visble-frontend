@@ -2410,6 +2410,7 @@ import html from 'remark-html';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import CalendlyButton from '@/components/CalendlyButton';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -2693,8 +2694,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Ready to boost your AI visibility?</h2>
                   <p className="text-gray-600 mb-6 text-lg">Get your website optimized for AI search engines like ChatGPT, Perplexity, and Gemini.</p>
                   <div className="flex gap-4 justify-center flex-wrap">
-                    <a href="https://app.visble.ai/signup" className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-all shadow-md hover:shadow-lg">Get Started Free</a>
-                    <a href="https://app.visble.ai/login" className="inline-block bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold border-2 border-purple-600 hover:bg-purple-50 transition-all">Log In</a>
+                    <CalendlyButton variant="blog" />
                   </div>
                 </div>
               </div>

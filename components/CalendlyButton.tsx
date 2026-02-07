@@ -68,7 +68,7 @@ import { useState } from 'react';
 let calendlyLoaded = false;
 
 interface CalendlyButtonProps {
-  variant?: 'default' | 'cta' | 'case-study' | 'demo';
+  variant?: 'default' | 'cta' | 'case-study' | 'demo' | 'blog';
 }
 
 export default function CalendlyButton({ variant = 'default' }: CalendlyButtonProps) {
@@ -95,7 +95,20 @@ export default function CalendlyButton({ variant = 'default' }: CalendlyButtonPr
     }
   };
 
-  // Demo variant (the new one you shared - Book a Demo)
+  // Blog variant (for blog post CTA)
+  if (variant === 'blog') {
+    return (
+      <button
+        onClick={openCalendly}
+        disabled={isLoading}
+        className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isLoading ? 'Loading...' : 'Get Started Free'}
+      </button>
+    );
+  }
+
+  // Demo variant (Book a Demo)
   if (variant === 'demo') {
     return (
       <Button
