@@ -1491,6 +1491,7 @@
 // }
 
 
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { getAllPosts } from '@/lib/posts';
 import { Metadata } from 'next';
@@ -1616,6 +1617,7 @@ export default function BlogsPage() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
