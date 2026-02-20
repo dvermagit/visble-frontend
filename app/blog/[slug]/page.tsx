@@ -2403,195 +2403,518 @@
 //     </>
 //   );
 // }
-import { getPostBySlug, getAllPosts } from '@/lib/posts';
-import { remark } from 'remark';
-import remarkGfm from 'remark-gfm';
-import html from 'remark-html';
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//real one 
+// import { getPostBySlug, getAllPosts } from '@/lib/posts';
+// import { remark } from 'remark';
+// import remarkGfm from 'remark-gfm';
+// import html from 'remark-html';
+// import { notFound } from 'next/navigation';
+// import Link from 'next/link';
+// import Header from '@/components/Header';
+// import CalendlyButton from '@/components/CalendlyButton';
+
+// export async function generateStaticParams() {
+//   const posts = getAllPosts();
+//   return posts.map((post) => ({
+//     slug: post.slug,
+//   }));
+// }
+
+// export async function generateMetadata({ params }: { params: { slug: string } }) {
+//   const post = getPostBySlug(params.slug);
+  
+//   if (!post) {
+//     return { title: 'Post Not Found' };
+//   }
+
+//   const description = post.excerpt || post.content
+//     .replace(/<[^>]*>/g, '')
+//     .replace(/[#*`]/g, '')
+//     .substring(0, 160)
+//     .trim();
+
+//   const baseUrl = 'https://visble.ai';
+
+//   return {
+//     title: `${post.title} | Visble.ai Blog`,
+//     description: description,
+//     keywords: post.categories?.join(', '),
+//     openGraph: {
+//       title: post.title,
+//       description: description,
+//       url: `${baseUrl}/blog/${params.slug}`,
+//       siteName: 'Visble.ai',
+//       images: post.coverImage 
+//         ? [{ url: `${baseUrl}/images/blog/${post.coverImage}`, width: 1200, height: 630, alt: post.title }]
+//         : [],
+//       type: 'article',
+//       publishedTime: new Date(post.date).toISOString(),
+//     },
+//     twitter: {
+//       card: 'summary_large_image',
+//       title: post.title,
+//       description: description,
+//       images: post.coverImage ? [`${baseUrl}/images/blog/${post.coverImage}`] : [],
+//     },
+//     alternates: { canonical: `${baseUrl}/blog/${params.slug}` },
+//     robots: { index: true, follow: true },
+//   };
+// }
+
+// function extractHeadings(content: string) {
+//   const headingRegex = /^(#{2,6})\s+(.+)$/gm;
+//   const headings: { level: number; text: string; id: string }[] = [];
+//   let match;
+
+//   while ((match = headingRegex.exec(content)) !== null) {
+//     const level = match[1].length;
+//     const text = match[2]
+//       .trim()
+//       .replace(/\*\*/g, '')
+//       .replace(/`/g, '')
+//       .trim();
+    
+
+//     if (text.includes("Isha Sachdeva") || text.includes("Founder, visble.ai")) {
+//       continue;
+//     }
+
+//     const id = text
+//       .toLowerCase()
+//       .replace(/[^a-z0-9]+/g, '-')
+//       .replace(/(^-|-$)/g, '');
+    
+//     headings.push({ level, text, id });
+//   }
+
+//   return headings;
+// }
+
+// function addHeadingIds(htmlContent: string, headings: { level: number; text: string; id: string }[]) {
+//   let result = htmlContent;
+//   headings.forEach(({ level, text, id }) => {
+//     const escapedText = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+//     const regex = new RegExp(`<h${level}>\\s*${escapedText}\\s*</h${level}>`, 'gi');
+//     result = result.replace(regex, `<h${level} id="${id}">${text}</h${level}>`);
+//   });
+//   return result;
+// }
+
+// function cleanHtmlContent(htmlContent: string, coverImage: string | undefined) {
+//   let cleanHtml = htmlContent;
+
+//   const REMOVE_LIST = [
+//     'IMG_5768',          
+//     'Isha Sachdeva',     
+//     'Founder, visble.ai',
+//   ];
+
+//   if (coverImage) {
+//     const filename = coverImage.split('/').pop()?.split('.')[0]; 
+//     if (filename && filename.length > 2) {
+//       REMOVE_LIST.push(filename);
+//     }
+//   }
+
+
+//   cleanHtml = cleanHtml.replace(/<img[^>]+>/gi, (imgTag) => {
+//     const shouldRemove = REMOVE_LIST.some(term => imgTag.toLowerCase().includes(term.toLowerCase()));
+    
+//     if (shouldRemove) {
+//       return ''; 
+//     }
+//     return imgTag; 
+//   });
+
+
+//   cleanHtml = cleanHtml.replace(/<(p|h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi, (fullTag, tagName, innerText) => {
+//     const shouldRemove = REMOVE_LIST.some(term => innerText.includes(term));
+//     if (shouldRemove) {
+//       return '';
+//     }
+//     return fullTag;
+//   });
+
+//   cleanHtml = cleanHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
+
+//   cleanHtml = cleanHtml.replace(/<img[^>]+>/i, ''); 
+
+//   cleanHtml = cleanHtml.replace(/<img[^>]+>/i, ''); // <--- REMOVES THE FIRST IMAGE FOUND
+
+//   cleanHtml = cleanHtml.replace(/<p[^>]*>[\s\r\n]*<\/p>/gi, '');
+
+//   return cleanHtml;
+// }
+
+// export default async function BlogPost({ params }: { params: { slug: string } }) {
+//   const post = getPostBySlug(params.slug);
+
+//   if (!post) {
+//     notFound();
+//   }
+
+//   const headings = extractHeadings(post.content);
+
+//   const processedContent = await remark()
+//     .use(remarkGfm)
+//     .use(html, { sanitize: false })
+//     .process(post.content);
+    
+//   let contentHtml = processedContent.toString();
+
+//   contentHtml = cleanHtmlContent(contentHtml, post.coverImage);
+
+//   let contentWithIds = addHeadingIds(contentHtml, headings);
+
+//   contentWithIds = contentWithIds.replace(/<table[^>]*>/g, () => 
+//     `<div class="overflow-x-auto my-8"><table class="min-w-full divide-y divide-gray-200 border border-gray-300 rounded-lg">`
+//   );
+//   contentWithIds = contentWithIds.replace(/<\/table>/g, '</table></div>');
+//   contentWithIds = contentWithIds.replace(/<thead>/g, '<thead class="bg-gray-50">');
+//   contentWithIds = contentWithIds.replace(/<th[^>]*>/g, '<th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b">');
+//   contentWithIds = contentWithIds.replace(/<tbody>/g, '<tbody class="bg-white divide-y divide-gray-200">');
+//   contentWithIds = contentWithIds.replace(/<td[^>]*>/g, '<td class="px-6 py-4 text-sm text-gray-700 border-b">');
+//   contentWithIds = contentWithIds.replace(/<tr[^>]*>/g, '<tr class="hover:bg-gray-50 transition-colors">');
+
+//   contentWithIds = contentWithIds.replace(/<a\s+href="([^"]+)"[^>]*>([^<]+)<\/a>/g, (match, href, text) => {
+//     const isExternal = href.startsWith('http') && !href.includes('visble.ai');
+//     const externalIcon = isExternal 
+//       ? '<svg class="inline-block w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>'
+//       : '';
+//     return `<a href="${href}" class="text-purple-600 hover:text-purple-700 font-medium underline decoration-2 underline-offset-2 transition-colors" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}>${text}${externalIcon}</a>`;
+//   });
+
+//   // JSON-LD
+//   const jsonLd = {
+//     '@context': 'https://schema.org',
+//     '@type': 'BlogPosting',
+//     headline: post.title,
+//     description: post.excerpt || post.content.substring(0, 160),
+//     image: post.coverImage ? `https://visble.ai/images/blog/${post.coverImage}` : 'https://visble.ai/visble_logo.png',
+//     datePublished: new Date(post.date).toISOString(),
+//     dateModified: new Date(post.date).toISOString(),
+//     author: {
+//       '@type': 'Person',
+//       name: 'Isha Sachdeva',
+//       jobTitle: 'Founder',
+//       worksFor: { '@type': 'Organization', name: 'Visble.ai' },
+//     },
+//     publisher: {
+//       '@type': 'Organization',
+//       name: 'Visble.ai',
+//       logo: { '@type': 'ImageObject', url: 'https://visble.ai/visble_logo.png' },
+//     },
+//     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://visble.ai/blog/${params.slug}` },
+//   };
+
+//   const breadcrumbSchema = {
+//     '@context': 'https://schema.org',
+//     '@type': 'BreadcrumbList',
+//     itemListElement: [
+//       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visble.ai' },
+//       { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://visble.ai/blogs' },
+//       { '@type': 'ListItem', position: 3, name: post.title, item: `https://visble.ai/blog/${params.slug}` },
+//     ],
+//   };
+
+//   return (
+//     <>
+//       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+//       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      
+//       <div className="min-h-screen bg-white pt-16">
+//         <Header/>
+        
+//         <div className="bg-gray-50 border-b">
+//           <div className="max-w-7xl mx-auto px-4 py-4">
+//             <Link href="/blogs" className="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium transition-colors">
+//               <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+//               </svg>
+//               Back to Blog
+//             </Link>
+//           </div>
+//         </div>
+
+//         <div className="max-w-7xl mx-auto px-4 py-12">
+//           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+//             <article className="lg:col-span-8">
+//               <header className="mb-12">
+//                 {post.categories && post.categories.length > 0 && (
+//                   <div className="flex flex-wrap gap-2 mb-6">
+//                     {post.categories.map((cat) => (
+//                       <Link key={cat} href={`/blog/category/${cat.toLowerCase()}`} className="text-sm font-semibold text-purple-600 bg-purple-50 px-4 py-2 rounded-full hover:bg-purple-100 transition-colors">
+//                         {cat}
+//                       </Link>
+//                     ))}
+//                   </div>
+//                 )}
+
+//                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">{post.title}</h1>
+
+//                 <div className="flex items-center gap-4 mb-8 pb-8 border-b">
+//                   <img src="/images/blog/IMG_5768-e1751266201560.webp" alt="Isha Sachdeva" className="w-14 h-14 rounded-full object-cover"/>
+//                   <div className="flex-1">
+//                     <div className="font-semibold text-gray-900">Isha Sachdeva</div>
+//                     <div className="text-sm text-gray-600">Founder, visble.ai</div>
+//                   </div>
+//                   <div className="flex items-center gap-4 text-gray-600 text-sm">
+//                     <time dateTime={post.date}>
+//                       {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+//                     </time>
+//                     <span className="text-gray-400">•</span>
+//                     <span>{Math.ceil(post.content.split(' ').length / 200)} min read</span>
+//                   </div>
+//                 </div>
+//               </header>
+
+//               {post.coverImage && (
+//                 <div className="mb-12">
+//                   <img src={`/images/blog/${post.coverImage}`} alt={post.title} className="w-full h-auto rounded-lg shadow-lg"/>
+//                 </div>
+//               )}
+
+//               <div 
+//                 className="prose prose-lg max-w-none
+//                   prose-headings:text-gray-900 prose-headings:font-bold
+//                   prose-h1:text-4xl prose-h1:mb-6
+//                   prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-gray-200
+//                   prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+//                   prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base
+//                   prose-a:text-purple-600 prose-a:no-underline hover:prose-a:underline
+//                   prose-strong:text-gray-900 prose-strong:font-semibold
+//                   prose-li:text-gray-700 prose-li:leading-relaxed
+//                   prose-img:rounded-lg prose-img:shadow-md
+//                   prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:italic prose-blockquote:rounded-r"
+//                 dangerouslySetInnerHTML={{ __html: contentWithIds }} 
+//               />
+
+//               <div className="mt-16 pt-8 border-t border-gray-200">
+//                 <div className="bg-gradient-to-r from-purple-50 via-blue-50 to-purple-50 rounded-2xl p-8 text-center shadow-sm border border-purple-100">
+//                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Ready to boost your AI visibility?</h2>
+//                   <p className="text-gray-600 mb-6 text-lg">Get your website optimized for AI search engines like ChatGPT, Perplexity, and Gemini.</p>
+//                   <div className="flex gap-4 justify-center flex-wrap">
+//                     <CalendlyButton variant="blog" />
+//                   </div>
+//                 </div>
+//               </div>
+//             </article>
+
+//             {headings.length > 0 && (
+//               <aside className="hidden lg:block lg:col-span-4">
+//                 <div className="sticky top-24">
+//                   <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 border border-gray-200 shadow-sm">
+//                     <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+//                       <svg className="w-5 h-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+//                       </svg>
+//                       Table of Contents
+//                     </h2>
+//                     <nav className="space-y-2">
+//                       {headings.map((heading, index) => (
+//                         <a key={index} href={`#${heading.id}`} className={`block text-sm hover:text-purple-600 transition-all py-1 ${heading.level === 2 ? 'font-bold text-gray-900 hover:translate-x-1' : 'ml-4 text-gray-600 font-medium hover:translate-x-1'} transition-transform`}>
+//                           {heading.text}
+//                         </a>
+//                       ))}
+//                     </nav>
+//                   </div>
+                  
+//                   <div className="mt-6 bg-gradient-to-br from-purple-50 to-white rounded-xl p-6 border border-purple-100 shadow-sm">
+//                     <h3 className="text-sm font-bold text-gray-900 mb-3">Share this article</h3>
+//                     <div className="flex gap-2">
+//                       <a href={`https://twitter.com/intent/tweet?url=https://visble.ai/blog/${params.slug}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors text-center text-sm font-medium">Twitter</a>
+//                       <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://visble.ai/blog/${params.slug}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-blue-700 text-white p-2 rounded-lg hover:bg-blue-800 transition-colors text-center text-sm font-medium">LinkedIn</a>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </aside>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+
+import { sanityClient, urlFor } from '@/lib/sanity.client';
+import { blogBySlugQuery, allBlogSlugsQuery } from '@/lib/queries';
+import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import CalendlyButton from '@/components/CalendlyButton';
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  const slugs: { slug: string }[] = await sanityClient.fetch(allBlogSlugsQuery);
+  return slugs.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug);
+  const post = await sanityClient.fetch(blogBySlugQuery, { slug: params.slug });
   
   if (!post) {
     return { title: 'Post Not Found' };
   }
 
-  const description = post.excerpt || post.content
-    .replace(/<[^>]*>/g, '')
-    .replace(/[#*`]/g, '')
-    .substring(0, 160)
-    .trim();
-
+  const description = post.seoDescription || post.excerpt || 'Read this article on Visble.ai';
   const baseUrl = 'https://visble.ai';
 
   return {
-    title: `${post.title} | Visble.ai Blog`,
+    title: post.seoTitle || `${post.title} | Visble.ai Blog`,
     description: description,
-    keywords: post.categories?.join(', '),
+    keywords: post.tags?.join(', '),
     openGraph: {
       title: post.title,
       description: description,
       url: `${baseUrl}/blog/${params.slug}`,
       siteName: 'Visble.ai',
       images: post.coverImage 
-        ? [{ url: `${baseUrl}/images/blog/${post.coverImage}`, width: 1200, height: 630, alt: post.title }]
+        ? [{ url: urlFor(post.coverImage).width(1200).height(630).url(), width: 1200, height: 630, alt: post.title }]
         : [],
       type: 'article',
-      publishedTime: new Date(post.date).toISOString(),
+      publishedTime: new Date(post.publishedAt).toISOString(),
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: description,
-      images: post.coverImage ? [`${baseUrl}/images/blog/${post.coverImage}`] : [],
+      images: post.coverImage ? [urlFor(post.coverImage).width(1200).height(630).url()] : [],
     },
     alternates: { canonical: `${baseUrl}/blog/${params.slug}` },
     robots: { index: true, follow: true },
   };
 }
 
-function extractHeadings(content: string) {
-  const headingRegex = /^(#{2,6})\s+(.+)$/gm;
+// Extract headings from Portable Text for TOC
+function extractHeadings(body: any[]) {
   const headings: { level: number; text: string; id: string }[] = [];
-  let match;
-
-  while ((match = headingRegex.exec(content)) !== null) {
-    const level = match[1].length;
-    const text = match[2]
-      .trim()
-      .replace(/\*\*/g, '')
-      .replace(/`/g, '')
-      .trim();
-    
-
-    if (text.includes("Isha Sachdeva") || text.includes("Founder, visble.ai")) {
-      continue;
+  
+  body.forEach((block) => {
+    if (block._type === 'block' && ['h2', 'h3', 'h4'].includes(block.style)) {
+      const text = block.children
+        ?.map((child: any) => child.text)
+        .join('')
+        .trim();
+      
+      if (text && !text.includes('Isha Sachdeva') && !text.includes('Founder')) {
+        const level = parseInt(block.style.replace('h', ''));
+        const id = text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+        
+        headings.push({ level, text, id });
+      }
     }
-
-    const id = text
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-    
-    headings.push({ level, text, id });
-  }
-
+  });
+  
   return headings;
 }
 
-function addHeadingIds(htmlContent: string, headings: { level: number; text: string; id: string }[]) {
-  let result = htmlContent;
-  headings.forEach(({ level, text, id }) => {
-    const escapedText = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`<h${level}>\\s*${escapedText}\\s*</h${level}>`, 'gi');
-    result = result.replace(regex, `<h${level} id="${id}">${text}</h${level}>`);
-  });
-  return result;
-}
-
-function cleanHtmlContent(htmlContent: string, coverImage: string | undefined) {
-  let cleanHtml = htmlContent;
-
-  const REMOVE_LIST = [
-    'IMG_5768',          
-    'Isha Sachdeva',     
-    'Founder, visble.ai',
-  ];
-
-  if (coverImage) {
-    const filename = coverImage.split('/').pop()?.split('.')[0]; 
-    if (filename && filename.length > 2) {
-      REMOVE_LIST.push(filename);
-    }
-  }
-
-
-  cleanHtml = cleanHtml.replace(/<img[^>]+>/gi, (imgTag) => {
-    const shouldRemove = REMOVE_LIST.some(term => imgTag.toLowerCase().includes(term.toLowerCase()));
-    
-    if (shouldRemove) {
-      return ''; 
-    }
-    return imgTag; 
-  });
-
-
-  cleanHtml = cleanHtml.replace(/<(p|h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi, (fullTag, tagName, innerText) => {
-    const shouldRemove = REMOVE_LIST.some(term => innerText.includes(term));
-    if (shouldRemove) {
-      return '';
-    }
-    return fullTag;
-  });
-
-  cleanHtml = cleanHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '');
-
-  cleanHtml = cleanHtml.replace(/<img[^>]+>/i, ''); 
-
-  cleanHtml = cleanHtml.replace(/<img[^>]+>/i, ''); // <--- REMOVES THE FIRST IMAGE FOUND
-
-  cleanHtml = cleanHtml.replace(/<p[^>]*>[\s\r\n]*<\/p>/gi, '');
-
-  return cleanHtml;
-}
+// Portable Text components with heading IDs for TOC
+const createPortableTextComponents = (headings: any[]): PortableTextComponents => ({
+  block: {
+    h1: ({ children, value }: any) => {
+      const text = value.children?.map((c: any) => c.text).join('').trim();
+      const heading = headings.find(h => h.text === text);
+      return <h1 id={heading?.id} className="text-4xl font-bold text-gray-900 mb-6 mt-12">{children}</h1>;
+    },
+    h2: ({ children, value }: any) => {
+      const text = value.children?.map((c: any) => c.text).join('').trim();
+      const heading = headings.find(h => h.text === text);
+      return <h2 id={heading?.id} className="text-3xl font-bold text-gray-900 mb-6 mt-12 pb-4 border-b border-gray-200">{children}</h2>;
+    },
+    h3: ({ children, value }: any) => {
+      const text = value.children?.map((c: any) => c.text).join('').trim();
+      const heading = headings.find(h => h.text === text);
+      return <h3 id={heading?.id} className="text-2xl font-bold text-gray-900 mb-4 mt-8">{children}</h3>;
+    },
+    h4: ({ children, value }: any) => {
+      const text = value.children?.map((c: any) => c.text).join('').trim();
+      const heading = headings.find(h => h.text === text);
+      return <h4 id={heading?.id} className="text-xl font-bold text-gray-900 mb-3 mt-6">{children}</h4>;
+    },
+    normal: ({ children }: any) => <p className="text-gray-700 leading-relaxed mb-6 text-base">{children}</p>,
+    blockquote: ({ children }: any) => (
+      <blockquote className="border-l-4 border-purple-500 bg-purple-50 py-4 px-6 italic rounded-r my-6">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    strong: ({ children }: any) => <strong className="font-semibold text-gray-900">{children}</strong>,
+    em: ({ children }: any) => <em className="italic">{children}</em>,
+    code: ({ children }: any) => <code className="bg-gray-100 text-purple-600 px-2 py-1 rounded text-sm font-mono">{children}</code>,
+    link: ({ children, value }: any) => {
+      const isExternal = value?.href?.startsWith('http') && !value.href.includes('visble.ai');
+      return (
+        <a
+          href={value?.href}
+          className="text-purple-600 hover:text-purple-700 font-medium underline decoration-2 underline-offset-2 transition-colors"
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+        >
+          {children}
+          {isExternal && (
+            <svg className="inline-block w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          )}
+        </a>
+      );
+    },
+  },
+  list: {
+    bullet: ({ children }: any) => <ul className="list-disc list-inside mb-6 space-y-2 text-gray-700">{children}</ul>,
+    number: ({ children }: any) => <ol className="list-decimal list-inside mb-6 space-y-2 text-gray-700">{children}</ol>,
+  },
+  types: {
+    image: ({ value }: any) => (
+      <div className="my-8">
+        <img
+          src={urlFor(value).width(800).url()}
+          alt={value.alt || 'Blog image'}
+          className="w-full h-auto rounded-lg shadow-md"
+        />
+      </div>
+    ),
+  },
+});
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug);
+  const post = await sanityClient.fetch(blogBySlugQuery, { slug: params.slug });
 
   if (!post) {
     notFound();
   }
 
-  const headings = extractHeadings(post.content);
-
-  const processedContent = await remark()
-    .use(remarkGfm)
-    .use(html, { sanitize: false })
-    .process(post.content);
-    
-  let contentHtml = processedContent.toString();
-
-  contentHtml = cleanHtmlContent(contentHtml, post.coverImage);
-
-  let contentWithIds = addHeadingIds(contentHtml, headings);
-
-  contentWithIds = contentWithIds.replace(/<table[^>]*>/g, () => 
-    `<div class="overflow-x-auto my-8"><table class="min-w-full divide-y divide-gray-200 border border-gray-300 rounded-lg">`
-  );
-  contentWithIds = contentWithIds.replace(/<\/table>/g, '</table></div>');
-  contentWithIds = contentWithIds.replace(/<thead>/g, '<thead class="bg-gray-50">');
-  contentWithIds = contentWithIds.replace(/<th[^>]*>/g, '<th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b">');
-  contentWithIds = contentWithIds.replace(/<tbody>/g, '<tbody class="bg-white divide-y divide-gray-200">');
-  contentWithIds = contentWithIds.replace(/<td[^>]*>/g, '<td class="px-6 py-4 text-sm text-gray-700 border-b">');
-  contentWithIds = contentWithIds.replace(/<tr[^>]*>/g, '<tr class="hover:bg-gray-50 transition-colors">');
-
-  contentWithIds = contentWithIds.replace(/<a\s+href="([^"]+)"[^>]*>([^<]+)<\/a>/g, (match, href, text) => {
-    const isExternal = href.startsWith('http') && !href.includes('visble.ai');
-    const externalIcon = isExternal 
-      ? '<svg class="inline-block w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>'
-      : '';
-    return `<a href="${href}" class="text-purple-600 hover:text-purple-700 font-medium underline decoration-2 underline-offset-2 transition-colors" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}>${text}${externalIcon}</a>`;
-  });
+  const headings = extractHeadings(post.body);
+  const portableTextComponents = createPortableTextComponents(headings);
 
   // JSON-LD
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
-    description: post.excerpt || post.content.substring(0, 160),
-    image: post.coverImage ? `https://visble.ai/images/blog/${post.coverImage}` : 'https://visble.ai/visble_logo.png',
-    datePublished: new Date(post.date).toISOString(),
-    dateModified: new Date(post.date).toISOString(),
+    description: post.excerpt || post.seoDescription,
+    image: post.coverImage ? urlFor(post.coverImage).width(1200).height(630).url() : 'https://visble.ai/visble_logo.png',
+    datePublished: new Date(post.publishedAt).toISOString(),
+    dateModified: new Date(post.publishedAt).toISOString(),
     author: {
       '@type': 'Person',
       name: 'Isha Sachdeva',
@@ -2616,13 +2939,23 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     ],
   };
 
+  // Calculate read time
+  const wordCount = post.body.reduce((count: number, block: any) => {
+    if (block._type === 'block') {
+      const text = block.children?.map((child: any) => child.text).join(' ') || '';
+      return count + text.split(' ').length;
+    }
+    return count;
+  }, 0);
+  const readTime = Math.ceil(wordCount / 200);
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       
       <div className="min-h-screen bg-white pt-16">
-        <Header/>
+        <Header />
         
         <div className="bg-gray-50 border-b">
           <div className="max-w-7xl mx-auto px-4 py-4">
@@ -2640,13 +2973,11 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             
             <article className="lg:col-span-8">
               <header className="mb-12">
-                {post.categories && post.categories.length > 0 && (
+                {post.category && (
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {post.categories.map((cat) => (
-                      <Link key={cat} href={`/blog/category/${cat.toLowerCase()}`} className="text-sm font-semibold text-purple-600 bg-purple-50 px-4 py-2 rounded-full hover:bg-purple-100 transition-colors">
-                        {cat}
-                      </Link>
-                    ))}
+                    <span className="text-sm font-semibold text-purple-600 bg-purple-50 px-4 py-2 rounded-full">
+                      {post.category}
+                    </span>
                   </div>
                 )}
 
@@ -2659,35 +2990,41 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                     <div className="text-sm text-gray-600">Founder, visble.ai</div>
                   </div>
                   <div className="flex items-center gap-4 text-gray-600 text-sm">
-                    <time dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    <time dateTime={post.publishedAt}>
+                      {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </time>
                     <span className="text-gray-400">•</span>
-                    <span>{Math.ceil(post.content.split(' ').length / 200)} min read</span>
+                    <span>{readTime} min read</span>
                   </div>
                 </div>
               </header>
 
               {post.coverImage && (
                 <div className="mb-12">
-                  <img src={`/images/blog/${post.coverImage}`} alt={post.title} className="w-full h-auto rounded-lg shadow-lg"/>
+                  <img 
+                    src={urlFor(post.coverImage).width(1200).height(630).url()} 
+                    alt={post.title} 
+                    className="w-full h-auto rounded-lg shadow-lg"
+                  />
                 </div>
               )}
 
-              <div 
-                className="prose prose-lg max-w-none
-                  prose-headings:text-gray-900 prose-headings:font-bold
-                  prose-h1:text-4xl prose-h1:mb-6
-                  prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-gray-200
-                  prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-                  prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base
-                  prose-a:text-purple-600 prose-a:no-underline hover:prose-a:underline
-                  prose-strong:text-gray-900 prose-strong:font-semibold
-                  prose-li:text-gray-700 prose-li:leading-relaxed
-                  prose-img:rounded-lg prose-img:shadow-md
-                  prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:italic prose-blockquote:rounded-r"
-                dangerouslySetInnerHTML={{ __html: contentWithIds }} 
-              />
+              <div className="prose prose-lg max-w-none
+                prose-headings:text-gray-900 prose-headings:font-bold
+                prose-h1:text-4xl prose-h1:mb-6
+                prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-gray-200
+                prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+                prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base
+                prose-a:text-purple-600 prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-gray-900 prose-strong:font-semibold
+                prose-li:text-gray-700 prose-li:leading-relaxed
+                prose-img:rounded-lg prose-img:shadow-md
+                prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:italic prose-blockquote:rounded-r">
+                <PortableText 
+                  value={post.body} 
+                  components={portableTextComponents}
+                />
+              </div>
 
               <div className="mt-16 pt-8 border-t border-gray-200">
                 <div className="bg-gradient-to-r from-purple-50 via-blue-50 to-purple-50 rounded-2xl p-8 text-center shadow-sm border border-purple-100">
@@ -2712,7 +3049,15 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                     </h2>
                     <nav className="space-y-2">
                       {headings.map((heading, index) => (
-                        <a key={index} href={`#${heading.id}`} className={`block text-sm hover:text-purple-600 transition-all py-1 ${heading.level === 2 ? 'font-bold text-gray-900 hover:translate-x-1' : 'ml-4 text-gray-600 font-medium hover:translate-x-1'} transition-transform`}>
+                        <a 
+                          key={index} 
+                          href={`#${heading.id}`} 
+                          className={`block text-sm hover:text-purple-600 transition-all py-1 ${
+                            heading.level === 2 
+                              ? 'font-bold text-gray-900 hover:translate-x-1' 
+                              : 'ml-4 text-gray-600 font-medium hover:translate-x-1'
+                          } transition-transform`}
+                        >
                           {heading.text}
                         </a>
                       ))}
@@ -2722,8 +3067,22 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                   <div className="mt-6 bg-gradient-to-br from-purple-50 to-white rounded-xl p-6 border border-purple-100 shadow-sm">
                     <h3 className="text-sm font-bold text-gray-900 mb-3">Share this article</h3>
                     <div className="flex gap-2">
-                      <a href={`https://twitter.com/intent/tweet?url=https://visble.ai/blog/${params.slug}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors text-center text-sm font-medium">Twitter</a>
-                      <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://visble.ai/blog/${params.slug}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-blue-700 text-white p-2 rounded-lg hover:bg-blue-800 transition-colors text-center text-sm font-medium">LinkedIn</a>
+                      <a 
+                        href={`https://twitter.com/intent/tweet?url=https://visble.ai/blog/${params.slug}&text=${encodeURIComponent(post.title)}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex-1 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors text-center text-sm font-medium"
+                      >
+                        Twitter
+                      </a>
+                      <a 
+                        href={`https://www.linkedin.com/sharing/share-offsite/?url=https://visble.ai/blog/${params.slug}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex-1 bg-blue-700 text-white p-2 rounded-lg hover:bg-blue-800 transition-colors text-center text-sm font-medium"
+                      >
+                        LinkedIn
+                      </a>
                     </div>
                   </div>
                 </div>
