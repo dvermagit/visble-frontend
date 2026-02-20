@@ -4,9 +4,16 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  images: { unoptimized: true },
+  images: { remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+    ],
+    unoptimized: true },
   // trailingSlash: true,
   compress: true,
 };
 
 module.exports = nextConfig;
+
