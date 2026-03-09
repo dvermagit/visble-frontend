@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@hookform/resolvers": "^3.9.0",
     "@next/swc-wasm-nodejs": "13.5.1",
     "@portabletext/block-tools": "^5.0.3",
@@ -48,6 +49,7 @@
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "bufferutil": "^4.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -76,7 +78,7 @@
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
     "remark-parse": "^11.0.0",
-    "sanity": "^5.8.0",
+    "sanity": "^5.12.0",
     "sonner": "^1.5.0",
     "styled-components": "^6.3.9",
     "tailwind-merge": "^2.5.2",
@@ -84,6 +86,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
     "unified": "^11.0.5",
+    "utf-8-validate": "^6.0.6",
     "vaul": "^0.9.9",
     "zod": "^3.23.8"
   },
