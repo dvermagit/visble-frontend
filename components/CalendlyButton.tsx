@@ -197,108 +197,61 @@
 
 'use client';
 
-import { Play, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useCallback } from 'react';
+import { Play, ArrowRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useEffect } from 'react'
+import { getCalApi } from "@calcom/embed-react"
 
-let loadPromise: Promise<void> | null = null;
-
-if (typeof window !== 'undefined') {
-  prependLink({ rel: 'preconnect',   href: 'https://assets.calendly.com', crossOrigin: 'anonymous' });
-  prependLink({ rel: 'dns-prefetch', href: 'https://assets.calendly.com' });
-
-  appendLink({
-    rel:  'preload',
-    href: 'https://assets.calendly.com/assets/external/widget.css',
-    as:   'style',
-  });
-
-  const kick = () => { loadCalendly(); };
-  'requestIdleCallback' in window
-    ? requestIdleCallback(kick, { timeout: 1500 })
-    : setTimeout(kick, 0);
-}
-function loadCalendly(): Promise<void> {
-  if (loadPromise) return loadPromise;
-
-  loadPromise = new Promise<void>((resolve, reject) => {
-    // Swap preload → real stylesheet
-    if (!document.querySelector('link[rel="stylesheet"][href*="calendly.com"]')) {
-      appendLink({
-        rel:  'stylesheet',
-        href: 'https://assets.calendly.com/assets/external/widget.css',
-      });
-    }
-
-    if (window.Calendly) { resolve(); return; }
-
-    if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
-      waitForCalendly(resolve, reject);
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src   = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    script.onload  = () => resolve();
-    script.onerror = () => { loadPromise = null; reject(new Error('Calendly failed')); };
-    document.head.appendChild(script); // head > body: parsed sooner
-  });
-
-  return loadPromise;
+interface BookingButtonProps {
+  variant?: 'default' | 'cta' | 'case-study' | 'demo' | 'blog' | 'header'
 }
 
-function waitForCalendly(resolve: () => void, reject: (e: Error) => void) {
-  const deadline = Date.now() + 10_000;
-  const id = setInterval(() => {
-    if (window.Calendly)           { clearInterval(id); resolve(); }
-    else if (Date.now() > deadline) { clearInterval(id); reject(new Error('Calendly timeout')); }
-  }, 50);
-}
+export default function BookingButton({ variant = 'default' }: BookingButtonProps) {
 
-function openPopup(url: string) {
-  window.Calendly?.initPopupWidget({ url });
-}
+  const openCal = async () => {
+    const cal = await getCalApi()
 
-function prependLink(attrs: Record<string, string>) {
-  if (document.querySelector(`link[rel="${attrs.rel}"][href="${attrs.href}"]`)) return;
-  const el = Object.assign(document.createElement('link'), attrs);
-  document.head.prepend(el);
-}
+    cal("modal", {
+      calLink: "isha-sachdeva/30min"
+    })
+  }
 
-function appendLink(attrs: Record<string, string>) {
-  if (document.querySelector(`link[href="${attrs.href}"][rel="${attrs.rel}"]`)) return;
-  const el = Object.assign(document.createElement('link'), attrs);
-  document.head.appendChild(el);
-}
+  useEffect(() => {
+    (async () => {
+      const cal = await getCalApi()
 
-const CALENDLY_URL = 'https://calendly.com/isha-visble/30min-1';
+      cal("ui", {
+        theme: "light",
+        styles: {
+          branding: {
+            brandColor: "#7c3aed"
+          }
+        }
+      })
+    })()
+  }, [])
 
-interface CalendlyButtonProps {
-  variant?: 'default' | 'cta' | 'case-study' | 'demo' | 'blog';
-}
-
-export default function CalendlyButton({ variant = 'default' }: CalendlyButtonProps) {
-  // useCallback so the function reference is stable across re-renders
-  const open = useCallback(async () => {
-    try {
-      await loadCalendly();
-      openPopup(CALENDLY_URL);
-    } catch (err) {
-      console.error('Calendly could not open:', err);
-    }
-  }, []);
-
+  /* Header button (exact same style as your original header) */
+  if (variant === 'header') {
+    return (
+      <Button
+        className="bg-primary hover:bg-primary/90 text-white px-6"
+        onClick={openCal}
+      >
+        Book a Demo
+      </Button>
+    )
+  }
 
   if (variant === 'blog') {
     return (
       <button
-        onClick={open}
+        onClick={openCal}
         className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-all shadow-md hover:shadow-lg"
       >
         Get Started Free
       </button>
-    );
+    )
   }
 
   if (variant === 'demo') {
@@ -306,47 +259,46 @@ export default function CalendlyButton({ variant = 'default' }: CalendlyButtonPr
       <Button
         size="lg"
         className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg"
-        onClick={open}
+        onClick={openCal}
       >
         <Play className="w-5 h-5 mr-2" />
         Book a Demo
       </Button>
-    );
+    )
   }
 
   if (variant === 'cta') {
     return (
       <button
-        onClick={open}
-        className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+        onClick={openCal}
+        className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
       >
         Get Started Today
         <ArrowRight className="w-5 h-5" />
       </button>
-    );
+    )
   }
 
   if (variant === 'case-study') {
     return (
       <Button
         size="lg"
-        onClick={open}
+        onClick={openCal}
         className="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 text-base bricolage"
       >
         Get Started Today
       </Button>
-    );
+    )
   }
 
-  // Default / hero
   return (
     <Button
       size="lg"
       className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg"
-      onClick={open}
+      onClick={openCal}
     >
       <Play className="w-5 h-5 mr-2" />
       Book a Demo
     </Button>
-  );
+  )
 }

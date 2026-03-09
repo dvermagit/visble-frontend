@@ -216,57 +216,42 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image'; // SEO: Optimized Images
-
-let calendlyLoaded = false;
+import BookingButton from './CalendlyButton';
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
 
-  // Helper to close menu when a link is clicked
   const closeMenu = () => setIsMenuOpen(false);
-
-  // Calendly popup handler
-  const openCalendly = async () => {
-    if (!calendlyLoaded) {
-      await loadCalendlyAssets();
-      calendlyLoaded = true;
-    }
-
-    // @ts-ignore
-    window.Calendly.initPopupWidget({
-      url: 'https://calendly.com/isha-visble/30min-1',
-    });
-  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          
-          {/* Logo - SEO: Use next/image with priority */}
+
+          {/* Logo */}
           <Link href="/" className="flex items-center" onClick={closeMenu}>
             <div className="relative w-28 h-10 pl-2">
-              <Image 
-                src="/visble_logo.png" 
-                alt="Visble AI Logo" 
+              <Image
+                src="/visble_logo.png"
+                alt="Visble AI Logo"
                 fill
                 className="object-contain"
-                priority // Load immediately (LCP optimization)
+                priority
               />
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
-            {/* SEO: Use /# for anchors so they work from /blogs page too */}
+          <nav className="hidden md:flex items-center space-x-8">
+
             <Link href="/#our-story" className="text-gray-600 hover:text-gray-900 transition-colors">
               Our Story
             </Link>
             <Link href="/case-studies" className="text-gray-600 hover:text-gray-900 transition-colors">
               Case Studies
             </Link>
-            
+
             {/* Tools Dropdown */}
             <div className="relative group">
               <button
@@ -278,10 +263,10 @@ export default function Header() {
                 Tools
                 <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${isToolsOpen ? 'rotate-180' : ''}`} />
               </button>
-              
+
               {/* Dropdown Menu */}
               {isToolsOpen && (
-                <div 
+                <div
                   className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-3 z-50"
                   onMouseLeave={() => setIsToolsOpen(false)} // UX: Close on mouse leave
                 >
@@ -291,8 +276,8 @@ export default function Header() {
                   >
                     Geo Analysis
                   </a>
-                  <Link 
-                    href="/llms-txt-generator" 
+                  <Link
+                    href="/llms-txt-generator"
                     className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
                     onClick={() => setIsToolsOpen(false)}
                   >
@@ -301,7 +286,7 @@ export default function Header() {
                 </div>
               )}
             </div>
-            
+
             <Link href="/blogs" className="text-gray-600 hover:text-gray-900 transition-colors">
               Blogs
             </Link>
@@ -309,19 +294,13 @@ export default function Header() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button 
-              className="bg-primary hover:bg-primary/90 text-white px-6"
-              onClick={openCalendly}
-            >
-              Book a Demo
-            </Button>
+            <BookingButton variant="header" />
           </div>
 
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-gray-600"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -331,21 +310,21 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-100 h-screen overflow-y-auto pb-20">
             <nav className="flex flex-col space-y-4 px-2">
-              <Link 
-                href="/#our-story" 
+              <Link
+                href="/#our-story"
                 className="text-gray-600 hover:text-gray-900 transition-colors text-lg py-2"
                 onClick={closeMenu}
               >
                 Our Story
               </Link>
-              <Link 
+              <Link
                 href="/#case-studies" 
                 className="text-gray-600 hover:text-gray-900 transition-colors text-lg py-2"
                 onClick={closeMenu}
               >
                 Case Studies
               </Link>
-              
+
               {/* Mobile Tools Section */}
               <div className="py-2">
                 <button
@@ -364,8 +343,8 @@ export default function Header() {
                     >
                       Geo Analysis
                     </a>
-                    <Link 
-                      href="/llms-txt-generator" 
+                    <Link
+                      href="/llms-txt-generator"
                       className="block text-gray-500 hover:text-gray-700 transition-colors"
                       onClick={closeMenu}
                     >
@@ -374,19 +353,19 @@ export default function Header() {
                   </div>
                 )}
               </div>
-              
-              <Link 
-                href="/blogs" 
+
+              <Link
+                href="/blogs"
                 className="text-gray-600 hover:text-gray-900 transition-colors text-lg py-2"
                 onClick={closeMenu}
               >
                 Blogs
               </Link>
-              
+
               {/* Mobile CTAs */}
               <div className="flex flex-col space-y-3 pt-6 mt-4 border-t border-gray-100">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full justify-center"
                   asChild
                 >
@@ -394,12 +373,10 @@ export default function Header() {
                     Try Visble Login
                   </a>
                 </Button>
-                <Button 
-                  className="bg-primary hover:bg-primary/90 text-white w-full justify-center"
-                  onClick={openCalendly}
-                >
-                  Book a Demo
-                </Button>
+                
+                {/* same mobile layout */}
+                <BookingButton variant="header" />
+
               </div>
             </nav>
           </div>
@@ -407,33 +384,4 @@ export default function Header() {
       </div>
     </header>
   );
-}
-
-/* ---------- Calendly Helper ---------- */
-
-function loadCalendlyAssets(): Promise<void> {
-  return new Promise((resolve, reject) => {
-    // Load CSS
-    if (!document.querySelector('link[href*="calendly.com/assets/external/widget.css"]')) {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'https://assets.calendly.com/assets/external/widget.css';
-      document.head.appendChild(link);
-    }
-
-    // Load JS
-    if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
-      resolve();
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error('Calendly failed to load'));
-
-    document.body.appendChild(script);
-  });
 }
