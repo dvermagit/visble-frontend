@@ -21,6 +21,7 @@ export default defineConfig({
   title: 'Visble CMS',
   projectId,
   dataset,
+  basePath: '/studio',
   plugins: [
     structureTool({
       structure: (S: StructureBuilder) =>
