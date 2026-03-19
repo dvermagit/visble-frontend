@@ -30,14 +30,14 @@ export async function generateMetadata({ params }: any) {
 
   return {
     title: post.seoTitle || `${post.title} | Visble.ai Blog`,
-    description: description,
+    description,
     keywords: post.tags?.join(', '),
     openGraph: {
       title: post.title,
-      description: description,
+      description,
       url: `${baseUrl}/blog/${params.slug}`,
       siteName: 'Visble.ai',
-      images: post.coverImage 
+      images: post.coverImage
         ? [{ url: urlFor(post.coverImage).width(1200).height(630).url(), width: 1200, height: 630, alt: post.title }]
         : [],
       type: 'article',
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: any) {
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: description,
+      description,
       images: post.coverImage ? [urlFor(post.coverImage).width(1200).height(630).url()] : [],
     },
     alternates: { canonical: `${baseUrl}/blog/${params.slug}` },
@@ -80,7 +80,20 @@ function extractHeadings(body: any[]) {
   return headings;
 }
 
-// Portable Text components with heading IDs for TOC
+function parseMarkdownTable(rawText: string) {
+  // Split on the row boundary: "| |" pattern (closing pipe of one row + opening pipe of next)
+  const rowStrings = rawText.split(/\|\s*\|/).map((s: string) => s.trim()).filter(Boolean);
+
+  const rows = rowStrings
+    .map((line: string) =>
+      line.replace(/^\|/, '').replace(/\|$/, '').split('|').map((cell: string) => cell.trim())
+    )
+    .filter((row: string[]) => !row.every((cell: string) => /^[-\s]+$/.test(cell)))
+    .filter((row: string[]) => row.some((cell: string) => cell.length > 0));
+
+  return rows;
+}
+
 const createPortableTextComponents = (headings: any[]): PortableTextComponents => ({
   block: {
     h1: ({ children, value }: any) => {
@@ -103,7 +116,44 @@ const createPortableTextComponents = (headings: any[]): PortableTextComponents =
       const heading = headings.find(h => h.text === text);
       return <h4 id={heading?.id} className="text-xl font-bold text-gray-900 mb-3 mt-6">{children}</h4>;
     },
-    normal: ({ children }: any) => <p className="text-gray-700 leading-relaxed mb-6 text-base">{children}</p>,
+    normal: ({ children, value }: any) => {
+      const rawText = (value?.children ?? []).map((c: any) => c.text ?? '').join('');
+
+      if (rawText.trim().startsWith('|')) {
+        const rows = parseMarkdownTable(rawText);
+        if (rows.length >= 2) {
+          const [headerRow, ...bodyRows] = rows;
+          return (
+            <div className="my-8 overflow-x-auto rounded-lg border border-gray-200">
+              <table className="w-full border-collapse text-sm">
+                <thead>
+                  <tr className="bg-gray-100">
+                    {headerRow.map((cell: string, i: number) => (
+                      <th key={i} className="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-900 whitespace-nowrap">
+                        {cell}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {bodyRows.map((row: string[], rowIndex: number) => (
+                    <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      {row.map((cell: string, cellIndex: number) => (
+                        <td key={cellIndex} className="border border-gray-200 px-4 py-3 text-gray-700 align-top">
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+        }
+      }
+
+      return <p className="text-gray-700 leading-relaxed mb-6 text-base">{children}</p>;
+    },
     blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 border-purple-500 bg-purple-50 py-4 px-6 italic rounded-r my-6">
         {children}
@@ -137,6 +187,10 @@ const createPortableTextComponents = (headings: any[]): PortableTextComponents =
     bullet: ({ children }: any) => <ul className="list-disc list-inside mb-6 space-y-2 text-gray-700">{children}</ul>,
     number: ({ children }: any) => <ol className="list-decimal list-inside mb-6 space-y-2 text-gray-700">{children}</ol>,
   },
+  listItem: {
+    bullet: ({ children }: any) => <li className="text-gray-700 leading-relaxed">{children}</li>,
+    number: ({ children }: any) => <li className="text-gray-700 leading-relaxed">{children}</li>,
+  },
   types: {
     image: ({ value }: any) => (
       <div className="my-8">
@@ -145,6 +199,32 @@ const createPortableTextComponents = (headings: any[]): PortableTextComponents =
           alt={value.alt || 'Blog image'}
           className="w-full h-auto rounded-lg shadow-md"
         />
+      </div>
+    ),
+    html: ({ value }: any) => (
+      <div className="my-8 overflow-x-auto" dangerouslySetInnerHTML={{ __html: value.html }} />
+    ),
+    table: ({ value }: any) => (
+      <div className="my-8 overflow-x-auto rounded-lg border border-gray-200">
+        <table className="w-full border-collapse text-sm">
+          <tbody>
+            {value.rows?.map((row: any, rowIndex: number) => (
+              <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                {row.cells?.map((cell: string, cellIndex: number) =>
+                  rowIndex === 0 ? (
+                    <th key={cellIndex} className="border border-gray-200 px-4 py-3 text-left font-semibold text-gray-900 bg-gray-100 whitespace-nowrap">
+                      {cell}
+                    </th>
+                  ) : (
+                    <td key={cellIndex} className="border border-gray-200 px-4 py-3 text-gray-700 align-top">
+                      {cell}
+                    </td>
+                  )
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     ),
   },
@@ -187,7 +267,7 @@ export default async function BlogPost({ params }: any) {
       name: 'Visble.ai',
       logo: { '@type': 'ImageObject', url: 'https://visble.ai/visble_logo.png' },
     },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://visble.ai/blog/${params.slug}` },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://visble.ai/blog/${slug}` },
   };
 
   const breadcrumbSchema = {
@@ -196,7 +276,7 @@ export default async function BlogPost({ params }: any) {
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visble.ai' },
       { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://visble.ai/blogs' },
-      { '@type': 'ListItem', position: 3, name: post.title, item: `https://visble.ai/blog/${params.slug}` },
+      { '@type': 'ListItem', position: 3, name: post.title, item: `https://visble.ai/blog/${slug}` },
     ],
   };
 
@@ -214,10 +294,10 @@ export default async function BlogPost({ params }: any) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      
+
       <div className="min-h-screen bg-white pt-16">
         <Header />
-        
+
         <div className="bg-gray-50 border-b">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <Link href="/blogs" className="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium transition-colors">
@@ -231,7 +311,7 @@ export default async function BlogPost({ params }: any) {
 
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            
+
             <article className="lg:col-span-8">
               <header className="mb-12">
                 {post.category && (
@@ -262,9 +342,9 @@ export default async function BlogPost({ params }: any) {
 
               {post.coverImage && (
                 <div className="mb-12">
-                  <img 
-                    src={urlFor(post.coverImage).width(1200).height(630).url()} 
-                    alt={post.title} 
+                  <img
+                    src={urlFor(post.coverImage).width(1200).height(630).url()}
+                    alt={post.title}
                     className="w-full h-auto rounded-lg shadow-lg"
                   />
                 </div>
@@ -280,11 +360,13 @@ export default async function BlogPost({ params }: any) {
                 prose-strong:text-gray-900 prose-strong:font-semibold
                 prose-li:text-gray-700 prose-li:leading-relaxed
                 prose-img:rounded-lg prose-img:shadow-md
-                prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:italic prose-blockquote:rounded-r">
-                <PortableText 
-                  value={post.body} 
-                  components={portableTextComponents}
-                />
+                prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:italic prose-blockquote:rounded-r
+                prose-table:w-full prose-table:border-collapse prose-table:text-sm
+                prose-thead:bg-gray-100
+                prose-th:border prose-th:border-gray-200 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-gray-900
+                prose-td:border prose-td:border-gray-200 prose-td:px-4 prose-td:py-3 prose-td:text-gray-700 prose-td:align-top
+                prose-tr:even:bg-gray-50">
+                <PortableText value={post.body} components={portableTextComponents} />
               </div>
 
               <div className="mt-16 pt-8 border-t border-gray-200">
@@ -310,12 +392,12 @@ export default async function BlogPost({ params }: any) {
                     </h2>
                     <nav className="space-y-2">
                       {headings.map((heading, index) => (
-                        <a 
-                          key={index} 
-                          href={`#${heading.id}`} 
+                        <a
+                          key={index}
+                          href={`#${heading.id}`}
                           className={`block text-sm hover:text-purple-600 transition-all py-1 ${
-                            heading.level === 2 
-                              ? 'font-bold text-gray-900 hover:translate-x-1' 
+                            heading.level === 2
+                              ? 'font-bold text-gray-900 hover:translate-x-1'
                               : 'ml-4 text-gray-600 font-medium hover:translate-x-1'
                           } transition-transform`}
                         >
@@ -324,22 +406,22 @@ export default async function BlogPost({ params }: any) {
                       ))}
                     </nav>
                   </div>
-                  
+
                   <div className="mt-6 bg-gradient-to-br from-purple-50 to-white rounded-xl p-6 border border-purple-100 shadow-sm">
                     <h3 className="text-sm font-bold text-gray-900 mb-3">Share this article</h3>
                     <div className="flex gap-2">
-                      <a 
-                        href={`https://twitter.com/intent/tweet?url=https://visble.ai/blog/${params.slug}&text=${encodeURIComponent(post.title)}`} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                      <a
+                        href={`https://twitter.com/intent/tweet?url=https://visble.ai/blog/${slug}&text=${encodeURIComponent(post.title)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex-1 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors text-center text-sm font-medium"
                       >
                         Twitter
                       </a>
-                      <a 
-                        href={`https://www.linkedin.com/sharing/share-offsite/?url=https://visble.ai/blog/${params.slug}`} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                      <a
+                        href={`https://www.linkedin.com/sharing/share-offsite/?url=https://visble.ai/blog/${slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex-1 bg-blue-700 text-white p-2 rounded-lg hover:bg-blue-800 transition-colors text-center text-sm font-medium"
                       >
                         LinkedIn
