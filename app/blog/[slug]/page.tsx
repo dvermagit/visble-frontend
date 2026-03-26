@@ -6,6 +6,8 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import CalendlyButton from '@/components/CalendlyButton';
 
+export const revalidate = 60;
+export const dynamicParams = true;
 export async function generateStaticParams() {
   const slugs: { slug: string }[] = await sanityClient.fetch(allBlogSlugsQuery);
   return slugs.map((s) => ({ slug: s.slug }));
@@ -35,7 +37,7 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: post.title,
       description,
-      url: `${baseUrl}/blog/${params.slug}`,
+      url: `${baseUrl}/blog/${slug}`,
       siteName: 'Visble.ai',
       images: post.coverImage
         ? [{ url: urlFor(post.coverImage).width(1200).height(630).url(), width: 1200, height: 630, alt: post.title }]
@@ -49,7 +51,7 @@ export async function generateMetadata({ params }: any) {
       description,
       images: post.coverImage ? [urlFor(post.coverImage).width(1200).height(630).url()] : [],
     },
-    alternates: { canonical: `${baseUrl}/blog/${params.slug}` },
+    alternates: { canonical: `${baseUrl}/blog/${slug}` },
     robots: { index: true, follow: true },
   };
 }

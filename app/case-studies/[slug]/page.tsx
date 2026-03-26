@@ -10,6 +10,8 @@ import CalendlyButton from '@/components/CalendlyButton';
 import Header from '@/components/Header';
 import Image from 'next/image';
 
+export const revalidate = 60;
+export const dynamicParams = true;
 interface PageProps {
   params: {
     slug: string;
