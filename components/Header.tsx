@@ -270,12 +270,13 @@ export default function Header() {
                   className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-3 z-50"
                   onMouseLeave={() => setIsToolsOpen(false)} // UX: Close on mouse leave
                 >
-                  <a 
-                    href="https://app.visble.ai/login" 
+                  <Link
+                    href="/geo-analysis"
                     className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                    onClick={() => setIsToolsOpen(false)}
                   >
                     Geo Analysis
-                  </a>
+                  </Link>
                   <Link
                     href="/llms-txt-generator"
                     className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
@@ -318,8 +319,8 @@ export default function Header() {
                 Our Story
               </Link>
               <Link
-                href="/#case-studies" 
-                className="text-gray-600 hover:text-gray-900 transition-colors text-lg py-2"
+                href="/case-studies"
+                className="text-gray-600 hover:text-gray-900 text-lg py-2"
                 onClick={closeMenu}
               >
                 Case Studies
@@ -334,18 +335,21 @@ export default function Header() {
                   Tools
                   <ChevronDown className={`w-5 h-5 transition-transform ${isToolsOpen ? 'rotate-180' : ''}`} />
                 </button>
+
                 {isToolsOpen && (
                   <div className="ml-4 mt-2 space-y-3 border-l-2 border-gray-100 pl-4">
-                    <a 
-                      href="https://app.visble.ai/login" 
-                      className="block text-gray-500 hover:text-gray-700 transition-colors"
+
+                    <Link
+                      href="/geo-analysis"
+                      className="block text-gray-500 hover:text-gray-700"
                       onClick={closeMenu}
                     >
                       Geo Analysis
-                    </a>
+                    </Link>
+
                     <Link
                       href="/llms-txt-generator"
-                      className="block text-gray-500 hover:text-gray-700 transition-colors"
+                      className="block text-gray-500 hover:text-gray-700"
                       onClick={closeMenu}
                     >
                       llms.txt Generator
@@ -373,7 +377,7 @@ export default function Header() {
                     Try Visble Login
                   </a>
                 </Button>
-                
+
                 {/* same mobile layout */}
                 <BookingButton variant="header" />
 
