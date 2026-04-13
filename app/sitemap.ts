@@ -111,7 +111,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'shop',           
     'coming-soon',    
     'blogs',          // Already added in staticRoutes above
-    'llms-txt-generator' // Already added in staticRoutes above
+    'llms-txt-generator',
+    'geo-analysis',
   ];
 
   const pageUrls = pages
