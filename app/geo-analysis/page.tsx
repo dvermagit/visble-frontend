@@ -1531,7 +1531,7 @@
 //   );
 // }
 
-import GeoAnalysisPage from '@/components/GeoAnalysisPage ';
+import GeoAnalysisPage from '@/components/GeoAnalysisPage';
 import type { Metadata } from 'next';
 
 
@@ -1574,5 +1574,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <GeoAnalysisPage />;
+  return <GeoAnalysisPage/>;
 }
