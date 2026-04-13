@@ -1,11 +1,15 @@
+
 'use client';
 
 import Link from 'next/link';
 import { ArrowRight, BarChart3, Search, FileText, Target, TrendingUp, CheckCircle, ChevronDown } from 'lucide-react';
+// import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CalendlyButton from '@/components/CalendlyButton';
 
+// ─── Animated counter ─────────────────────────────────────────────────────────
 function Counter({ end, suffix = '' }: { end: number; suffix?: string }) {
   const [val, setVal] = useState(0);
   const started = useRef(false);
@@ -28,6 +32,7 @@ function Counter({ end, suffix = '' }: { end: number; suffix?: string }) {
   return <>{val.toLocaleString()}{suffix}</>;
 }
 
+// ─── Pulsing live dot ─────────────────────────────────────────────────────────
 function LiveDot() {
   return (
     <span className="relative flex h-2 w-2">
@@ -174,6 +179,11 @@ function HeroDashboard() {
   );
 }
 
+// export const metadata: Metadata = {
+//   title: 'GEO Analysis Tool - Track AI Search Visibility | Visble',
+//   description: 'Monitor your brand mentions across ChatGPT, Perplexity, Gemini, and other AI engines. Track visibility, analyze content performance, and optimize for AI search.',
+// };
+
 export default function GeoAnalysisPage() {
   return (
     <>
@@ -221,6 +231,7 @@ export default function GeoAnalysisPage() {
       <div className="min-h-screen bg-white">
         <Header />
 
+        {/* ═══════════════════════════════ HERO ═══════════════════════════════ */}
         <section className="relative bg-gradient-to-br from-blue-500 via-purple-500 to-purple-600 text-white pt-32 pb-28 overflow-hidden">
           {/* Background layers */}
           <div className="absolute -top-32 -right-20 w-[480px] h-[480px] rounded-full bg-purple-400/20 blur-[80px] pointer-events-none" />
@@ -350,6 +361,7 @@ export default function GeoAnalysisPage() {
           </div>
         </section>
 
+        {/* ═══════════════════════════ DASHBOARD SECTION ══════════════════════ */}
         <section id="dashboard" className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -551,6 +563,7 @@ export default function GeoAnalysisPage() {
           </div>
         </section>
 
+        {/* ══════════════════════ FEATURES: LARGE SCALE ═══════════════════════ */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -599,7 +612,6 @@ export default function GeoAnalysisPage() {
           </div>
         </section>
 
-        {/* ═══════════════════════ FEATURES: TRACK VISIBILITY ═════════════════ */}
         <section className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -734,6 +746,7 @@ export default function GeoAnalysisPage() {
           </div>
         </section>
 
+        {/* ════════════════════════════ CTA SECTION ═══════════════════════════ */}
         <section className="py-20 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-gradient-to-r from-blue-400 to-purple-500 rounded-3xl p-12 text-center text-white shadow-2xl">
@@ -809,6 +822,7 @@ export default function GeoAnalysisPage() {
                 </div>
           </div>
         </section>
+
         <Footer />
       </div>
     </>
