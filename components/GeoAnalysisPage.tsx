@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CalendlyButton from '@/components/CalendlyButton';
+import BookingButton from '@/components/CalendlyButton';
 
 // ─── Animated counter ─────────────────────────────────────────────────────────
 function Counter({ end, suffix = '' }: { end: number; suffix?: string }) {
@@ -291,16 +292,17 @@ export default function GeoAnalysisPage() {
 
                 {/* CTAs */}
                 <div className="hero-ctas flex flex-wrap gap-3 mb-8">
-                  <button className="group relative inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-blue-50 px-7 py-3.5 rounded-xl font-bold text-base transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0">
+                  <a
+                    href="https://app.visble.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-blue-50 px-7 py-3.5 rounded-xl font-bold text-base transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                  >
                     Get a 14-day Free Trial
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                  <button className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 backdrop-blur-sm hover:bg-white/20 rounded-xl font-semibold text-base transition-all border border-white/25 hover:border-white/40 hover:-translate-y-0.5">
-                    <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                    Book a Call
-                  </button>
+                  </a>
+                 <BookingButton variant="hero" />
                 </div>
-
                 {/* Trust indicators */}
                 {/* <div className="hero-trust flex flex-wrap gap-5 text-sm text-white/65">
                   {['No credit card required', '14-day free trial', 'Cancel anytime'].map((t) => (

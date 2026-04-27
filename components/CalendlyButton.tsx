@@ -203,7 +203,7 @@ import { useEffect } from 'react'
 import { getCalApi } from "@calcom/embed-react"
 
 interface BookingButtonProps {
-  variant?: 'default' | 'cta' | 'case-study' | 'demo' | 'blog' | 'header'
+  variant?: 'default' | 'cta' | 'case-study' | 'demo' | 'blog' | 'header' | 'hero'
 }
 
 export default function BookingButton({ variant = 'default' }: BookingButtonProps) {
@@ -291,6 +291,17 @@ export default function BookingButton({ variant = 'default' }: BookingButtonProp
     )
   }
 
+  if (variant === 'hero') {
+  return (
+    <button
+      onClick={openCal}
+      className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 backdrop-blur-sm hover:bg-white/20 rounded-xl font-semibold text-base transition-all border border-white/25 hover:border-white/40 hover:-translate-y-0.5"
+    >
+      <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
+      Book a Call
+    </button>
+  )
+}
   return (
     <Button
       size="lg"
