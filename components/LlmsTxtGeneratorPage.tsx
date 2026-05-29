@@ -423,7 +423,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Download, Copy, CheckCircle, AlertCircle, FileText, Zap, Shield, TrendingUp, ChevronDown, Search, ArrowRight } from 'lucide-react';
+import { Download, Copy, CheckCircle, AlertCircle, FileText, Zap, Shield, TrendingUp, ChevronDown, Search, ArrowRight, Globe, RefreshCw, ExternalLink } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -438,6 +438,13 @@ export default function LlmsTxtGeneratorPage() {
   const [copied, setCopied] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const [error, setError] = useState('');
+  // CDN proxy state
+  const [serveUrl, setServeUrl] = useState('');
+  const [serveFullUrl, setServeFullUrl] = useState('');
+  const [domain, setDomain] = useState('');
+  const [urlCopied, setUrlCopied] = useState(false);
+  const [activeDeployTab, setActiveDeployTab] = useState<'vercel' | 'nginx' | 'apache' | 'cloudflare' | 'netlify'>('vercel');
+  const [deploySnippetCopied, setDeploySnippetCopied] = useState(false);
 
   const handleGenerate = async () => {
     if (!url) return;
@@ -448,6 +455,10 @@ export default function LlmsTxtGeneratorPage() {
     setError('');
     setStatusMessage('Starting pipeline...');
     setActiveTab('llms');
+    // Reset deploy state on new generation
+    setServeUrl('');
+    setServeFullUrl('');
+    setDomain('');
 
     try {
       const response = await fetch(`${BACKEND_URL}/api/generate`, {
@@ -485,6 +496,15 @@ export default function LlmsTxtGeneratorPage() {
               }
               if (event.data?.llms_full_txt) {
                 setGeneratedFullContent(event.data.llms_full_txt);
+              }
+              if (event.data?.serve_url) {
+                setServeUrl(event.data.serve_url);
+              }
+              if (event.data?.serve_full_url) {
+                setServeFullUrl(event.data.serve_full_url);
+              }
+              if (event.data?.domain) {
+                setDomain(event.data.domain);
               }
             } catch { /* skip malformed lines */ }
           }
@@ -708,7 +728,144 @@ export default function LlmsTxtGeneratorPage() {
                 </pre>
               </div>
 
-              {/* Next Steps */}
+              {/* Deploy to Your Site */}
+              {serveUrl && (
+                <div className="mt-8">
+                  {/* Header */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-md">
+                      <Globe className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900">Deploy to Your Site</h3>
+                      <p className="text-sm text-gray-500">Add one redirect rule — AI crawlers always get your latest file</p>
+                    </div>
+                    <div className="ml-auto flex items-center gap-1.5 bg-green-50 border border-green-200 rounded-full px-3 py-1">
+                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                      <span className="text-xs font-semibold text-green-700">Live</span>
+                    </div>
+                  </div>
+
+                  {/* Permanent URL card */}
+                  <div className="bg-gray-900 rounded-xl p-4 mb-4">
+                    <p className="text-xs text-gray-400 font-mono mb-2 uppercase tracking-wider">Your permanent llms.txt URL</p>
+                    <div className="flex items-center gap-3">
+                      <code className="flex-1 text-sm text-emerald-400 font-mono truncate">{serveUrl}</code>
+                      <div className="flex gap-2 flex-shrink-0">
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(serveUrl);
+                            setUrlCopied(true);
+                            setTimeout(() => setUrlCopied(false), 2000);
+                          }}
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded-lg text-xs text-gray-200 font-medium transition-colors"
+                        >
+                          {urlCopied ? <CheckCircle className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                          {urlCopied ? 'Copied!' : 'Copy'}
+                        </button>
+                        <a
+                          href={serveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded-lg text-xs text-gray-200 font-medium transition-colors"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          Open
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Auto-update badge */}
+                  <div className="flex items-center gap-2 mb-4 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2">
+                    <RefreshCw className="w-4 h-4 flex-shrink-0" />
+                    <span><strong>Auto-updates:</strong> Every time you regenerate for <code className="font-mono text-xs bg-emerald-100 px-1.5 py-0.5 rounded">{domain}</code>, this URL automatically serves the latest file — zero client effort.</span>
+                  </div>
+
+                  {/* Platform tabs */}
+                  <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                    <div className="flex items-center justify-between px-4 pt-4 pb-0">
+                      <p className="text-sm font-semibold text-gray-700">Add this redirect to your site:</p>
+                      <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+                        {(['vercel', 'nginx', 'apache', 'cloudflare', 'netlify'] as const).map((platform) => (
+                          <button
+                            key={platform}
+                            onClick={() => setActiveDeployTab(platform)}
+                            className={`px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-all ${
+                              activeDeployTab === platform
+                                ? 'bg-white text-gray-900 shadow-sm'
+                                : 'text-gray-500 hover:text-gray-700'
+                            }`}
+                          >
+                            {platform === 'cloudflare' ? 'Cloudflare' : platform.charAt(0).toUpperCase() + platform.slice(1)}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Snippet */}
+                    <div className="relative">
+                      <div className="bg-gray-900 m-4 rounded-lg overflow-hidden">
+                        <div className="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
+                          <span className="text-xs text-gray-400 font-mono">
+                            {activeDeployTab === 'vercel' && 'vercel.json'}
+                            {activeDeployTab === 'nginx' && 'nginx.conf'}
+                            {activeDeployTab === 'apache' && '.htaccess'}
+                            {activeDeployTab === 'cloudflare' && 'Cloudflare Redirect Rule'}
+                            {activeDeployTab === 'netlify' && 'netlify.toml'}
+                          </span>
+                          <button
+                            onClick={() => {
+                              const snippets: Record<string, string> = {
+                                vercel: `{\n  "redirects": [\n    {\n      "source": "/llms.txt",\n      "destination": "${serveUrl}",\n      "permanent": false\n    }\n  ]\n}`,
+                                nginx: `location = /llms.txt {\n  return 302 ${serveUrl};\n}`,
+                                apache: `Redirect /llms.txt ${serveUrl}`,
+                                cloudflare: `If URI Path equals /llms.txt\n→ Redirect to ${serveUrl} (302)`,
+                                netlify: `[[redirects]]\n  from = "/llms.txt"\n  to = "${serveUrl}"\n  status = 302`,
+                              };
+                              navigator.clipboard.writeText(snippets[activeDeployTab]);
+                              setDeploySnippetCopied(true);
+                              setTimeout(() => setDeploySnippetCopied(false), 2000);
+                            }}
+                            className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors"
+                          >
+                            {deploySnippetCopied ? <CheckCircle className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                            {deploySnippetCopied ? 'Copied!' : 'Copy'}
+                          </button>
+                        </div>
+                        <pre className="p-4 text-sm text-gray-100 font-mono overflow-x-auto">
+                          {activeDeployTab === 'vercel' && `{\n  "redirects": [\n    {\n      "source": "/llms.txt",\n      "destination": "${serveUrl}",\n      "permanent": false\n    }\n  ]\n}`}
+                          {activeDeployTab === 'nginx' && `location = /llms.txt {\n  return 302 ${serveUrl};\n}`}
+                          {activeDeployTab === 'apache' && `Redirect /llms.txt ${serveUrl}`}
+                          {activeDeployTab === 'cloudflare' && `If URI Path equals /llms.txt\n→ Redirect to ${serveUrl} (302)`}
+                          {activeDeployTab === 'netlify' && `[[redirects]]\n  from = "/llms.txt"\n  to = "${serveUrl}"\n  status = 302`}
+                        </pre>
+                      </div>
+                    </div>
+
+                    {/* Steps */}
+                    <div className="px-4 pb-4">
+                      <ol className="space-y-2 text-sm text-gray-600">
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold text-purple-600 flex-shrink-0">1.</span>
+                          <span>Copy the redirect snippet above and add it to your site config</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold text-purple-600 flex-shrink-0">2.</span>
+                          <span>Deploy — <code className="bg-gray-100 px-1.5 py-0.5 rounded font-mono text-xs">{domain}/llms.txt</code> will now point to your Visble-hosted file</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold text-purple-600 flex-shrink-0">3.</span>
+                          <span>Regenerate anytime — your live URL auto-updates, no config changes needed</span>
+                        </li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Fallback Next Steps (shown when serve URL not yet available) */}
+              {!serveUrl && (
               <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
                 <div className="flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -731,6 +888,7 @@ export default function LlmsTxtGeneratorPage() {
                   </div>
                 </div>
               </div>
+              )}
             </div>
           </div>
         </section>
