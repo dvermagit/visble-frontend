@@ -63,6 +63,8 @@
 import { getAllPosts, getAllCategories } from '@/lib/posts';
 import { getAllPages } from '@/lib/page';
 import { MetadataRoute } from 'next';
+import { sanityClient } from '@/lib/sanity.client';
+import { allCaseStudySlugsQuery } from '@/lib/queries';
 
 export function generateStaticParams() {
   return [];
@@ -74,7 +76,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   
   const posts = getAllPosts();
   const categories = getAllCategories();
-  const pages = getAllPages(); 
+  const pages = getAllPages();
+  const caseStudySlugs = await sanityClient.fetch(allCaseStudySlugsQuery);
   
   const staticRoutes = [
     {
@@ -96,11 +99,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
-    url: `${baseUrl}/geo-analysis`,
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
-  },
+      url: `${baseUrl}/geo-analysis`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/case-studies`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
   ];
 
   const excludedSlugs = [
@@ -113,6 +122,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'blogs',          // Already added in staticRoutes above
     'llms-txt-generator',
     'geo-analysis',
+    'case-studies',   // Already added in staticRoutes above
   ];
 
   const pageUrls = pages
@@ -138,5 +148,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...blogUrls, ...categoryUrls, ...pageUrls];
+  const caseStudyUrls = caseStudySlugs
+    .filter((s: any) => s.slug)
+    .map((s: any) => ({
+      url: `${baseUrl}/case-studies/${s.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }));
+
+  return [...staticRoutes, ...blogUrls, ...categoryUrls, ...caseStudyUrls, ...pageUrls];
 }
