@@ -14,9 +14,9 @@
 
 //   const handleGenerate = async () => {
 //     if (!url) return;
-    
+
 //     setIsGenerating(true);
-    
+
 //     // Simulate generation (replace with actual API call)
 //     setTimeout(() => {
 //       const content = `# ${url}
@@ -89,11 +89,11 @@
 //               <FileText className="w-4 h-4" />
 //               Free Tool
 //             </div>
-            
+
 //             <h1 className="text-5xl md:text-6xl font-bold bricolage text-gray-900 mb-6 leading-tight">
 //               llms.txt Generator
 //             </h1>
-            
+
 //             <p className="text-xl text-gray-600 mb-12 leading-relaxed">
 //               Build the foundation for AI SEO. Generate an llms.txt file that guides AI models to your best content and turns every crawl into a citation.
 //             </p>
@@ -121,7 +121,7 @@
 //                     onKeyPress={(e) => e.key === 'Enter' && handleGenerate()}
 //                   />
 //                 </div>
-                
+
 //                 <button
 //                   onClick={handleGenerate}
 //                   disabled={!url || isGenerating}
@@ -244,7 +244,7 @@
 //           <h2 className="text-3xl font-bold bricolage text-gray-900 mb-8 text-center">
 //             What is llms.txt?
 //           </h2>
-          
+
 //           <div className="prose prose-lg max-w-none">
 //             <p className="text-gray-700 leading-relaxed mb-6">
 //               An <strong>llms.txt</strong> file provides a clean, Markdown-formatted map of your site, helping AI models interpret your data with precision. This roadmap complements your AI SEO by highlighting key documentation and site structure. It’s exactly what engines like ChatGPT and Perplexity need to deliver accurate, high-quality citations that put your brand first.
@@ -273,7 +273,7 @@
 //           </div>
 //         </div>
 //       </section>
-      
+
 //       {/* Benefits Section */}
 //       <section className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -359,7 +359,7 @@
 //           <h2 className="text-3xl font-bold bricolage text-gray-900 mb-12 text-center">
 //             Frequently Asked Questions
 //           </h2>
-          
+
 //           <div className="space-y-4">
 //             {[
 //               {
@@ -426,6 +426,7 @@ import { useState } from 'react';
 import { Download, Copy, CheckCircle, AlertCircle, FileText, Zap, Shield, TrendingUp, ChevronDown, Search, ArrowRight, Globe, RefreshCw, ExternalLink } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CalendlyButton from '@/components/CalendlyButton';
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
@@ -652,22 +653,20 @@ export default function LlmsTxtGeneratorPage() {
                 <div className="flex bg-gray-100 rounded-xl p-1 gap-1">
                   <button
                     onClick={() => setActiveTab('llms')}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                      activeTab === 'llms'
-                        ? 'bg-white text-gray-900 shadow-sm'
-                        : 'text-gray-500 hover:text-gray-700'
-                    }`}
+                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${activeTab === 'llms'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'text-gray-500 hover:text-gray-700'
+                      }`}
                   >
                     llms.txt
                   </button>
                   {generatedFullContent && (
                     <button
                       onClick={() => setActiveTab('full')}
-                      className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                        activeTab === 'full'
-                          ? 'bg-white text-gray-900 shadow-sm'
-                          : 'text-gray-500 hover:text-gray-700'
-                      }`}
+                      className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${activeTab === 'full'
+                        ? 'bg-white text-gray-900 shadow-sm'
+                        : 'text-gray-500 hover:text-gray-700'
+                        }`}
                     >
                       llms-full.txt
                       <span className="ml-2 text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full">Full</span>
@@ -791,11 +790,10 @@ export default function LlmsTxtGeneratorPage() {
                           <button
                             key={platform}
                             onClick={() => setActiveDeployTab(platform)}
-                            className={`px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-all ${
-                              activeDeployTab === platform
-                                ? 'bg-white text-gray-900 shadow-sm'
-                                : 'text-gray-500 hover:text-gray-700'
-                            }`}
+                            className={`px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-all ${activeDeployTab === platform
+                              ? 'bg-white text-gray-900 shadow-sm'
+                              : 'text-gray-500 hover:text-gray-700'
+                              }`}
                           >
                             {platform === 'cloudflare' ? 'Cloudflare' : platform.charAt(0).toUpperCase() + platform.slice(1)}
                           </button>
@@ -866,29 +864,50 @@ export default function LlmsTxtGeneratorPage() {
 
               {/* Fallback Next Steps (shown when serve URL not yet available) */}
               {!serveUrl && (
-              <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
-                <div className="flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Next Steps</h3>
-                    <ol className="space-y-2 text-sm text-gray-700">
-                      <li className="flex items-start gap-2">
-                        <span className="font-bold text-blue-600">1.</span>
-                        <span>Download <code className="bg-white px-1.5 py-0.5 rounded font-mono text-xs">llms.txt</code> and place it in your website's root directory</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="font-bold text-blue-600">2.</span>
-                        <span>Optionally download <code className="bg-white px-1.5 py-0.5 rounded font-mono text-xs">llms-full.txt</code> for expanded AI context</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="font-bold text-blue-600">3.</span>
-                        <span>Verify at <code className="bg-white px-1.5 py-0.5 rounded font-mono text-xs">yoursite.com/llms.txt</code></span>
-                      </li>
-                    </ol>
+                <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Next Steps</h3>
+                      <ol className="space-y-2 text-sm text-gray-700">
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold text-blue-600">1.</span>
+                          <span>Download <code className="bg-white px-1.5 py-0.5 rounded font-mono text-xs">llms.txt</code> and place it in your website's root directory</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold text-blue-600">2.</span>
+                          <span>Optionally download <code className="bg-white px-1.5 py-0.5 rounded font-mono text-xs">llms-full.txt</code> for expanded AI context</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold text-blue-600">3.</span>
+                          <span>Verify at <code className="bg-white px-1.5 py-0.5 rounded font-mono text-xs">yoursite.com/llms.txt</code></span>
+                        </li>
+                      </ol>
+                    </div>
                   </div>
                 </div>
-              </div>
               )}
+
+              {/* Advanced CTA Box */}
+              <div className="mt-10 relative overflow-hidden rounded-2xl bg-gradient-to-r p-px shadow-xl">
+                <div className="relative rounded-2xl bg-gradient-to-r from-blue-400 to-purple-500  px-8 py-10 text-center overflow-hidden">
+                  {/* Background glow blobs */}
+                  <div className="absolute -top-8 -left-8 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-8 -right-8 w-52 h-52 bg-purple-400/20 rounded-full blur-2xl pointer-events-none" />
+
+                  <p className="text-xs font-semibold uppercase tracking-widest text-blue-100 mb-3">
+                    Want more from your llms.txt?
+                  </p>
+                  <h3 className="text-2xl md:text-3xl font-bold bricolage text-white mb-3 leading-snug">
+                    Generate Advanced and Scalable llms.txt
+                  </h3>
+                  <p className="text-blue-100 text-sm md:text-base max-w-xl mx-auto mb-7 leading-relaxed">
+                    Let our team craft a fully-optimised, enterprise-grade llms.txt strategy — built for AI search, semantic crawlers, and scalable GEO growth.
+                  </p>
+                  <CalendlyButton variant="llms-cta" />
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
@@ -961,7 +980,7 @@ export default function LlmsTxtGeneratorPage() {
               <span className="text-gray-400 text-sm font-mono">example.com/llms.txt</span>
             </div>
             <pre className="p-6 text-sm text-gray-100 font-mono overflow-x-auto">
-{`# Example Company
+              {`# Example Company
 
 > Leading provider of AI solutions
 

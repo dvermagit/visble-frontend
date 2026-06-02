@@ -203,7 +203,7 @@ import { useEffect } from 'react'
 import { getCalApi } from "@calcom/embed-react"
 
 interface BookingButtonProps {
-  variant?: 'default' | 'cta' | 'case-study' | 'demo' | 'blog' | 'header' | 'hero'
+  variant?: 'default' | 'cta' | 'case-study' | 'demo' | 'blog' | 'header' | 'hero' | 'llms-cta'
 }
 
 export default function BookingButton({ variant = 'default' }: BookingButtonProps) {
@@ -275,6 +275,20 @@ export default function BookingButton({ variant = 'default' }: BookingButtonProp
       >
         Get Started Today
         <ArrowRight className="w-5 h-5" />
+      </button>
+    )
+  }
+
+  if (variant === 'llms-cta') {
+    return (
+      <button
+        onClick={openCal}
+        className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-blue-600 font-semibold rounded-xl shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all text-sm"
+      >
+        Contact Us
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
       </button>
     )
   }
