@@ -89,7 +89,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
       description: customMeta.description,
     },
     alternates: {
-      canonical: 'https://www.visble.ai/',
+      canonical: `https://visble.ai/case-studies/${slug}`,
     },
   };
 }
