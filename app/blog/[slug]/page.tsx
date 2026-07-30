@@ -99,9 +99,10 @@ function parseMarkdownTable(rawText: string) {
 const createPortableTextComponents = (headings: any[]): PortableTextComponents => ({
   block: {
     h1: ({ children, value }: any) => {
+      // Render body H1s as H2 to avoid duplicate H1 tags (page title is the true H1)
       const text = value.children?.map((c: any) => c.text).join('').trim();
       const heading = headings.find(h => h.text === text);
-      return <h1 id={heading?.id} className="text-4xl font-bold text-gray-900 mb-6 mt-12">{children}</h1>;
+      return <h2 id={heading?.id} className="text-3xl font-bold text-gray-900 mb-6 mt-12 pb-4 border-b border-gray-200">{children}</h2>;
     },
     h2: ({ children, value }: any) => {
       const text = value.children?.map((c: any) => c.text).join('').trim();
