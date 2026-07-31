@@ -247,7 +247,17 @@ export default async function BlogPost({ params }: any) {
     notFound();
   }
 
-  const headings = extractHeadings(post.body);
+  // Remove the first h1 block from body to avoid duplicate title (it's already shown in the header)
+  let firstH1Removed = false;
+  const bodyWithoutTitle = post.body.filter((block: any) => {
+    if (!firstH1Removed && block._type === 'block' && block.style === 'h1') {
+      firstH1Removed = true;
+      return false;
+    }
+    return true;
+  });
+
+  const headings = extractHeadings(bodyWithoutTitle);
   const portableTextComponents = createPortableTextComponents(headings);
 
   // JSON-LD
@@ -369,7 +379,7 @@ export default async function BlogPost({ params }: any) {
                 prose-th:border prose-th:border-gray-200 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-gray-900
                 prose-td:border prose-td:border-gray-200 prose-td:px-4 prose-td:py-3 prose-td:text-gray-700 prose-td:align-top
                 prose-tr:even:bg-gray-50">
-                <PortableText value={post.body} components={portableTextComponents} />
+                <PortableText value={bodyWithoutTitle} components={portableTextComponents} />
               </div>
 
               <div className="mt-16 pt-8 border-t border-gray-200">
