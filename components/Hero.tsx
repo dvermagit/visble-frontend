@@ -21,7 +21,7 @@ export default function Hero() {
           <div className="animate-slide-up">
             <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm mb-6">
               <TrendingUp className="w-4 h-4 mr-2" aria-hidden="true" />
-              <span>Tech Enabled Generative Engine Optimization Services</span>
+              <span>Tech Enabled Generative Engine Optimization Service</span>
             </div>
 
             {/* H1: The most important tag on the page */}
