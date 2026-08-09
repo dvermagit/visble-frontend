@@ -1,8 +1,8 @@
 // 1. Remove 'use client' to make this a Server Component
 import { Play, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import WorkflowVisualization from './WorkflowVisualization'; 
-import DashedGridBackground from './DashedGridBackground'; 
+import WorkflowVisualization from './WorkflowVisualization';
+import DashedGridBackground from './DashedGridBackground';
 import CalendlyButton from './CalendlyButton';
 
 export default function Hero() {
@@ -13,29 +13,29 @@ export default function Hero() {
         It works perfectly fine imported here.
       */}
       <DashedGridBackground />
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
+
           {/* Content - Renders as pure HTML now (Great for SEO) */}
           <div className="animate-slide-up">
             <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm mb-6">
               <TrendingUp className="w-4 h-4 mr-2" aria-hidden="true" />
-              <span>Tech Enabled Generative Engine Optimization Service</span>
+              <span>Tech Enabled Generative Engine Optimization Services</span>
             </div>
-            
+
             {/* H1: The most important tag on the page */}
             <h1 className="text-5xl lg:text-6xl font-bold bricolage text-gray-900 leading-tight mb-6">
-              SEO for LLMs and&nbsp; 
+              SEO for LLMs and&nbsp;
               <span className="text-primary block">Google</span>
             </h1>
-            
+
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Control your brand’s narrative on AI Search while improving your organic rankings on Google.
             </p>
-            
+
             <div className="mb-12">
-              <CalendlyButton variant='demo'/>
+              <CalendlyButton variant='demo' />
             </div>
 
             {/* Quick Stats - Semantic Definition List for clarity */}
