@@ -425,10 +425,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'llms.txt Generator for AI SEO | Create Files AI Crawlers',
-  description: 'GCreate llms.txt files in seconds. Improve AI discovery, control brand narrative, and increase citations from ChatGPT and other prominent AI search engines.',
+  description: 'Create llms.txt files in seconds. Improve AI discovery, control brand narrative, and increase citations from ChatGPT and other prominent AI search engines.',
   openGraph: {
     title: 'llms.txt Generator for AI SEO | Create Files AI Crawlers',
-    description: 'GCreate llms.txt files in seconds. Improve AI discovery, control brand narrative, and increase citations from ChatGPT and other prominent AI search engines.',
+    description: 'Create llms.txt files in seconds. Improve AI discovery, control brand narrative, and increase citations from ChatGPT and other prominent AI search engines.',
     type: 'website',
     url: 'https://visble.ai/llms-txt-generator',
     images: [
