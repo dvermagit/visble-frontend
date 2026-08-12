@@ -256,10 +256,8 @@ export default function GeoAnalysisPage() {
                 </div>
 
                 {/* Headline with word-by-word reveal */}
-                <h1 className="text-5xl md:text-6xl lg:text-[4.25rem] font-bold bricolage leading-[1.08] mb-6 text-white">
-                  {'Analyse How AI Knows Your Brand'.split(' ').map((w, i) => (
-                    <span key={i} className="hw inline-block mr-[0.22em]">{w}</span>
-                  ))}
+                <h1 className="hw text-5xl md:text-6xl lg:text-[4.25rem] font-bold bricolage leading-[1.08] mb-6 text-white">
+                  Analyse How AI Knows Your Brand
                 </h1>
 
                 {/* Sub */}
