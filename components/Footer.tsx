@@ -62,7 +62,7 @@ export default function Footer() {
               {/* <li><Link href="/about" className="text-gray-400 hover:text-white">About Us</Link></li> */}
               {/* <li><Link href="/careers" className="text-gray-400 hover:text-white">Careers</Link></li> */}
               <li><Link href="/blogs" className="text-gray-400 hover:text-white">Blog</Link></li>
-              <li><Link href="/#case-studies" className="text-gray-400 hover:text-white">Case Studies</Link></li>
+              <li><Link href="/case-studies" className="text-gray-400 hover:text-white">Case Studies</Link></li>
               {/* <li><Link href="/press" className="text-gray-400 hover:text-white">Press Kit</Link></li> */}
             </ul>
           </div>
