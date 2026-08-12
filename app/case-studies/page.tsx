@@ -62,11 +62,11 @@
 //                       <div className="text-xs text-gray-500">{study.location}</div>
 //                     </div>
 //                   </div>
-                  
+
 //                   <h3 className="text-xl font-bold bricolage text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
 //                     {study.title}
 //                   </h3>
-                  
+
 //                   <p className="text-sm text-gray-600 line-clamp-2">
 //                     {study.shortDescription}
 //                   </p>
@@ -219,11 +219,11 @@
 //                       <div className="text-xs text-gray-500">{study.location}</div>
 //                     </div>
 //                   </div>
-                  
+
 //                   <h3 className="text-xl font-bold bricolage text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
 //                     {study.title}
 //                   </h3>
-                  
+
 //                   <p className="text-sm text-gray-600 line-clamp-2">
 //                     {study.shortDescription}
 //                   </p>
@@ -312,6 +312,24 @@ import CalendlyButton from '@/components/CalendlyButton';
 export const metadata: Metadata = {
   title: 'Case Studies | Visble - AI Search Optimization Results',
   description: 'Discover how companies achieved remarkable results with Visble\'s AI search optimization. Real case studies showing growth in source mentions, rankings, and brand visibility.',
+  alternates: {
+    canonical: 'https://visble.ai/case-studies',
+  },
+  openGraph: {
+    title: 'Case Studies | Visble - AI Search Optimization Results',
+    description: 'Discover how companies achieved remarkable results with Visble\'s AI search optimization. Real case studies showing growth in source mentions, rankings, and brand visibility.',
+    url: 'https://visble.ai/case-studies',
+    siteName: 'Visble',
+    type: 'website',
+    images: [
+      {
+        url: 'https://visble.ai/visble_og_image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Visble Case Studies - AI Search Optimization Results',
+      },
+    ],
+  },
 };
 
 export default async function CaseStudiesPage() {
@@ -321,7 +339,7 @@ export default async function CaseStudiesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <Header />
-      
+
       {/* Header */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
         <div className="text-center max-w-3xl mx-auto">
@@ -343,8 +361,8 @@ export default async function CaseStudiesPage() {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {caseStudies.map((study) => (
-              <Link 
-                key={study._id} 
+              <Link
+                key={study._id}
                 href={`/case-studies/${study.slug}`}
                 className="group"
               >
@@ -354,12 +372,12 @@ export default async function CaseStudiesPage() {
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden p-2 shadow-sm">
                         {study.avatar ? (
-                         <img
-                          src={urlFor(study.avatar).height(36).url()}
-                          alt={`${study.company} logo`}
-                          className="h-full w-auto object-contain"
-                          style={{ maxHeight: '36px' }}
-                        />
+                          <img
+                            src={urlFor(study.avatar).height(36).url()}
+                            alt={`${study.company} logo`}
+                            className="h-full w-auto object-contain"
+                            style={{ maxHeight: '36px' }}
+                          />
                         ) : (
                           <span className="text-lg font-bold text-gray-700 bricolage">
                             {study.company[0]}
@@ -371,11 +389,11 @@ export default async function CaseStudiesPage() {
                         <div className="text-xs text-gray-500">{study.location || study.industry}</div>
                       </div>
                     </div>
-                    
+
                     <h3 className="text-xl font-bold bricolage text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
                       {study.title}
                     </h3>
-                    
+
                     <p className="text-sm text-gray-600 line-clamp-2">
                       {study.shortDescription}
                     </p>
@@ -387,7 +405,7 @@ export default async function CaseStudiesPage() {
                     {study.tags && study.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-4">
                         {study.tags.slice(0, 3).map((tag: string, index: number) => (
-                          <span 
+                          <span
                             key={index}
                             className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium"
                           >
@@ -448,10 +466,10 @@ export default async function CaseStudiesPage() {
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
             Join these companies in transforming your AI search visibility and driving real business results
           </p>
-          <CalendlyButton variant='cta'/>
+          <CalendlyButton variant='cta' />
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
