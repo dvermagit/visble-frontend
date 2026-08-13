@@ -76,7 +76,7 @@ export default function Footer() {
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-primary mr-3" />
                 <a href="mailto:info@visble.ai" className="text-gray-400 hover:text-white">
-                  info@visble.ai
+                  isha@visble.ai
                 </a>
               </li>
               {/* <li className="flex items-center">

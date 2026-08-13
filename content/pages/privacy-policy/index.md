@@ -47,7 +47,7 @@ Data may be transferred outside India with appropriate safeguards.
 
 ## **9\. Your Rights**
 
-You may request access, correction, deletion, or restriction of your personal data. Contact: info@visble.ai
+You may request access, correction, deletion, or restriction of your personal data. Contact: isha@vible.ai
 
 ## **10\. Security**
 
@@ -65,4 +65,4 @@ We may update this Policy. Continued use means acceptance of updates.
 
 United Innovation Hub (Visble)  
 Wework, Two Horizon Centre, Gurugram, Haryana – 122009  
-Email: info@visble.ai
+Email: isha@vible.ai
