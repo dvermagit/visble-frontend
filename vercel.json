@@ -1,6 +1,17 @@
 {
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.visble.ai"
+        }
+      ],
+      "destination": "https://visble.ai/:path*",
+      "permanent": true
+    },
+    {
       "source": "/category/:category",
       "destination": "/blog/category/:category",
       "permanent": true
@@ -9,6 +20,11 @@
       "source": "/feed",
       "destination": "/blog/rss.xml",
       "permanent": true
+    },
+    {
+      "source": "/llms.txt",
+      "destination": "https://llm-txt-generator-fmp0.onrender.com/serve/visble.ai/llms.txt",
+      "permanent": false
     }
   ]
 }
