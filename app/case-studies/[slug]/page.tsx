@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
       title: customMeta.title,
       description: customMeta.description,
       siteName: 'Visble AI',
-      url: `https://www.visble.ai/case-studies/${params.slug}`,
+      url: `https://visble.ai/case-studies/${slug}`,
       // images: caseStudy.avatar ? [caseStudy.avatar] : [],
       images: caseStudy.avatar ? [urlFor(caseStudy.avatar).width(1200).height(630).url()] : [],
     },
