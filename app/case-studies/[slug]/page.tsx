@@ -9,6 +9,7 @@ import WorkflowTimeline from '@/components/WorkflowTimeline';
 import CalendlyButton from '@/components/CalendlyButton';
 import Header from '@/components/Header';
 import Image from 'next/image';
+import Breadcrumb from '@/components/Breadcrumb';
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -109,18 +110,19 @@ export default async function CaseStudyPage({ params }: any) {
     notFound();
   }
 
+  const breadcrumbs = [
+    { label: 'Home', href: '/' },
+    { label: 'Case Studies', href: '/case-studies' },
+    { label: caseStudy.title, href: `/case-studies/${slug}` },
+  ];
+
   return (
     <div className="min-h-screen bg-white pt-16">
       <Header/>
-      {/* Back Button */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <Link
-          href="/case-studies"
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Case Studies
-        </Link>
+
+      {/* Breadcrumb */}
+      <div className="bg-gray-50 border-b">
+        <Breadcrumb crumbs={breadcrumbs} />
       </div>
 
       {/* Hero Section */}

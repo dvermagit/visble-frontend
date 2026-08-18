@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import CalendlyButton from '@/components/CalendlyButton';
+import Breadcrumb from '@/components/Breadcrumb';
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -283,15 +284,11 @@ export default async function BlogPost({ params }: any) {
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://visble.ai/blog/${slug}` },
   };
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://visble.ai' },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://visble.ai/blogs' },
-      { '@type': 'ListItem', position: 3, name: post.title, item: `https://visble.ai/blog/${slug}` },
-    ],
-  };
+  const breadcrumbs = [
+    { label: 'Home', href: '/' },
+    { label: 'Blog', href: '/blogs' },
+    { label: post.title, href: `/blog/${slug}` },
+  ];
 
   // Calculate read time
   const wordCount = post.body.reduce((count: number, block: any) => {
@@ -306,20 +303,12 @@ export default async function BlogPost({ params }: any) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <div className="min-h-screen bg-white pt-16">
         <Header />
 
         <div className="bg-gray-50 border-b">
-          <div className="max-w-7xl mx-auto px-4 py-4">
-            <Link href="/blogs" className="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium transition-colors">
-              <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Blog
-            </Link>
-          </div>
+          <Breadcrumb crumbs={breadcrumbs} />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-12">
